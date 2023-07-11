@@ -1,142 +1,93 @@
-fragment Card on rangers_card {
+fragment Card on conquest_card {
   id
   name
   traits
-  equip
-  presence
-  token_id
-  token_count
-  harm
-  approach_conflict
-  approach_reason
-  approach_exploration
-  approach_connection
   text
-  set_id
-  set_position
+  flavor
+
   quantity
-  level
   type_id
-  cost
-  aspect_id
-  progress
+  faction_id
+  loyalty_id
+  type_id
   back_card_id
   imagesrc
-  area_id
-  guide_entry
-  progress_fixed
-  flavor
-  locations
-  objective
   illustrator
   pack_id
-  deck_limit
   position
-  spoiler
+
+  cost
+  command_hammers
+  attack
+  health
+  shields
+  unique
+  preparation
 }
 
-fragment CardText on rangers_card_text {
+fragment CardText on conquest_card_text {
   id
   locale
   name
   traits
   text
   flavor
-  objective
   imagesrc
 }
 
-fragment CardSet on rangers_set {
+fragment CardLoyalty on conquest_loyalty {
   id
   name
-  size
-  type_id
 }
 
-fragment CardSetText on rangers_set_text {
+fragment CardLoyaltyText on conquest_loyalty_text {
   id
   locale
   name
 }
 
-fragment CardSetType on rangers_set_type {
+fragment CardFaction on conquest_faction {
   id
   name
 }
 
-fragment CardSetTypeText on rangers_set_type_text {
-  id
-  locale
-  name
-}
 
-fragment CardToken on rangers_token {
-  id
-  name
-  plurals
-}
-
-fragment CardTokenText on rangers_token_text {
+fragment CardFactionText on conquest_faction_text {
   id
   locale
   name
-  plurals
 }
 
-fragment CardAspect on rangers_aspect {
-  id
-  name
-  short_name
-}
-
-
-fragment CardAspectText on rangers_aspect_text {
-  id
-  locale
-  name
-  short_name
-}
-
-fragment CardType on rangers_type {
+fragment CardType on conquest_type {
   id
   name
 }
 
-fragment CardTypeText on rangers_type_text {
+fragment CardTypeText on conquest_type_text {
   id
   locale
   name
 }
 
 
-fragment CardPack on rangers_pack {
+fragment CardPack on conquest_pack {
   id
   name
   position
 }
 
-fragment CardPackText on rangers_pack_text {
+fragment CardPackText on conquest_pack_text {
   id
   locale
   name
 }
 
-fragment CardArea on rangers_area {
-  id
-  name
-}
-
-fragment CardAreaText on rangers_area_text {
-  id
-  locale
-  name
-}
 
 query getCards {
-  rangers_card {
+  conquest_card {
     ...Card
   }
-  rangers_card_text(
+  conquest_card_text(
     where: { locale: { _eq: "en" }}
   ) {
     ...CardText
@@ -144,76 +95,22 @@ query getCards {
 }
 
 query getMetadata {
-  rangers_area {
-    ...CardArea
+  conquest_faction {
+    ...CardFaction
   }
-  rangers_aspect {
-    ...CardAspect
+  conquest_loyalty {
+    ...CardLoyalty
   }
-  rangers_pack {
+  conquest_pack {
     ...CardPack
   }
-  rangers_set {
-    ...CardSet
-  }
-  rangers_set_type {
-    ...CardSetType
-  }
-  rangers_token {
-    ...CardToken
-  }
-  rangers_type {
+  conquest_type {
     ...CardType
   }
 }
 
-query getTranslationData(
-  $locale: String!
-) {
-  rangers_area_text(
-    where: { locale: { _eq: $locale }}
-  ){
-    ...CardAreaText
-  }
-  rangers_aspect_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardAspectText
-  }
-  rangers_pack_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardPackText
-  }
-  rangers_set_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardSetText
-  }
-  rangers_set_type_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardSetTypeText
-  }
-  rangers_token_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardTokenText
-  }
-  rangers_type_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardTypeText
-  }
-  rangers_card_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardText
-  }
-}
-
 query getTranslations($locale: String!) {
-  rangers_card_text(where: {
+  conquest_card_text(where: {
     locale: { _eq: $locale }
   }) {
     ...CardText
@@ -222,115 +119,72 @@ query getTranslations($locale: String!) {
 
 mutation upsertCard(
   $id: String!,
-  $name: String,
-  $traits: String,
-  $equip: Int,
-  $presence: Int,
-  $token_id: String,
-  $token_count: Int,
-  $harm: Int,
-  $approach_conflict: Int,
-  $approach_reason: Int,
-  $approach_exploration: Int,
-  $approach_connection: Int,
-  $text: String,
-  $set_id: String,
-  $set_position: Int,
-  $quantity: Int,
-  $level: Int,
-  $type_id: String,
-  $cost: Int,
-  $aspect_id: String,
-  $progress: Int,
-  $deck_limit: Int,
-  $position: Int,
-  $area_id: String,
-  $guide_entry: String,
-  $progress_fixed: Boolean,
-  $locations: jsonb,
-  $pack_id: String,
-  $illustrator: String,
-  $flavor: String,
-  $objective: String,
-
   $back_card_id: String
+  $name: String,
+  $text: String,
+  $traits: String,
+  $flavor: String,
+  $illustrator: String,
+  $type_id: String,
+  $faction_id: String,
+  $loyalty_id: String,
+  $pack_id: String,
+  $command_hammers: Int,
+  $attack: Int,
+  $health: Int,
+  $shields: Int,
+  $unique: Boolean,
+  $preparation: Boolean,
+  $quantity: Int,
+  $position: Int,
   $imagesrc: String
-  $spoiler: Boolean
 ) {
-	insert_rangers_card_one(
+	insert_conquest_card_one(
     object: {
       id: $id
-      name: $name
-      traits: $traits
-      equip: $equip
-      presence: $presence
-      token_id: $token_id
-      token_count: $token_count
-      harm: $harm
-      approach_conflict: $approach_conflict
-      approach_reason: $approach_reason
-      approach_exploration: $approach_exploration
-      approach_connection: $approach_connection
-      text: $text
-      set_id: $set_id
-      set_position: $set_position
-      quantity: $quantity
-      level: $level
-      type_id: $type_id
-      cost: $cost
-      aspect_id: $aspect_id
-      progress: $progress
-      deck_limit: $deck_limit
-      position: $position
-      area_id: $area_id
-      guide_entry: $guide_entry
-      progress_fixed: $progress_fixed
-      locations: $locations
-      pack_id: $pack_id
-      illustrator: $illustrator
-      flavor: $flavor
-      objective: $objective
       back_card_id: $back_card_id
+      name: $name
+      text: $text
+      traits: $traits
+      flavor: $flavor
+      illustrator: $illustrator
+      type_id: $type_id
+      faction_id: $faction_id
+      loyalty_id: $loyalty_id
+      pack_id: $pack_id
+      command_hammers: $command_hammers
+      attack: $attack
+      health: $health
+      shields: $shields
+      unique: $unique
+      preparation: $preparation
+      quantity: $quantity
+      position: $position
       imagesrc: $imagesrc
-      spoiler: $spoiler
     }
     on_conflict: {
       constraint: card_pkey
       update_columns: [
         id,
-        name,
-        traits,
-        equip,
-        presence,
-        token_id,
-        token_count,
-        harm,
-        approach_conflict,
-        approach_reason,
-        approach_exploration,
-        approach_connection,
-        text,
-        set_id,
-        set_position,
-        quantity,
-        level,
-        type_id,
-        cost,
-        aspect_id,
-        progress,
-        area_id,
-        guide_entry,
-        progress_fixed,
-        locations,
-        pack_id,
-        illustrator,
-        flavor,
-        objective,
         back_card_id,
-        imagesrc,
-        deck_limit,
+        name,
+        text,
+        traits,
+        flavor,
+        illustrator,
+        type_id,
+        faction_id,
+        loyalty_id,
+        pack_id,
+        command_hammers,
+        attack,
+        health,
+        shields,
+        unique,
+        preparation,
+        quantity,
         position,
-        spoiler
+        imagesrc,
       ]
     }
   ) {
@@ -338,189 +192,123 @@ mutation upsertCard(
   }
 }
 
-mutation upsertCardSet(
+mutation upsertCardLoyalty(
   $id: String!,
   $name: String!,
-  $type_id: String,
-  $size: Int,
 ) {
-  insert_rangers_set_one(
+  insert_conquest_loyalty_one(
     object: {
       id: $id
       name: $name
-      size: $size
-      type_id: $type_id
     }
     on_conflict: {
-      constraint: set_pkey
+      constraint: loyalty_pkey
       update_columns: [
         id,
-        name,
-        size,
-        type_id
+        name
       ]
     }
   ) {
-    ...CardSet
+    ...CardLoyalty
   }
 }
 
-mutation upsertCardSetText(
+mutation upsertCardLoyaltyText(
   $id: String!,
   $locale: String!,
   $name: String!
 ) {
-  insert_rangers_set_text_one(
+  insert_conquest_loyalty_text_one(
     object: {
       id: $id
       locale: $locale
       name: $name
     }
     on_conflict: {
-      constraint: set_text_pkey
+      constraint: loyalty_text_pkey
       update_columns: [
         id,
         name
       ]
     }
   ) {
-    ...CardSetText
+    ...CardLoyaltyText
   }
 }
 
 
 
-mutation upsertCardArea(
+mutation upsertCardFaction(
   $id: String!,
   $name: String!
 ) {
-  insert_rangers_area_one(
+  insert_conquest_faction_one(
     object: {
       id: $id
       name: $name
     }
     on_conflict: {
-      constraint: area_pkey
+      constraint: faction_pkey
       update_columns: [
         id,
         name
       ]
     }
   ) {
-    ...CardArea
+    ...CardFaction
   }
 }
 
-mutation upsertCardAreaText(
+mutation upsertCardFactionText(
   $id: String!,
   $locale: String!,
   $name: String!
 ) {
-  insert_rangers_area_text_one(
+  insert_conquest_faction_text_one(
     object: {
       id: $id
       locale: $locale
       name: $name
     }
     on_conflict: {
-      constraint: area_text_pkey
+      constraint: faction_text_pkey
       update_columns: [
         id,
         name
       ]
     }
   ) {
-    ...CardAreaText
+    ...CardFactionText
   }
 }
-
-mutation upsertCardSetType(
-  $id: String!,
-  $name: String!
-) {
-  insert_rangers_set_type_one(
-    object: {
-      id: $id
-      name: $name
-    }
-    on_conflict: {
-      constraint: set_type_pkey
-      update_columns: [
-        id,
-        name
-      ]
-    }
-  ) {
-    ...CardSetType
-  }
-}
-
-mutation upsertCardSetTypeText(
-  $id: String!,
-  $locale: String!,
-  $name: String!
-) {
-  insert_rangers_set_type_text_one(
-    object: {
-      id: $id
-      locale: $locale
-      name: $name
-    }
-    on_conflict: {
-      constraint: set_type_text_pkey
-      update_columns: [
-        id,
-        name
-      ]
-    }
-  ) {
-    ...CardSetTypeText
-  }
-}
-
 
 query getLocaleText(
   $locale: String!
 ) {
-  rangers_area_text(
-    where: { locale: { _eq: $locale } }
-  ) {
-    ...CardAreaText
+  conquest_faction_text(
+    where: { locale: { _eq: $locale }}
+  ){
+    ...CardFactionText
   }
-  rangers_card_text(
-    where: { locale: { _eq: $locale } }
+  conquest_loyalty_text(
+    where: { locale: { _eq: $locale }}
   ) {
-    ...CardText
+    ...CardLoyaltyText
   }
-  rangers_pack_text(
+  conquest_pack_text(
     where: { locale: { _eq: $locale }}
   ) {
     ...CardPackText
   }
-  rangers_set_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardSetText
-  }
-  rangers_set_type_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardSetTypeText
-  }
-  rangers_token_text(
-    where: { locale: { _eq: $locale }}
-  ) {
-    ...CardTokenText
-  }
-  rangers_type_text(
+  conquest_type_text(
     where: { locale: { _eq: $locale }}
   ) {
     ...CardTypeText
   }
-  rangers_aspect_text(
+  conquest_card_text(
     where: { locale: { _eq: $locale }}
   ) {
-    ...CardAspectText
+    ...CardText
   }
 }
 
@@ -531,10 +319,9 @@ mutation upsertCardText(
   $traits: String,
   $text: String,
   $flavor: String,
-  $objective: String,
   $imagesrc: String
 ) {
-	insert_rangers_card_text_one(
+	insert_conquest_card_text_one(
     object: {
       id: $id
       locale: $locale
@@ -542,7 +329,6 @@ mutation upsertCardText(
       text: $text
       traits: $traits
       flavor: $flavor
-      objective: $objective
       imagesrc: $imagesrc
     }
     on_conflict: {
@@ -554,7 +340,6 @@ mutation upsertCardText(
         text,
         traits,
         flavor,
-        objective,
         imagesrc
       ]
     }
@@ -570,7 +355,7 @@ mutation upsertCardPack(
   $name: String!,
   $position: Int!
 ) {
-	insert_rangers_pack_one(
+	insert_conquest_pack_one(
     object: {
       id: $id
       name: $name
@@ -596,7 +381,7 @@ mutation upsertCardPackText(
   $locale: String!,
   $name: String
 ) {
-	insert_rangers_pack_text_one(
+	insert_conquest_pack_text_one(
     object: {
       id: $id
       locale: $locale
@@ -617,116 +402,11 @@ mutation upsertCardPackText(
   }
 }
 
-mutation upsertAspect(
-  $id: String!,
-  $name: String!,
-  $short_name: String!
-) {
-  insert_rangers_aspect_one(
-    object: {
-      id: $id
-      name: $name
-      short_name: $short_name
-    }
-    on_conflict: {
-      constraint: aspect_pkey
-      update_columns: [
-        name,
-        short_name
-      ]
-    }
-  ) {
-    id
-    name
-    short_name
-  }
-}
-
-mutation upsertAspectText(
-  $id: String!,
-  $locale: String!,
-  $name: String!,
-  $short_name: String!
-) {
-	insert_rangers_aspect_text_one(
-    object: {
-      id: $id
-      name: $name
-      short_name: $short_name
-      locale: $locale
-    }
-    on_conflict: {
-      constraint: aspect_text_pkey
-      update_columns: [
-        name,
-        short_name
-      ]
-    }
-  ) {
-    id
-    name
-    short_name
-  }
-}
-
-
-mutation upsertToken(
-  $id: String!,
-  $name: String!,
-  $plurals: String!
-) {
-  insert_rangers_token_one(
-    object: {
-      id: $id
-      name: $name
-      plurals: $plurals
-    }
-    on_conflict: {
-      constraint: token_pkey
-      update_columns: [
-        name,
-        plurals
-      ]
-    }
-  ) {
-    id
-    name
-    plurals
-  }
-}
-
-mutation upsertTokenText(
-  $id: String!,
-  $locale: String!,
-  $name: String!,
-  $plurals: String!
-) {
-	insert_rangers_token_text_one(
-    object: {
-      id: $id
-      name: $name
-      plurals: $plurals
-      locale: $locale
-    }
-    on_conflict: {
-      constraint: token_text_pkey
-      update_columns: [
-        name,
-        plurals
-      ]
-    }
-  ) {
-    id
-    name
-    plurals
-  }
-}
-
 mutation upsertCardType(
   $id: String!,
   $name: String!
 ) {
-	insert_rangers_type_one(
+	insert_conquest_type_one(
     object: {
       id: $id
       name: $name
@@ -748,7 +428,7 @@ mutation upsertCardTypeText(
   $locale: String!,
   $name: String!
 ) {
-	insert_rangers_type_text_one(
+	insert_conquest_type_text_one(
     object: {
       id: $id
       name: $name

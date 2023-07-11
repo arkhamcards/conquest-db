@@ -7,7 +7,7 @@ import { TABLES } from './data';
 function tableName(t: string) {
   return `${process.env.DATABASE}.${t}`;
 }
-
+/*
 console.log(`
   CREATE OR REPLACE FUNCTION rangers_deck_comment_count_increment() RETURNS TRIGGER AS $$
       BEGIN
@@ -51,6 +51,7 @@ console.log(`
   CREATE TRIGGER rangers_deck_copy_count_increment_trig AFTER INSERT ON rangers.deck_copy
       FOR EACH ROW EXECUTE PROCEDURE rangers_deck_copy_count_increment();
 `)
+*/
 
 console.log(`
   CREATE OR REPLACE FUNCTION ${tableName('upgrade_deck')}(deck_id integer, upgrade_data json)

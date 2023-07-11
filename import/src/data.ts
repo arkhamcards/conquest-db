@@ -13,38 +13,20 @@ export interface Table {
 }
 
 export const TABLES: { [key: string]: Table } = {
-  aspect: {
-    collection: 'aspect',
+  faction: {
+    collection: 'faction',
     fields: [],
-    textFields: ['name', 'short_name'],
+    textFields: ['name'], // neutral, space marines, astra militarum, orks, chaos, dark eldar, eldar, tau, tyranids, necrons
   },
-  set_type: {
-    collection: 'set_type',
+  loyalty: {
+    collection: 'loyalty',
     fields: [],
-    textFields: ['name'],
-  },
-  set: {
-    collection: 'set',
-    fields: ['type_id', 'size'],
-    textFields: ['name'],
-    foreignKeys: {
-      type_id: 'set_type',
-    },
-  },
-  token: {
-    collection: 'token',
-    fields: [],
-    textFields: ['name', 'plurals'],
+    textFields: ['name'], // signature, loyal, common
   },
   type: {
     collection: 'type',
     fields: [],
-    textFields: ['name'],
-  },
-  area: {
-    collection: 'area',
-    fields: [],
-    textFields: ['name']
+    textFields: ['name'], // warlord, army, synapse, support, attachment, event
   },
   pack: {
     collection: 'pack',
@@ -54,49 +36,35 @@ export const TABLES: { [key: string]: Table } = {
   card: {
     collection: 'card',
     fields: [
-      'equip',
-      'presence',
-      'token_id',
-      'token_count',
-      'harm',
-      'progress',
-      'approach_conflict',
-      'approach_reason',
-      'approach_exploration',
-      'approach_connection',
-      'set_id',
-      'set_position',
       'quantity',
-      'level',
       'type_id',
-      'cost',
-      'aspect_id',
-      'area_id',
-      'guide_entry',
-      'progress_fixed',
-      'locations',
       'pack_id',
+      'faction_id',
+      'loyalty_id',
+
+      'cost',
+      'command_hammers', //int
+      'attack', // int
+      'health', // int
+      'shields', //int
+      'unique', // boolean
+      'preparation', //bolean
       'illustrator',
       'back_card_id',
       'position',
-      'deck_limit',
-      'spoiler',
     ],
     textFields: [
       'name',
       'traits',
       'text',
       'flavor',
-      'objective',
       'imagesrc',
     ],
     foreignKeys: {
-      token_id: 'token',
-      set_id: 'set',
       type_id: 'type',
-      aspect_id: 'aspect',
-      area_id: 'area',
+      faction_id: 'faction',
       pack_id: 'pack',
+      loyalty_id: 'loyalty',
     },
   },
 };
@@ -107,56 +75,32 @@ export const METADATA = [
   {
     file: 'packs.json',
     ...TABLES.pack,
-    getData: (data: GetMetadataQuery) => data.rangers_pack,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_pack_text,
+    getData: (data: GetMetadataQuery) => data.conquest_pack,
+    getLocale: (data: GetLocaleTextQuery) => data.conquest_pack_text,
     upsert: client.upsertCardPack,
     upsertText: client.upsertCardPackText,
   },
   {
-    file: 'areas.json',
-    ...TABLES.aspect,
-    getData: (data: GetMetadataQuery) => data.rangers_area,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_area_text,
-    upsert: client.upsertCardArea,
-    upsertText: client.upsertCardAreaText,
+    file: 'factions.json',
+    ...TABLES.faction,
+    getData: (data: GetMetadataQuery) => data.conquest_faction,
+    getLocale: (data: GetLocaleTextQuery) => data.conquest_faction_text,
+    upsert: client.upsertCardFaction,
+    upsertText: client.upsertCardFactionText,
   },
   {
-    file: 'aspects.json',
-    ...TABLES.aspect,
-    getData: (data: GetMetadataQuery) => data.rangers_aspect,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_aspect_text,
-    upsert: client.upsertAspect,
-    upsertText: client.upsertAspectText,
-  },
-  {
-    file: 'set_types.json',
-    ...TABLES.set_type,
-    getData: (data: GetMetadataQuery) => data.rangers_set_type,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_set_type_text,
-    upsert: client.upsertCardSetType,
-    upsertText: client.upsertCardSetTypeText,
-  },
-  {
-    file: 'sets.json',
-    ...TABLES.set,
-    getData: (data: GetMetadataQuery) => data.rangers_set,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_set_text,
-    upsert: client.upsertCardSet,
-    upsertText: client.upsertCardSetText,
-  },
-  {
-    file: 'tokens.json',
-    ...TABLES.token,
-    getData: (data: GetMetadataQuery) => data.rangers_token,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_token_text,
-    upsert: client.upsertToken,
-    upsertText: client.upsertTokenText,
+    file: 'loyalties.json',
+    ...TABLES.loyalty,
+    getData: (data: GetMetadataQuery) => data.conquest_loyalty,
+    getLocale: (data: GetLocaleTextQuery) => data.conquest_loyalty_text,
+    upsert: client.upsertCardLoyalty,
+    upsertText: client.upsertCardLoyaltyText,
   },
   {
     file: 'types.json',
     ...TABLES.type,
-    getData: (data: GetMetadataQuery) => data.rangers_type,
-    getLocale: (data: GetLocaleTextQuery) => data.rangers_type_text,
+    getData: (data: GetMetadataQuery) => data.conquest_type,
+    getLocale: (data: GetLocaleTextQuery) => data.conquest_type_text,
     upsert: client.upsertCardType,
     upsertText: client.upsertCardTypeText,
   },
