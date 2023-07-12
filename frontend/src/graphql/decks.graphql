@@ -1,88 +1,10 @@
-# import Deck from 'fragments.graphql'
-# import SearchDeck from 'fragments.graphql'
-# import DeckWithCampaign from 'fragments.graphql'
-# import DeckDetail from 'fragments.graphql'
-# import DeckComment from 'fragments.graphql'
-
-mutation upgradeDeck(
-  $deckId: Int!
-) {
-  deck: rangers_upgrade_deck(args: {
-    deck_id: $deckId,
-    upgrade_data: {}
-  }) {
-    id
-    next_deck_id
-  }
-}
-
 mutation publishDeck(
   $deckId: Int!
 ) {
-  deck: rangers_publish_deck(args: {
+  deck: conquest_publish_deck(args: {
     deck_id: $deckId
   }) {
     id
-  }
-}
-
-mutation setDeckCampaign(
-  $deckId: Int!,
-  $campaignId: Int!
-) {
-  campaign: rangers_set_campaign_deck(args: {
-    deck_id: $deckId,
-    new_campaign_id: $campaignId
-  }) {
-    id
-  }
-}
-
-mutation removeDeckCampaign(
-  $deckId: Int!,
-  $campaignId: Int!
-) {
-  campaign: rangers_remove_campaign_deck(args: {
-    deck_id: $deckId
-    old_campaign_id: $campaignId
-  }) {
-    id
-  }
-}
-
-
-query getMyCampaignDecks(
-  $userId: String!,
-  $limit: Int!,
-  $offset: Int!
-) {
-  decks: rangers_deck(
-    where: {
-      user_id: { _eq: $userId }
-      next_deck_id: { _is_null: true }
-      campaign_id: { _is_null: true }
-    }
-    order_by: { updated_at: desc, id: asc }
-    limit: $limit
-    offset: $offset
-  ) {
-    ...Deck
-  }
-}
-
-query getMyCampaignDecksTotal(
-  $userId: String!
-) {
-  total: rangers_deck_aggregate(
-    where: {
-      user_id: { _eq: $userId }
-      next_deck_id: { _is_null: true }
-      campaign_id: { _is_null: true }
-    }
-  ) {
-    aggregate {
-      count
-    }
   }
 }
 
@@ -98,7 +20,7 @@ query searchDecks(
   $limit: Int,
   $offset: Int
 ) {
-  decks: rangers_deck_search(args: {
+  decks: conquest_deck_search(args: {
     user_id_eq: $userId
     foc_eq: $foc
     spi_eq: $spi
@@ -119,10 +41,9 @@ query getMyDecks(
   $limit: Int!,
   $offset: Int!
 ) {
-  decks: rangers_deck(
+  decks: conquest_deck(
     where: {
       user_id: { _eq: $userId }
-      next_deck_id: { _is_null: true }
       _or: [
         {
           published: { _is_null: true }
@@ -136,14 +57,14 @@ query getMyDecks(
     limit: $limit
     offset: $offset
   ) {
-    ...DeckWithCampaign
+    ...Deck
   }
 }
 
 query getMyDecksTotal(
   $userId: String!
 ) {
-  total: rangers_deck_aggregate(
+  total: conquest_deck_aggregate(
     where: {
       user_id: { _eq: $userId }
       next_deck_id: { _is_null: true }

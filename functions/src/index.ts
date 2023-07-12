@@ -15,8 +15,8 @@ exports.processSignUp = functions.auth.user().onCreate(async(user) => {
     const data = await client.createUser({ id: user.uid });
     const customClaims = {
       'https://hasura.io/jwt/claims': {
-        'x-hasura-default-role': "rangers_user",
-        'x-hasura-allowed-roles': ["rangers_user"],
+        'x-hasura-default-role': "conquest_user",
+        'x-hasura-allowed-roles': ["conquest_user"],
         'x-hasura-user-id': user.uid,
       },
     };

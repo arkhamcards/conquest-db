@@ -1,4 +1,4 @@
-fragment UserInfo on rangers_users {
+fragment UserInfo on conquest_users {
   id
   handle
 }

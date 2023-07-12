@@ -1,28 +1,10 @@
-# import UserInfo from 'fragments.graphql'
-
-
-fragment UserProfile on rangers_users {
+fragment UserProfile on conquest_users {
   id
   handle
   created_at
-  friends {
-    user {
-      ...UserInfo
-    }
-  }
-  sent_requests {
-    user {
-      ...UserInfo
-    }
-  }
-  received_requests {
-    user {
-      ...UserInfo
-    }
-  }
 }
 
-fragment NavProfile on rangers_users {
+fragment NavProfile on conquest_users {
   id
   handle
   received_requests_aggregate {
@@ -33,22 +15,22 @@ fragment NavProfile on rangers_users {
 }
 
 query getNavProfile($id: String!) {
-  profile: rangers_users_by_pk(id: $id) {
+  profile: conquest_users_by_pk(id: $id) {
     ...NavProfile
   }
 }
 
 query getProfile($id: String!) {
-  profile: rangers_users_by_pk(id: $id) {
+  profile: conquest_users_by_pk(id: $id) {
     ...UserProfile
   }
-  settings: rangers_user_settings_by_pk(user_id: $id) {
+  settings: conquest_user_settings_by_pk(user_id: $id) {
     user_id
     private_decks
   }
 }
 query getProfileByHandle($handle: String!) {
-  profile: rangers_users(
+  profile: conquest_users(
     where: {
       handle: {
         _ilike: $handle

@@ -1,12 +1,12 @@
 {
   "projects": {
-    "default": "rangers-db"
+    "default": "conquest-db"
   },
   "targets": {
     "rangers-db": {
       "hosting": {
         "static": [
-          "static-rangers-db"
+          "static-conquest-db"
         ]
       }
     }

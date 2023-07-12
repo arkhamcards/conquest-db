@@ -1,76 +1,46 @@
-fragment Card on rangers_card_localized {
+fragment Card on conquest_card_localized {
   id
   name
-  real_traits
-  traits
-  equip
-  presence
-  token_id
-  token_name
-  token_plurals
-  token_count
-  harm
-  approach_conflict
-  approach_reason
-  approach_exploration
-  approach_connection
   text
-  set_id
-  set_name
-  set_type_id
-  set_size
-  set_type_name
-  set_position
-  quantity
-  level
+  traits
   flavor
+  illustrator
   type_id
   type_name
-  cost
-  aspect_id
-  aspect_name
-  aspect_short_name
-  progress
-  imagesrc
+  faction_id
+  faction_name
+  loyalty_id
+  loyalty_name
+  pack_id
+  pack_name
+  pack_position
+  command_hammers
+  attack
+  health
+  shields
+  unique
+  preparation
+  quantity
   position
-  deck_limit
-  spoiler
-}
-
-fragment Aspect on rangers_aspect_localized {
-  id
-  name
-  short_name
 }
 
 query getAllCards($locale: String!) {
-  cards: rangers_card_localized(
+  cards: conquest_card_localized(
     where: {
       locale: { _eq: $locale }
     }
   ) {
     ...Card
   }
-  all_updated_at: rangers_card_updated(
+  all_updated_at: conquest_card_updated(
     where: { locale: { _eq: $locale }}
   ) {
     updated_at
   }
 }
 
-query getRoleCards($locale: String!) {
-  cards: rangers_card_localized(
-    where: {
-      locale: { _eq: $locale }
-      type_id: { _eq: "role" }
-    }
-  ) {
-    ...Card
-  }
-}
-
 query getCard($locale: String!, $cid: String!) {
-  cards: rangers_card_localized(
+  cards: conquest_card_localized(
     where: {
       locale: { _eq: $locale }
       id: { _eq: $cid }
@@ -81,32 +51,11 @@ query getCard($locale: String!, $cid: String!) {
 }
 
 query getCardsUpdatedAt($locale: String!) {
-  card_updated_at: rangers_card_updated(
+  card_updated_at: conquest_card_updated(
     where: {
       locale: { _eq: $locale }
     }
   ) {
     updated_at
-  }
-}
-
-fragment SetType on rangers_set_type_localized {
-  id
-  name
-  sets {
-    id
-    name
-  }
-}
-
-query getSetNames($locale: String!) {
-  sets: rangers_set_type_localized(
-    where: {
-      locale: { _eq: $locale }
-
-    }
-    order_by: { id: desc }
-  ) {
-    ...SetType
   }
 }

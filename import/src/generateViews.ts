@@ -7,16 +7,16 @@ import { TABLES } from './data';
 function tableName(t: string) {
   return `${process.env.DATABASE}.${t}`;
 }
-/*
+
 console.log(`
-  CREATE OR REPLACE FUNCTION rangers_deck_comment_count_increment() RETURNS TRIGGER AS $$
+  CREATE OR REPLACE FUNCTION conquest_deck_comment_count_increment() RETURNS TRIGGER AS $$
       BEGIN
-          UPDATE rangers.deck
+          UPDATE conquest.deck
           SET comment_count = comment_count + 1
           WHERE id = NEW.deck_id;
 
           IF NEW.comment_id is not null THEN
-            UPDATE rangers.comment
+            UPDATE conquest.comment
             SET response_count = response_count +1
             WHERE id = NEW.comment_id;
           END IF;
@@ -24,14 +24,14 @@ console.log(`
       END
   $$ LANGUAGE plpgsql;
 
-  CREATE OR REPLACE FUNCTION rangers_deck_comment_count_decrement() RETURNS TRIGGER AS $$
+  CREATE OR REPLACE FUNCTION conquest_deck_comment_count_decrement() RETURNS TRIGGER AS $$
     BEGIN
-        UPDATE rangers.deck
+        UPDATE conquest.deck
         SET comment_count = comment_count - 1
         WHERE id = OLD.deck_id;
 
         IF OLD.comment_id is not null THEN
-          UPDATE rangers.comment
+          UPDATE conquest.comment
           SET response_count = response_count - 1
           WHERE id = OLD.comment_id;
         END IF;
@@ -39,19 +39,18 @@ console.log(`
     END
   $$ LANGUAGE plpgsql;
 
-  CREATE OR REPLACE FUNCTION rangers_deck_copy_count_increment() RETURNS TRIGGER AS $$
+  CREATE OR REPLACE FUNCTION conquest_deck_copy_count_increment() RETURNS TRIGGER AS $$
       BEGIN
-          UPDATE rangers.deck
+          UPDATE conquest.deck
           SET copy_count = copy_count + 1
           WHERE id = NEW.deck_id AND NEW.user_id <> user_id;
           RETURN NEW;
       END
   $$ LANGUAGE plpgsql;
 
-  CREATE TRIGGER rangers_deck_copy_count_increment_trig AFTER INSERT ON rangers.deck_copy
-      FOR EACH ROW EXECUTE PROCEDURE rangers_deck_copy_count_increment();
-`)
-*/
+  CREATE TRIGGER conquest_deck_copy_count_increment_trig AFTER INSERT ON conquest.deck_copy
+      FOR EACH ROW EXECUTE PROCEDURE conquest_deck_copy_count_increment();
+`);
 
 console.log(`
   CREATE OR REPLACE FUNCTION ${tableName('upgrade_deck')}(deck_id integer, upgrade_data json)

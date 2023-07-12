@@ -1,5 +1,5 @@
  mutation createUser($id: String!) {
-  insert_rangers_users_one(
+  insert_conquest_users_one(
     object: {
       id: $id
     }
@@ -10,7 +10,7 @@
   ) {
     id
   }
-  insert_rangers_user_settings_one(
+  insert_conquest_user_settings_one(
     object: {
       user_id: $id
     }
@@ -26,7 +26,7 @@
 query getUser(
   $id: String!
 ) {
-  rangers_users_by_pk(id: $id){
+  conquest_users_by_pk(id: $id){
     id
     handle
     normalized_handle
@@ -37,7 +37,7 @@ query getUser(
 query getUserByHandle(
   $handle: String!
 ) {
-  rangers_users(
+  conquest_users(
     where: { handle: { _eq: $handle } }
   ) {
     id
@@ -47,7 +47,7 @@ query getUserByHandle(
 query getUserByNormalizedHandle(
   $normalizedHandle: String!
 ) {
-  rangers_users(
+  conquest_users(
     where: { normalized_handle: { _eq: $normalizedHandle } }
   ) {
     id
@@ -57,19 +57,19 @@ query getUserByNormalizedHandle(
 query getProfile(
   $id: String!
 ) {
-  rangers_users_by_pk(id: $id) {
+  conquest_users_by_pk(id: $id) {
     id
   }
 }
 
 mutation deleteUser($id: String!) {
-  delete_rangers_users(where: {id: {_eq: $id}}) {
+  delete_conquest_users(where: {id: {_eq: $id}}) {
     affected_rows
   }
 }
 
 mutation updateHandle($userId:String!, $handle: String!, $normalizedHandle: String!) {
-  update_rangers_users_by_pk(
+  update_conquest_users_by_pk(
     pk_columns: { id: $userId }
     _set: {
       handle: $handle,
@@ -87,7 +87,7 @@ query searchHandles(
   $normalizedHandleStart: String!,
   $offset: Int
 ) {
-  startMatch: rangers_users(
+  startMatch: conquest_users(
     where: {
 			normalized_handle: { _ilike: $normalizedHandleStart }
     }
@@ -97,7 +97,7 @@ query searchHandles(
     id
     handle
   }
-  looseMatch: rangers_users(
+  looseMatch: conquest_users(
     where: {
 			normalized_handle: { _ilike: $normalizedHandle }
     }
