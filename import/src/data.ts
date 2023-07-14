@@ -52,6 +52,8 @@ export const TABLES: { [key: string]: Table } = {
       'illustrator',
       'back_card_id',
       'position',
+      'back_attack',
+      'back_health',
     ],
     textFields: [
       'name',
