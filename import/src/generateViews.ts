@@ -100,29 +100,6 @@ console.log(`
   $function$\n\n\n`
 );
 
-console.log(`
-  CREATE OR REPLACE VIEW ${tableName('latest_deck')} AS
-  SELECT
-    id as deck_id,
-    campaign_id,
-    user_id
-  FROM ${tableName('deck')}
-  WHERE next_deck_id is null;\n\n\n
-`);
-
-console.log(`
-  CREATE OR REPLACE VIEW ${tableName('user_campaign')} AS
-    SELECT
-      campaign_access.user_id,
-      campaign_access.campaign_id
-    FROM
-      ${tableName('campaign_access')}
-  UNION
-    SELECT
-      campaign.user_id,
-      campaign.id
-    FROM
-      ${tableName('campaign')};\n\n\n`)
 
 let localizedUpdatedClauses: string[] = [];
 let updatedClauses: string[] = [];

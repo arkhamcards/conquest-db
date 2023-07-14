@@ -59,6 +59,9 @@ export const TABLES: { [key: string]: Table } = {
       'text',
       'flavor',
       'imagesrc',
+      'back_traits',
+      'back_text',
+      'back_flavor',
     ],
     foreignKeys: {
       type_id: 'type',
