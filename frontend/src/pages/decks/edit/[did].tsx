@@ -7,7 +7,7 @@ import Router from 'next/router';
 import { useGetDeckQuery } from '../../../generated/graphql/apollo-schema';
 import { useRequireAuth, useRouterPathParam } from '../../../lib/hooks';
 import LoadingPage from '../../../components/LoadingPage';
-import DeckEdit  from '../../../components/DeckEdit';
+// import DeckEdit  from '../../../components/DeckEdit.tsx.bkp';
 import { useAuth } from '../../../lib/AuthContext';
 import { useAllCardsMap } from '../../../lib/cards';
 import { getLocalizationServerSideProps } from '../../../lib/Lingui';
@@ -31,8 +31,7 @@ export default function EditDeckPage() {
     }
     if (data?.deck && !authLoading && (
       !authUser ||
-      data.deck.user_id !== authUser.uid ||
-      !!data.deck.next_deck
+      data.deck.user_id !== authUser.uid
     )) {
       Router.push(`/decks/view/${deckId}`);
       return;
@@ -52,7 +51,7 @@ export default function EditDeckPage() {
         py={{ base: "3rem", lg: "4rem" }}
         px={{ base: "1rem", lg: "0" }}
       >
-        { deck ? <DeckEdit deck={deck} cards={cards} /> : <LoadingPage /> }
+        { deck ? null /*<DeckEdit deck={deck} cards={cards} />*/ : <LoadingPage /> }
       </Box>
     </>
   );

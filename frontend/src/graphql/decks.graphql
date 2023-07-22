@@ -10,28 +10,13 @@ mutation publishDeck(
 
 query searchDecks(
   $userId: String,
-  $foc: Int,
-  $spi: Int,
-  $awa: Int,
-  $fit: Int,
   $background: _text,
   $specialty: _text,
   $role: _text,
   $limit: Int,
   $offset: Int
 ) {
-  decks: conquest_deck_search(args: {
-    user_id_eq: $userId
-    foc_eq: $foc
-    spi_eq: $spi
-    awa_eq: $awa
-    fit_eq: $fit
-    background: $background
-    specialty: $specialty
-    role: $role
-    _limit: $limit
-    _offset: $offset
-  }) {
+  decks: conquest_deck {
     ...SearchDeck
   }
 }
@@ -67,7 +52,6 @@ query getMyDecksTotal(
   total: conquest_deck_aggregate(
     where: {
       user_id: { _eq: $userId }
-      next_deck_id: { _is_null: true }
       _or: [
         {
           published: { _is_null: true }
@@ -87,7 +71,7 @@ query getMyDecksTotal(
 query getDeck(
   $deckId: Int!
 ) {
-  deck: rangers_deck_by_pk(id: $deckId) {
+  deck: conquest_deck_by_pk(id: $deckId) {
     ...DeckDetail
 
   }
@@ -98,7 +82,7 @@ query getDeckComments(
   $limit: Int!
   $offset: Int!
 ) {
-  rangers_comment(
+  conquest_comment(
     where: {
       deck_id: { _eq: $deckId }
       comment_id: { _is_null: true }
@@ -118,7 +102,7 @@ query getResponseComments(
   $limit: Int!
   $offset: Int!
 ) {
-  rangers_comment(
+  conquest_comment(
     where: {
       comment_id: { _eq: $commentId }
     }
@@ -137,7 +121,7 @@ mutation postComment(
   $text: String!,
   $commentId: uuid
 ) {
-  insert_rangers_comment_one(
+  insert_conquest_comment_one(
     object: {
       deck_id: $deckId
       text: $text
@@ -154,7 +138,7 @@ mutation editComment(
   $id: uuid!,
   $text: String!
 ) {
-  update_rangers_comment_by_pk(
+  update_conquest_comment_by_pk(
     pk_columns: {
       id: $id
     }
@@ -170,21 +154,13 @@ mutation editComment(
 
 mutation createDeck(
   $name: String!,
-  $foc: Int!,
-  $fit: Int!,
-  $awa: Int!,
-  $spi: Int!,
   $meta: jsonb!,
   $slots: jsonb!,
   $description: String
 ) {
-  deck: insert_rangers_deck_one(
+  deck: insert_conquest_deck_one(
     object: {
       name: $name
-      foc: $foc
-      fit: $fit
-      awa: $awa
-      spi: $spi
       meta: $meta
       slots: $slots
       description: $description
@@ -198,7 +174,7 @@ mutation cloneDeck(
   $originalDeckId: Int!
   $newDeckId: Int!
 ) {
-  deck: insert_rangers_deck_copy_one(
+  deck: insert_conquest_deck_copy_one(
     object: {
       deck_id: $originalDeckId
       copy_deck_id: $newDeckId
@@ -213,7 +189,7 @@ mutation cloneDeck(
 mutation deleteDeck(
   $id: Int!
 ) {
-  delete_rangers_deck_by_pk(id: $id) {
+  delete_conquest_deck_by_pk(id: $id) {
     id
   }
 }
@@ -221,22 +197,14 @@ mutation deleteDeck(
 mutation saveDeck(
   $id: Int!,
   $name: String!,
-  $foc: Int!,
-  $fit: Int!,
-  $awa: Int!,
-  $spi: Int!,
   $meta: jsonb!,
   $slots: jsonb!,
   $sideSlots: jsonb!
 ) {
-  update_rangers_deck_by_pk(
+  update_conquest_deck_by_pk(
     pk_columns: { id: $id }
     _set: {
       name: $name,
-      foc: $foc,
-      fit: $fit,
-      awa: $awa,
-      spi: $spi,
       meta: $meta,
       slots: $slots
       side_slots: $sideSlots,
@@ -250,7 +218,7 @@ mutation saveDeckDescription(
   $id: Int!,
   $description: String!
 ) {
-  update_rangers_deck_by_pk(
+  update_conquest_deck_by_pk(
     pk_columns: { id: $id }
     _set: {
       description: $description
@@ -262,13 +230,13 @@ mutation saveDeckDescription(
 }
 
 mutation likeDeck($deckId: Int!) {
-  insert_rangers_deck_like_one(
+  insert_conquest_deck_like_one(
     object: {
       deck_id: $deckId
       liked: true
     }
     on_conflict: {
-      constraint: deck_likes_pkey
+      constraint: deck_like_pkey
       update_columns: [liked]
     }
   ) {
@@ -282,7 +250,7 @@ mutation unlikeDeck(
   $userId: String!,
   $deckId: Int!
 ) {
-  update_rangers_deck_like_by_pk(
+  update_conquest_deck_like_by_pk(
     pk_columns: { deck_id: $deckId, user_id: $userId }
     _set: {
       liked: false

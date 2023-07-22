@@ -6,7 +6,7 @@ import NextLink from 'next/link';
 import { FaComment, FaEdit, FaHeart, FaShareAlt, FaTrash } from 'react-icons/fa';
 import { SlCalender } from 'react-icons/sl';
 
-import { DeckFragment, DeckWithCampaignFragment, SearchDeckFragment, useDeleteDeckMutation } from '../generated/graphql/apollo-schema';
+import { DeckFragment, SearchDeckFragment, useDeleteDeckMutation } from '../generated/graphql/apollo-schema';
 import { CardsMap } from '../lib/hooks';
 import { useAuth } from '../lib/AuthContext';
 import { RoleImage } from './CardImage';
@@ -19,9 +19,8 @@ import { useTheme } from '../lib/ThemeContext';
 import { useLocale } from '../lib/TranslationProvider';
 import UserLink from './UserLink';
 
-export function DeckRow({ deck, roleCards, onDelete }: {
-  deck: DeckWithCampaignFragment;
-  roleCards: CardsMap;
+export function DeckRow({ deck, onDelete }: {
+  deck: DeckFragment;
   onDelete: (deck: DeckFragment) => void;
 }) {
   const { colorMode } = useColorMode();
@@ -32,8 +31,9 @@ export function DeckRow({ deck, roleCards, onDelete }: {
   const buttonOrientation = useBreakpointValue<'vertical' | 'horizontal'>(['vertical', 'vertical', 'horizontal']);
   const problem = !!deck.meta.problem && Array.isArray(deck.meta.problem) ? (deck.meta.problem as DeckError[])  : undefined;
   const role = useMemo(() => {
-    return typeof deck.meta.role === 'string' && roleCards[deck.meta.role];
-  }, [deck.meta, roleCards]);
+    return null;
+//    return typeof deck.meta.role === 'string' && roleCards[deck.meta.role];
+  }, [deck.meta]);
   const { colors } = useTheme();
 
   return (
@@ -47,25 +47,10 @@ export function DeckRow({ deck, roleCards, onDelete }: {
             as={NextLink}
             href={`/decks/view/${deck.id}`}
           >
-            { !!role && !!role.imagesrc && <RoleImage size="large" name={role.name} url={role.imagesrc} /> }
-            <SimpleGrid columns={2} marginRight={2} width="80px" minWidth="80px">
-              <MiniAspect aspect="AWA" value={deck.awa} />
-              <MiniAspect aspect="SPI" value={deck.spi} />
-              <MiniAspect aspect="FIT" value={deck.fit} />
-              <MiniAspect aspect="FOC" value={deck.foc} />
-            </SimpleGrid>
             <Flex direction="column">
               <Text fontSize={['md', 'lg']}>{deck.name}</Text>
               <Flex direction="column" display={['none', 'block']}>
-                { !!deck.campaign && (
-                  <Flex direction="row" alignItems="center">
-                    <CoreIcon icon="guide" size={18} />
-                    <Link marginLeft={1} as={NextLink} href={`/campaigns/${deck.campaign.id}`}>
-                      {deck.campaign.name}
-                    </Link>
-                  </Flex>
-                )}
-                <DeckDescription fontSize={['xs', 'sm']}deck={deck} roleCards={roleCards} />
+                <DeckDescription fontSize={['xs', 'sm']}deck={deck} />
                 { !!problem && <DeckProblemComponent errors={problem} limit={1} />}
               </Flex>
             </Flex>
@@ -91,15 +76,7 @@ export function DeckRow({ deck, roleCards, onDelete }: {
           </Flex>
         </Flex>
         <Flex direction="column" display={['block', 'none']}>
-          { !!deck.campaign && (
-            <Flex direction="row" alignItems="center">
-              <CoreIcon icon="guide" size={18} />
-              <Link marginLeft={1} as={NextLink} href={`/campaigns/${deck.campaign.id}`}>
-                {deck.campaign.name}
-              </Link>
-            </Flex>
-          )}
-          <DeckDescription fontSize={['xs', 's', 'm']}deck={deck} roleCards={roleCards} />
+          <DeckDescription fontSize={['xs', 's', 'm']}deck={deck} />
           { !!problem && <DeckProblemComponent errors={problem} limit={1} />}
         </Flex>
       </Flex>
@@ -112,12 +89,10 @@ function deleteDeckMessage(d: DeckFragment) {
 }
 
 export default function DeckList({
-  roleCards,
   decks,
   refetch,
 }: {
-  decks: DeckWithCampaignFragment[] | undefined;
-  roleCards: CardsMap;
+  decks: DeckFragment[] | undefined;
   refetch: () => void;
 }) {
   const [doDelete] = useDeleteDeckMutation();
@@ -148,7 +123,6 @@ export default function DeckList({
           <DeckRow
             key={deck.id}
             deck={deck}
-            roleCards={roleCards}
             onDelete={onDelete}
           />
         )) }
@@ -159,15 +133,11 @@ export default function DeckList({
 }
 
 
-export function SearchDeckRow({ deck, roleCards, last }: {
+export function SearchDeckRow({ deck, last }: {
   deck: SearchDeckFragment;
-  roleCards: CardsMap;
   last?: boolean;
 }) {
   const { i18n } = useLocale();
-  const role = useMemo(() => {
-    return typeof deck.meta.role === 'string' && roleCards[deck.meta.role];
-  }, [deck.meta, roleCards]);
   const { colors } = useTheme();
   const socialProof = useMemo(() => {
     return (
@@ -226,18 +196,12 @@ export function SearchDeckRow({ deck, roleCards, last }: {
         </Flex>
         <Flex direction="row" alignItems="flex-start" justifyContent="flex-start">
           <Flex flex={4} direction="row" alignItems="flex-start" as={NextLink} href={`/decks/view/${deck.id}`}>
-            { !!role && !!role.imagesrc && (
+            { null /*(
               <RoleImage name={role.name} url={role.imagesrc} size="large" />
-            ) }
-            <SimpleGrid columns={2} width="80px" minWidth="80px">
-              <MiniAspect aspect="AWA" value={deck.awa} />
-              <MiniAspect aspect="SPI" value={deck.spi} />
-              <MiniAspect aspect="FIT" value={deck.fit} />
-              <MiniAspect aspect="FOC" value={deck.foc} />
-            </SimpleGrid>
+            ) */}
             <Flex direction="column" marginLeft={2}>
               <Text display={['none', 'block']} fontSize="md">{deck.name}</Text>
-              <DeckDescription fontSize="xs" deck={deck} roleCards={roleCards} />
+              <DeckDescription fontSize="xs" deck={deck} />
               <UserLink user={deck.user} />
             </Flex>
           </Flex>
@@ -266,10 +230,9 @@ export function SearchDeckRow({ deck, roleCards, last }: {
 
 interface SearchDeckListProps {
   decks: SearchDeckFragment[] | undefined;
-  roleCards: CardsMap;
   emptyMessage: string;
 }
-export function SearchDeckList({ roleCards, decks, emptyMessage }: SearchDeckListProps) {
+export function SearchDeckList({ decks, emptyMessage }: SearchDeckListProps) {
   if (!decks?.length) {
     return <Text>{emptyMessage}</Text>
   }
@@ -279,7 +242,6 @@ export function SearchDeckList({ roleCards, decks, emptyMessage }: SearchDeckLis
         <SearchDeckRow
           key={deck.id}
           deck={deck}
-          roleCards={roleCards}
           last={index === decks.length - 1}
         />
       )) }

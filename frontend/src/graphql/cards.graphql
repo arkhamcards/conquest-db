@@ -1,5 +1,6 @@
 fragment Card on conquest_card_localized {
   id
+  cost
   name
   text
   traits
@@ -22,6 +23,13 @@ fragment Card on conquest_card_localized {
   preparation
   quantity
   position
+  imagesrc
+  signature_id
+  keywords
+  back_traits
+  back_text
+  back_attack
+  back_health
 }
 
 query getAllCards($locale: String!) {

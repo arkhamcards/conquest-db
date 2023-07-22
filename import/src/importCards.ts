@@ -181,7 +181,7 @@ async function importMetadata() {
         } catch (e) {
           console.log(`Could not find image for ${card.id}`);
         }
-        const existing = find(cards.rangers_card, c => c.id === card.id);
+        const existing = find(cards.conquest_card, c => c.id === card.id);
         if (!existing || !deepEqual(
           safePick(existing, allFields),
           safePick(card, allFields)
@@ -194,7 +194,7 @@ async function importMetadata() {
         }
         if (CARD_DATA.textFields) {
           const theText = safePick(card, CARD_DATA.textFields);
-          const translation = find(cards.rangers_card_text, c => c.id === card.id);
+          const translation = find(cards.conquest_card_text, c => c.id === card.id);
           if (!translation || !deepEqual(
             safePick(existing, CARD_DATA.textFields),
             theText
@@ -238,7 +238,7 @@ async function importMetadata() {
               }
             });
 
-            const existingTranslation = find(localeText[locale].rangers_card_text, c => c.id === card.id);
+            const existingTranslation = find(localeText[locale].conquest_card_text, c => c.id === card.id);
             if (!existingTranslation || !deepEqual(
               safePick(existingTranslation, CARD_DATA.textFields),
               theTranslation,

@@ -12,7 +12,6 @@ import { useGetProfileQuery, useSetPrivateDecksMutation } from '../generated/gra
 import useFirebaseFunction from '../lib/useFirebaseFunction';
 import LoadingPage from './LoadingPage';
 import DynamicCheckbox from './DynamicCheckbox';
-import FriendRequestsComponent from './FriendRequests';
 import SolidButton from './SolidButton';
 
 export default function ProfileSettings() {
@@ -99,12 +98,6 @@ export default function ProfileSettings() {
               {t`Allow people to view my decks`}
             </DynamicCheckbox>
           </FormControl>
-          { !!authUser && !!data?.profile &&  (
-            <FriendRequestsComponent
-              profile={data.profile}
-              refreshProfile={refreshProfile}
-            />
-          ) }
         </Flex>
       )}
     </>

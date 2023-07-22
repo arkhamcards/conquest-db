@@ -237,6 +237,8 @@ function costFilter(cost: NumberCompare | null, card: CardFragment): boolean {
 }
 
 function equipFilter(equip: NumberCompare | null, card: CardFragment): boolean {
+  return true;
+  /*
   if (!equip) {
     return true;
   }
@@ -273,6 +275,7 @@ function equipFilter(equip: NumberCompare | null, card: CardFragment): boolean {
     }
   }
   return true;
+  */
 }
 
 
@@ -330,7 +333,7 @@ function useSearchQueryState<T>(name: string, options: UseQueryStateOptions<T>):
 }
 
 export function useCardSearchControls(allCards: CardFragment[], controls: 'simple' | 'all'): [React.ReactNode, boolean, (card: CardFragment) => boolean] {
-  const { approaches, aspects, categories } = useLocale();
+  const { approaches, aspects } = useLocale();
   const allTraits = useMemo(() => {
     return map(
       sortBy(uniq(flatMap(allCards, c => cleanTraits(c))), x => x),
@@ -338,17 +341,7 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
     );
   }, [allCards]);
   const allCardSets = useMemo(() => {
-    const background = categories.background;
-    const specialty = categories.specialty;
     return [
-      ...(background ? [{
-        label: background.name,
-        options: sortBy(flatMap(background.options, (name, id) => name ? ({ value: id, name, label: name }) : []), o => o.label) || [],
-      }] : []),
-      ...(specialty ? [{
-        label: specialty.name,
-        options: sortBy(flatMap(specialty.options, (name, id) => name ? ({ value: id, name, label: name }) : []), o => o.label) || [],
-      }] : []),
       {
         label: t({
           comment: 'card_set_header',
@@ -361,7 +354,7 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
         }],
       }
     ];
-  }, [categories]);
+  }, []);
   const allTypes = useMemo(() => {
     return sortBy(
       uniqBy(
@@ -443,6 +436,8 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
       !!approach?.length
     ),
     (card: CardFragment) => {
+      return true;
+      /*
       if (traitSet && !find(cleanTraits(card), t => traitSet.has(t))) {
         return false;
       }
@@ -491,6 +486,7 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
         }
       }
       return costFilter(cost, card) && equipFilter(equip, card);
+      */
     }];
   }, [traits, cardSets, types, cost, equip, awa, foc, fit, spi, approach]);
   const allApproaches = useMemo(() => {

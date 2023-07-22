@@ -3,9 +3,8 @@ import { t } from '@lingui/macro';
 import { Box, Button } from '@chakra-ui/react';
 
 import { useCardsMap, useRequireAuth } from '../../lib/hooks';
-import { useNewDeckModal } from '../../components/DeckEdit';
 import DeckList from '../../components/DeckList';
-import { DeckFragment, DeckWithCampaignFragment, useGetMyDecksQuery, useGetMyDecksTotalQuery } from '../../generated/graphql/apollo-schema';
+import { DeckFragment, useGetMyDecksQuery, useGetMyDecksTotalQuery } from '../../generated/graphql/apollo-schema';
 import PageHeading from '../../components/PageHeading';
 import { useAuth } from '../../lib/AuthContext';
 import { useLocale } from '../../lib/TranslationProvider';
@@ -34,7 +33,7 @@ export default function DecksPage() {
     skip: !authUser?.uid,
   });
 
-  const fetchDecks = useCallback(async(authUser: AuthUser | undefined, pageSize: number, offset: number): Promise<DeckWithCampaignFragment[]> => {
+  const fetchDecks = useCallback(async(authUser: AuthUser | undefined, pageSize: number, offset: number): Promise<DeckFragment[]> => {
     if (authUser) {
       const data = await fetchMore({
         variables: {
@@ -50,8 +49,7 @@ export default function DecksPage() {
     }
     return [];
   }, [fetchMore]);
-  const roleCards = useRoleCardsMap();
-  const [showNewDeck, newDeckModal] = useNewDeckModal(roleCards);
+  // const [showNewDeck, newDeckModal] = useNewDeckModal(roleCards);
   return (
     <>
       <Box
@@ -61,23 +59,22 @@ export default function DecksPage() {
         px={{ base: "1rem", lg: "0" }}
       >
         <PageHeading title={t`My Decks`}>
-          { !!authUser && <Button onClick={showNewDeck}>{t`New deck`}</Button> }
+          { null /*!!authUser && <Button onClick={showNewDeck}>{t`New deck`}</Button> */ }
         </PageHeading>
-        <PaginationWrapper<DeckWithCampaignFragment>
+        <PaginationWrapper<DeckFragment>
           total={totalDecks?.total.aggregate?.count}
           fetchData={fetchDecks}
           data={data?.decks}
         >
-          { (decks: DeckWithCampaignFragment[], refetch) => (
+          { (decks: DeckFragment[], refetch) => (
             <DeckList
               decks={decks}
-              roleCards={roleCards}
               refetch={refetch}
             />
           ) }
         </PaginationWrapper>
       </Box>
-      { newDeckModal }
+      { null /*newDeckModal*/ }
     </>
   );
 }

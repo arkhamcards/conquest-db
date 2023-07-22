@@ -3,7 +3,7 @@ fragment UserInfo on conquest_users {
   handle
 }
 
-fragment SearchDeck on conquest_search_deck {
+fragment SearchDeck on conquest_deck {
   id
   user_id
   slots
@@ -27,7 +27,6 @@ fragment Deck on conquest_deck {
   user_id
   slots
   side_slots
-  version
   name
   description
   created_at
@@ -57,6 +56,17 @@ fragment DeckDetail on conquest_deck {
   comment_count
   like_count
   liked_by_user
+
+  original_deck {
+    deck {
+      id
+      name
+      user {
+        id
+        handle
+      }
+    }
+  }
   user {
     handle
   }

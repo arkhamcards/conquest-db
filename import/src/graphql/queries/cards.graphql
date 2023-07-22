@@ -23,6 +23,12 @@ fragment Card on conquest_card {
   shields
   unique
   preparation
+  signature_id
+  keywords
+  back_traits
+  back_text
+  back_attack
+  back_health
 }
 
 fragment CardText on conquest_card_text {
@@ -33,6 +39,9 @@ fragment CardText on conquest_card_text {
   text
   flavor
   imagesrc
+  back_traits
+  back_text
+  keywords
 }
 
 fragment CardLoyalty on conquest_loyalty {
@@ -119,6 +128,7 @@ query getTranslations($locale: String!) {
 
 mutation upsertCard(
   $id: String!,
+  $cost: Int,
   $back_card_id: String
   $name: String,
   $text: String,
@@ -138,10 +148,16 @@ mutation upsertCard(
   $quantity: Int,
   $position: Int,
   $imagesrc: String
+  $signature_id: Int,
+  $back_attack: Int,
+  $back_health: Int,
+  $back_traits: String,
+  $keywords: String
 ) {
 	insert_conquest_card_one(
     object: {
       id: $id
+      cost: $cost
       back_card_id: $back_card_id
       name: $name
       text: $text
@@ -161,11 +177,17 @@ mutation upsertCard(
       quantity: $quantity
       position: $position
       imagesrc: $imagesrc
+      signature_id: $signature_id
+      back_attack: $back_attack
+      back_health: $back_health
+      back_traits: $back_traits
+      keywords: $keywords
     }
     on_conflict: {
       constraint: card_pkey
       update_columns: [
         id,
+        cost,
         back_card_id,
         name,
         text,
@@ -185,6 +207,11 @@ mutation upsertCard(
         quantity,
         position,
         imagesrc,
+        signature_id,
+        back_attack,
+        back_health,
+        back_traits,
+        keywords
       ]
     }
   ) {
@@ -319,7 +346,10 @@ mutation upsertCardText(
   $traits: String,
   $text: String,
   $flavor: String,
-  $imagesrc: String
+  $imagesrc: String,
+  $back_text: String,
+  $back_traits: String,
+  $keywords: String
 ) {
 	insert_conquest_card_text_one(
     object: {
@@ -330,6 +360,9 @@ mutation upsertCardText(
       traits: $traits
       flavor: $flavor
       imagesrc: $imagesrc
+      back_text: $back_text
+      back_traits: $back_traits
+      keywords: $keywords
     }
     on_conflict: {
       constraint: card_text_pkey
@@ -340,7 +373,10 @@ mutation upsertCardText(
         text,
         traits,
         flavor,
-        imagesrc
+        imagesrc,
+        back_text,
+        back_traits,
+        keywords
       ]
     }
   ) {

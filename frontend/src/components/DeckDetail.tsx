@@ -41,7 +41,7 @@ import { t, Trans } from '@lingui/macro';
 import { SlCalender } from 'react-icons/sl';
 import { FaArrowLeft, FaArrowRight, FaComment, FaCopy, FaEdit, FaMoon, FaShare, FaShareAlt, FaTrash } from 'react-icons/fa';
 
-import { CardFragment, DeckDetailFragment, DeckFragment, useCloneDeckMutation, useCreateDeckMutation, useDeleteDeckMutation, usePublishDeckMutation, useUpgradeDeckMutation } from '../generated/graphql/apollo-schema';
+import { CardFragment, DeckDetailFragment, DeckFragment, useCreateDeckMutation, useDeleteDeckMutation, useCloneDeckMutation, usePublishDeckMutation } from '../generated/graphql/apollo-schema';
 import { useAuth } from '../lib/AuthContext';
 import AspectCounter from './AspectCounter';
 import { AWA, FIT, FOC, SPI } from '../types/types';
@@ -63,9 +63,7 @@ import DeckChanges from './DeckChanges';
 const SHOW_COMMENTS = process.env.NODE_ENV === 'development';
 
 function deleteDeckMessage(d: DeckFragment) {
-  return d.previous_deck ?
-    t`Are you sure you want to delete the latest day (${d.version}) of this deck?` :
-    t`Are you sure you want to delete this deck?`;
+  return t`Are you sure you want to delete this deck?`;
 }
 
 interface Props {
@@ -93,31 +91,11 @@ function ChosenRole({ role, showCard, children }: { role: CardFragment; showCard
 
 export default function DeckDetail({ deck, cards, onLike }: Props) {
   const { authUser } = useAuth();
-  const { categories, i18n } = useLocale();
+  const { i18n } = useLocale();
   const [showCard, cardModal] = useCardModal(deck.slots);
   const specialty: string | undefined = typeof deck.meta.specialty === 'string' ? deck.meta.specialty : undefined;
   const hasCards = useMemo(() => values(cards).length > 0, [cards]);
-  const parsedDeck = useMemo(() => parseDeck(deck, deck.meta, deck.slots, deck.side_slots, cards, categories, deck.previous_deck ? pick(deck.previous_deck, ['meta', 'slots', 'side_slots']) : undefined), [deck, cards, categories]);
-  const [upgradeDeck] = useUpgradeDeckMutation();
-  const [upgrading, setUpgrading] = useState(false);
-  const onUpgradeDeck = useCallback(async() => {
-    if (authUser) {
-      setUpgrading(true);
-      const result = await upgradeDeck({
-        variables: {
-          deckId: deck.id,
-        },
-      });
-      setUpgrading(false);
-      if (result.errors?.length) {
-        // TODO: handle error
-      } else {
-        if (result.data?.deck?.next_deck_id) {
-          Router.push(`/decks/edit/${result.data.deck.next_deck_id}`);
-        }
-      }
-    }
-  }, [authUser, deck.id, upgradeDeck, setUpgrading]);
+  const parsedDeck = useMemo(() => parseDeck(deck, deck.meta, deck.slots, deck.side_slots, cards), [deck, cards]);
 
   const [publishing, setPublishing] = useState(false);
   const [publishDeck] = usePublishDeckMutation();
@@ -147,10 +125,6 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
         const result = await createDeck({
           variables: {
             name: t`${deck.name} (Copy)`,
-            foc: deck.foc,
-            fit: deck.fit,
-            awa: deck.awa,
-            spi: deck.spi,
             meta: deck.meta,
             slots: deck.slots,
             description: deck.description,
@@ -200,15 +174,12 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
   );
   const onDeleteClick = useCallback(() => onDelete(deck), [onDelete, deck]);
   const publishError = useMemo(() => {
-    if (!!deck.previous_deck) {
-      return t`To avoid spoilers for other players, you cannot publish decks that have camped.`;
-    }
     if (deck.meta.problem) {
       return t`Please address all deckbuilding errors before publishing.`
     }
     return undefined;
   }, [deck]);
-  const editable = authUser?.uid === deck.user_id && !deck.next_deck && !deck.published;
+  const editable = authUser?.uid === deck.user_id&& !deck.published;
   const copyDeckInfo = useMemo(() => {
     if (!deck.original_deck?.deck) {
       return null;
@@ -251,12 +222,6 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                 ) }
               </SimpleGrid>
               { copyDeckInfo }
-              { !!deck.campaign && (
-                <Flex direction="row" alignItems="center">
-                  <CoreIcon icon="guide" size={18} />
-                  <Link marginLeft={1} as={NextLink} href={`/campaigns/${deck.campaign.id}`}>{deck.campaign.name}</Link>
-                </Flex>
-              ) }
               <DeckCountLine parsedDeck={parsedDeck} />
             </Flex>
             <ButtonGroup marginBottom={2}>
@@ -313,18 +278,6 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                 <Menu autoSelect={false}>
                   <MenuButton as={IconButton} aria-label={t`Actions`} icon={<HamburgerIcon />} variant="outline" />
                   <MenuList>
-                    { editable && (
-                      <Tooltip
-                        placement="left"
-                        label={!!deck.meta.problem ? t`You must correct deck errors before upgrading.` : t`Choosing to camp will make a copy of your deck to let you track deck changes as you play through a campaign.`}
-                      >
-                        <MenuItem
-                          icon={upgrading ? <Spinner size="sm" /> : <FaMoon />}
-                          onClick={onUpgradeDeck}
-                          isDisabled={!!deck.meta.problem}
-                        >{t`Camp`}</MenuItem>
-                      </Tooltip>
-                    ) }
                     { authUser.uid === deck.user_id && !deck.published && (
                       <Tooltip
                         placement="left"
@@ -337,7 +290,7 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                         >{t`Publish`}</MenuItem>
                       </Tooltip>
                     ) }
-                    { !deck.previous_deck && !deck.published && (
+                    { !deck.published && (
                       <Tooltip
                         placement="left"
                         label={authUser.uid === deck.user_id ?
@@ -352,7 +305,7 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                         </MenuItem>
                       </Tooltip>
                     ) }
-                    { authUser.uid === deck.user_id && !deck.next_deck && (
+                    { authUser.uid === deck.user_id && (
                       <Tooltip
                         placement="left"
                         label={deck.published ?
@@ -381,30 +334,11 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                 borderRightWidth={deck.description ? [0, 0, '1px'] : undefined}
                 paddingRight={deck.description ? [0, 0, 6] : undefined}
               >
-                { !!parsedDeck.role ? (
-                  <ChosenRole role={parsedDeck.role} showCard={showCard}>
-                    <DeckDescription deck={deck} />
-                  </ChosenRole>
-                ) : (
-                  <>
-                    <DeckDescription deck={deck} />
-                    <Text>
-                      <i>{categories.specialty?.name}:&nbsp;</i>
-                      {
-                        specialty && categories.specialty ?
-                        categories.specialty.options[specialty] :
-                        t`Not set`
-                      }
-                    </Text>
-                  </>
-                ) }
+                <DeckDescription deck={deck} />
+                <Text>
+                  { t`Not set` }
+                </Text>
               </Box>
-              <Flex direction="row" justifyContent="flex-start" alignItems="flex-start" marginTop={2}>
-                <AspectCounter aspect={AWA} count={deck.awa} />
-                <AspectCounter aspect={SPI} count={deck.spi} />
-                <AspectCounter aspect={FIT} count={deck.fit} />
-                <AspectCounter aspect={FOC} count={deck.foc} />
-              </Flex>
             </SimpleGrid>
             { !!parsedDeck.problem?.length && hasCards && (
                 <Box marginTop={2} marginBottom={2}>
@@ -429,37 +363,6 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                 </Text>
                 <DeckDescriptionView description={deck.description} />
               </Stack>
-            </GridItem>
-          ) }
-          { !deck.published && (!!deck.previous_deck || !!deck.next_deck) && (
-            <GridItem colSpan={6}>
-              <Flex direction="column" marginTop={8}>
-                { !!deck.previous_deck && (
-                  <Text fontSize="lg">
-                    { t`Changes` }
-                  </Text>
-
-                )}
-                { !!parsedDeck.changes && (
-                  <DeckChanges
-                    cards={cards}
-                    changes={parsedDeck.changes}
-                    showCard={showCard}
-                    showCollectionCard={showCard}
-                    showDisplacedCard={showCard}
-                  />
-                )}
-                <ButtonGroup marginTop={2}>
-                  { !!deck.previous_deck && (
-                    <Button leftIcon={<FaArrowLeft />} as={NextLink} href={`/decks/view/${deck.previous_deck.id}`}>
-                      {t`Previous deck`}
-                    </Button>
-                  ) }
-                  { !!deck.next_deck && (
-                    <Button rightIcon={<FaArrowRight />} as={NextLink} href={`/decks/view/${deck.next_deck.id}`}>{t`Next deck`}</Button>
-                  ) }
-                </ButtonGroup>
-              </Flex>
             </GridItem>
           ) }
           { SHOW_COMMENTS && !!deck.published && (

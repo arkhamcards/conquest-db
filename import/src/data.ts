@@ -54,6 +54,7 @@ export const TABLES: { [key: string]: Table } = {
       'position',
       'back_attack',
       'back_health',
+      'signature_id',
     ],
     textFields: [
       'name',
@@ -64,6 +65,7 @@ export const TABLES: { [key: string]: Table } = {
       'back_traits',
       'back_text',
       'back_flavor',
+      'keywords',
     ],
     foreignKeys: {
       type_id: 'type',

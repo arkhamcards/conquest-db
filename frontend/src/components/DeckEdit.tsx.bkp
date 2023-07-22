@@ -95,12 +95,9 @@ interface DeckOption extends OptionBase {
   value: string;
   label: string;
   deck: StarterDeck;
-  background: string | undefined;
-  specialty: string | undefined;
-  role: CardFragment | undefined;
 }
 
-function StarterDeckOption({ deck, role, background, specialty }: DeckOption) {
+function StarterDeckOption({ deck }: DeckOption) {
   if (!role) {
     return null;
   }
@@ -133,20 +130,15 @@ function StarterDeckSelect({ deck, onChange, roleCards }: {
   deck: StarterDeck | undefined;
   onChange: (starterDeck: StarterDeck | undefined) => void;
 }) {
-  const { categories } = useLocale();
   const deckToOption = useCallback((deck: StarterDeck) => {
     const role = roleCards[deck.meta.role];
-    const background = categories.background?.options[deck.meta.background];
-    const specialty = categories.specialty?.options[deck.meta.specialty];
     return {
       value: deck.meta.role,
-      label: `${background} / ${specialty}`,
+      label: `foo`,
       deck,
-      background,
-      specialty,
       role,
     };
-  }, [categories, roleCards]);
+  }, [roleCards]);
   const options: DeckOption[] = useMemo(() => map(STARTER_DECKS, (d) => deckToOption(d)), [deckToOption]);
   const handleChange = useCallback((option: SingleValue<DeckOption>) => {
     onChange(option?.deck);
@@ -571,32 +563,11 @@ function UpgradeDeckbuildingTabs({ showCard, showCollectionCard, showDisplacedCa
     <>
       <Tabs onChange={setTabIndex} index={tabIndex} minHeight={[0, "50vh"]}>
         <TabList overflowX="scroll" overflowY="hidden">
-          <Tab>{t`Rewards`}</Tab>
-          <Tab>{t`Maladies`}</Tab>
           <Tab>{t`Collection`}</Tab>
           <Tab>{t`Displaced cards`}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
-            <SpoilerCardList
-              unlocked={unlockedRewards}
-              cards={rewardCards}
-              showCard={showCard}
-              renderControl={renderControl}
-              upsellText={!unlockedRewards ? t`You can add this deck to a campaign to track rewards you have unlocked as a group.` : undefined}
-            />
-          </TabPanel>
-          <TabPanel>
-            <SpoilerCardList
-              cards={maladyCards}
-              showCard={showCard}
-              renderControl={renderControl}
-            />
-          </TabPanel>
-          <TabPanel>
-            <Text fontSize="sm" marginBottom={2}>
-              {t`Some campaign events may allow you to permanently swap cards from your deck with those from the collection.`}
-            </Text>
             <Text fontSize="sm" marginBottom={2}>
               <Trans>
                 After selecting a new collection card and removing one from your deck, you can ‘return’ a card to the collection using the <Link textDecorationLine="underline" onClick={focusDisplaced}>displaced cards</Link> tab.
@@ -736,16 +707,13 @@ export default function DeckEdit({ deck, cards }: Props) {
 
   const background: string | undefined = typeof meta.background === 'string' ? meta.background : undefined;
   const specialty: string | undefined = typeof meta.specialty === 'string' ? meta.specialty : undefined;
-  const { categories } = useLocale();
   const parsedDeck = useMemo(() => parseDeck(
-    stats,
+    deck,
     meta,
     slots,
     sideSlots,
     cards,
-    categories,
-    deck.previous_deck ? pick(deck.previous_deck, ['meta', 'slots', 'side_slots']) : undefined
-  ), [stats, deck.previous_deck, categories, meta, slots, sideSlots, cards]);
+  ), [meta, slots, sideSlots, cards]);
   const setRole = useCallback((role: string) => {
     setMeta({
       ...meta,
@@ -756,7 +724,6 @@ export default function DeckEdit({ deck, cards }: Props) {
     parsedDeck,
     cards,
     showCard,
-    !deck.previous_deck ? setRole : undefined
   );
   const setUpgrade = useCallback(() => {
     setMeta({
@@ -769,22 +736,13 @@ export default function DeckEdit({ deck, cards }: Props) {
   const [name, setName] = useState(deck.name);
 
   const hasEdits: boolean = useMemo(() => {
-    const statChange = !!find(stats, (value, stat) => {
-      switch (stat) {
-        case 'awa': return deck.awa !== value;
-        case 'spi': return deck.spi !== value;
-        case 'foc': return deck.foc !== value;
-        case 'fit': return deck.fit !== value;
-        default: return false;
-      }
-    });
     const metaChange = !!find(union(keys(deck.meta), keys(meta)), (key) => {
       return (!!deck.meta[key] !== !!meta[key]) || deck.meta[key] !== meta[key];
     });
     const slotChange = !!find(union(keys(deck.slots), keys(slots)), (key) => {
       return (!!deck.slots[key] !== !!slots[key]) || deck.slots[key] !== slots[key];
     })
-    return statChange || metaChange || slotChange || name !== deck.name;
+    return metaChange || slotChange || name !== deck.name;
   }, [deck, stats, meta, slots, name]);
   const [saveDeck] = useSaveDeckMutation();
   const [saveError, setSaveError] = useState<string | undefined>();
@@ -795,7 +753,6 @@ export default function DeckEdit({ deck, cards }: Props) {
       sortBy([
         ...(invalidAspectError),
         ...(parsedDeck.problem || []),
-        ...(parsedDeck.roleProblems || []),
       ], x => x) : undefined;
     const r = await saveDeck({
       variables: {
@@ -807,10 +764,6 @@ export default function DeckEdit({ deck, cards }: Props) {
         slots,
         sideSlots,
         name,
-        awa: stats.awa,
-        foc: stats.foc,
-        fit: stats.fit,
-        spi: stats.spi,
       },
     });
     if (!r.errors) {
@@ -942,7 +895,6 @@ export default function DeckEdit({ deck, cards }: Props) {
 
 const SHOW_ASPECTS = false;
 export function useNewDeckModal(roleCards: CardsMap): [() => void, React.ReactNode] {
-  const { categories } = useLocale();
   const { authUser } = useAuth();
   const [name, setName] = useState('');
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -952,19 +904,8 @@ export function useNewDeckModal(roleCards: CardsMap): [() => void, React.ReactNo
   const [meta, setMeta] = useState<DeckMeta>({});
   const [aspectEditor, aspectError] = useAspectEditor(stats, setStats);
   const placeholderDeckName = useMemo(() => {
-    const background = meta.background && categories.background?.options[meta.background];
-    const specialty = meta.specialty && categories.specialty?.options[meta.specialty];
-    if (background && specialty) {
-      return `${background} - ${specialty}`;
-    }
-    if (background) {
-      return background;
-    }
-    if (specialty) {
-      return specialty;
-    }
     return t`Name your character`;
-  }, [meta, categories]);
+  }, [meta]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const onCreateDeck = useCallback(async() => {
@@ -1033,18 +974,12 @@ export function useNewDeckModal(roleCards: CardsMap): [() => void, React.ReactNo
     if (!authUser || !starter) {
       return;
     }
-    const background = starter.meta.background && categories.background?.options[starter.meta.background];
-    const specialty = starter.meta.specialty && categories.specialty?.options[starter.meta.specialty];
-    const deckName = name || t`${background} - ${specialty} (Starter)`;
+    const deckName = name || 'foo';
     setSubmitting(true);
     setError(undefined);
     const result = await createDeck({
       variables: {
         name: deckName,
-        foc: starter.foc,
-        awa: starter.awa,
-        spi: starter.spi,
-        fit: starter.fit,
         meta: starter.meta,
         slots: starter.slots,
       },
@@ -1058,7 +993,7 @@ export function useNewDeckModal(roleCards: CardsMap): [() => void, React.ReactNo
         Router.push(`/decks/view/${result.data.deck.id}`);
       }
     }
-  }, [starter, createDeck, categories, authUser, name, onClose]);
+  }, [starter, createDeck, authUser, name, onClose]);
   return [
     showModal,
     <Modal key="modal" isOpen={isOpen} onClose={onClose}>

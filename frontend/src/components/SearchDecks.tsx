@@ -8,12 +8,7 @@ import { SearchDeckList } from './DeckList';
 import PaginationWrapper from './PaginationWrapper';
 
 interface Props {
-  roleCards: CardsMap;
   userId?: string;
-  awa?: number;
-  fit?: number;
-  spi?: number;
-  foc?: number;
   background?: string[];
   specialty?: string[];
   roles?: string[];
@@ -22,10 +17,9 @@ interface Props {
 }
 
 export default function SearchDecks({
-  roleCards,
   emptyMessage,
   pageSize = 10,
-  userId, awa, spi, foc, fit, background, specialty, roles,
+  userId, background, specialty, roles,
 }: Props) {
   const [fetchMore, data] = useSearchDecksLazyQuery({
     variables: {},
@@ -39,18 +33,6 @@ export default function SearchDecks({
     };
     if (userId) {
       variables.userId = userId;
-    }
-    if (awa) {
-      variables.awa = awa;
-    }
-    if (fit) {
-      variables.fit = fit;
-    }
-    if (foc) {
-      variables.foc = foc;
-    }
-    if (spi) {
-      variables.spi = spi;
     }
     if (background?.length) {
       variables.background = `{${background.join(',')}}`;
@@ -70,7 +52,7 @@ export default function SearchDecks({
     }
     setDecks(decks);
     return decks;
-  }, [fetchMore, setDecks, setTotal, userId, awa, fit, foc, spi, background, specialty, roles]);
+  }, [fetchMore, setDecks, setTotal, userId, background, specialty, roles]);
 
 
   return (
@@ -83,7 +65,6 @@ export default function SearchDecks({
       { (decks: SearchDeckFragment[]) => (
         <SearchDeckList
           decks={decks}
-          roleCards={roleCards}
           emptyMessage={emptyMessage}
         />
       ) }

@@ -7,11 +7,11 @@ fragment UserProfile on conquest_users {
 fragment NavProfile on conquest_users {
   id
   handle
-  received_requests_aggregate {
-    aggregate {
-      count
-    }
-  }
+  #received_requests_aggregate {
+  #  aggregate {
+  #    count
+  #  }
+  #}
 }
 
 query getNavProfile($id: String!) {

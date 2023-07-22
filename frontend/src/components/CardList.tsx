@@ -11,7 +11,6 @@ import { useLocale } from '../lib/TranslationProvider';
 import ListHeader from './ListHeader';
 import { useCardSearchControls } from './CardFilter';
 import { useTheme } from '../lib/ThemeContext';
-import { BaseOptions } from 'vm';
 import CardImage, { CardImagePlaceholder } from './CardImage';
 import { useAllCards } from '../lib/cards';
 
@@ -52,13 +51,11 @@ type ItemSection = {
   items: CardItem[];
 }
 
-
+const EMPTY_CARDS: CardFragment[] = [];
 export default function CardList() {
   const cards = useAllCards();
+  const standardCards = cards ?? EMPTY_CARDS;
   const [showCard, modal] = useCardModal();
-  const [standardCards, rewardCards] = useMemo(() => {
-    return partition(cards, c => c.set_id !== 'reward' && c.set_id !== 'malady');
-  }, [cards]);
 
   const [controls, hasFilters, filterCard] = useCardSearchControls(standardCards, 'all');
   if (!cards) {
@@ -69,7 +66,6 @@ export default function CardList() {
       <Tabs width="100%">
         <TabList>
           <Tab>{t`Ranger`}</Tab>
-          <Tab>{t`Rewards and Maladies`}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -79,14 +75,6 @@ export default function CardList() {
               showCard={showCard}
               filter={filterCard}
               hasFilters={hasFilters}
-              hasOptions
-            />
-          </TabPanel>
-          <TabPanel>
-            <SpoilerCardList
-              cards={rewardCards}
-              showCard={showCard}
-              header="set"
               hasOptions
             />
           </TabPanel>
@@ -155,6 +143,7 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
     forEach(visibleCards, card => {
       switch (header) {
         case 'set':
+          /*
           if (card.set_name && card.set_name !== currentHeader) {
             if (currentSection.items.length || currentSection.title) {
               sections.push(currentSection);
@@ -164,9 +153,10 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
               title: currentHeader,
               items: [],
             }
-          }
+          }*/
           break;
         case 'aspect':
+          /*
           if (card.aspect_name && card.aspect_name !== currentHeader) {
             if (currentSection.items.length || currentSection.title) {
               sections.push(currentSection);
@@ -178,6 +168,7 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
               items: [],
             }
           }
+          */
           break;
         case 'none':
           break;

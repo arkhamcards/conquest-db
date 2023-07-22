@@ -9,7 +9,6 @@ import LoadingPage from '../../components/LoadingPage';
 import CoreIcon from '../../icons/CoreIcon';
 import SearchDecks from '../../components/SearchDecks';
 import { useLocale } from '../../lib/TranslationProvider';
-import { useRoleCardsMap } from '../../lib/cards';
 import { getLocalizationServerSideProps } from '../../lib/Lingui';
 
 export default function ProfilePage() {
@@ -31,7 +30,6 @@ export default function ProfilePage() {
     }
     return [data.profile[0], undefined];
   }, [data, loading, isReady, handle]);
-  const roleCards = useRoleCardsMap();
   if (loading || !isReady) {
     return <LoadingPage />;
   }
@@ -73,7 +71,6 @@ export default function ProfilePage() {
           <Heading size="md">{t`Published decks`}</Heading>
           <Box marginTop={2} paddingLeft="1em" borderLeftWidth="1px">
             <SearchDecks
-              roleCards={roleCards}
               userId={user.id}
               pageSize={5}
               emptyMessage={t`No published decks.`}

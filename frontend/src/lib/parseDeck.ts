@@ -3,7 +3,7 @@ import { t } from '@lingui/macro';
 
 import { AspectStats, AWA, DeckCardError, DeckError, DeckMeta, FIT, FOC, Slots, SPI } from '../types/types';
 import { CardsMap, CategoryTranslations } from '../lib/hooks';
-import { CardFragment } from '../generated/graphql/apollo-schema';
+import { CardFragment, DeckFragment } from '../generated/graphql/apollo-schema';
 
 export interface HeaderItem {
   type: 'header';
@@ -84,41 +84,23 @@ function computeDeckChanges(
   };
 }
 export interface ParsedDeck {
-  stats: AspectStats;
-  background: string | undefined;
-  specialty: string | undefined;
-  role: CardFragment | undefined;
-
   problem: DeckError[] | undefined;
-  roleProblems: DeckError[] | undefined;
   cards: Item[];
   loading: boolean;
   deckSize: number;
-  maladyCount: number;
-
-  changes?: DeckChanges;
 }
 export default function parseDeck(
-  aspects: AspectStats,
+  deck: DeckFragment,
   meta: DeckMeta,
   slots: Slots,
   sideSlots: Slots,
   cards: CardsMap,
-  categoryTranslations: CategoryTranslations,
-  previousDeck: { meta?: DeckMeta; slots?: Slots; side_slots?: Slots } | undefined
 ): ParsedDeck {
   const missingCards: string[] = [];
-  const stats: { [key: string]: number } = {
-    [AWA]: aspects.awa,
-    [FIT]: aspects.fit,
-    [FOC]: aspects.foc,
-    [SPI]: aspects.spi,
-  };
   const role = typeof meta.role === 'string' ? meta.role : '';
   const roleCard = role ? cards[role] : undefined;
   const background = typeof meta.background === 'string' ? meta.background : undefined;
   const specialty = typeof meta.specialty === 'string' ? meta.specialty : undefined;
-  const isUpgrade = !!previousDeck || !!(typeof meta.campaign === 'boolean' ? meta.campaign : undefined);
   let items: CardItem[] = flatMap(slots, (count, code) => {
     if (typeof count !== 'number' || count === 0) {
       return [];
@@ -129,6 +111,7 @@ export default function parseDeck(
       return [];
     }
     const problems: DeckCardError[] = [];
+    /*
     if (count > 2) {
       if (card.set_id !== 'malady') {
         problems.push('too_many_duplicates');
@@ -140,7 +123,7 @@ export default function parseDeck(
       if (stats[card.aspect_id] < card.level) {
         problems.push('invalid_aspect_levels');
       }
-    }
+    }*/
     return {
       type: 'card',
       id: code,
@@ -150,26 +133,13 @@ export default function parseDeck(
     };
   });
   const globalProblems: DeckError[] = [];
-  const roleProblems: DeckError[] = [];
-
-  if (!roleCard) {
-    roleProblems.push('role');
-  } else if (roleCard.set_type_id !== 'specialty' || roleCard.type_id !== 'role' || roleCard.set_id !== specialty) {
-    roleProblems.push('invalid_role');
-  }
   const backgroundErrors: DeckError[] = [];
   const specialtyErrors: DeckError[] = [];
   const outsideInterestErrors: DeckError[] = [];
   const personalityErrors: DeckError[] = [];
   let splashFaction: 'background' | 'specialty' | undefined = undefined;
-  const deckSize = sumBy(items, i => i.type === 'card' && i.card.set_id !== 'malady' ? i.count : 0);
-  if (isUpgrade) {
-    if (deckSize < 30) {
-      globalProblems.push('too_few_cards');
-    } else if (deckSize > 30) {
-      globalProblems.push('too_many_cards');
-    }
-  } else {
+  const deckSize = sumBy(items, i => i.type === 'card' ? i.count : 0);
+/*
     // Starting decks have more rules.
     let backgroundNonExpert = 0;
     let backgroundCount = 0;
@@ -297,9 +267,9 @@ export default function parseDeck(
     if (splashCount < 2) {
       outsideInterestErrors.push('outside_interest');
     }
-  }
-  const backgroundName = background && categoryTranslations.background?.options[background];
-  const specialtyName = specialty && categoryTranslations.specialty?.options[specialty];
+  */
+  const backgroundName = background && 'foo';
+  const specialtyName = specialty && 'bar';
   const personalityCards: Item[] = [
     {
       type: 'header',
@@ -340,6 +310,7 @@ export default function parseDeck(
       problem: undefined,
     },
   ];
+  /*
   forEach(items, i => {
     if (i.type === 'card') {
       if (i.card.set_id === 'personality') {
@@ -365,24 +336,7 @@ export default function parseDeck(
       otherCards.push(i);
     }
   });
-  if (splashFaction) {
-    switch (splashFaction) {
-      case 'background':
-        outsideInterestCards.push({
-          type: 'description',
-          id: 'splash',
-          description: t`One of the chosen background cards is counting towards outside interest.`,
-        });
-        break;
-      case 'specialty':
-        outsideInterestCards.push({
-          type: 'description',
-          id: 'splash',
-          description: t`One of the chosen specialty cards is counting towards outside interest.`,
-        });
-        break;
-    }
-  }
+  */
 
   const result = [
     ...personalityCards,
@@ -392,19 +346,12 @@ export default function parseDeck(
     ...(otherCards.length > 1 || otherCards[0].problem?.length ? otherCards : []),
   ];
   return {
-    stats: aspects,
-    background,
-    specialty,
-    role: roleCard,
     problem: uniq([
       ...globalProblems,
       ...flatMap(result, i => i.problem || []),
     ]),
-    roleProblems,
     cards: result,
     loading: missingCards.length > 0,
     deckSize,
-    maladyCount: sumBy(items, i => i.type === 'card' && i.card.set_id === 'malady' ? i.count : 0),
-    changes: computeDeckChanges(slots, sideSlots, previousDeck),
   };
 }

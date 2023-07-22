@@ -6,7 +6,7 @@ import { flatMap, map, values, groupBy } from 'lodash';
 
 import PageHeading from '../../components/PageHeading';
 import { CardFragment } from '../../generated/graphql/apollo-schema';
-import { CardsMap, CategoryTranslation } from '../../lib/hooks';
+import { CardsMap } from '../../lib/hooks';
 import { useLocale } from '../../lib/TranslationProvider';
 import SearchDecks from '../../components/SearchDecks';
 import { useRoleCardsMap } from '../../lib/cards';
@@ -47,15 +47,10 @@ function RoleSelect({ roleCards, onChange, roles, specialty }: {
   onChange: (selection: string[]) => void;
 }) {
   const options = useMemo(() => {
-    const roleSet = roles?.length ? new Set(roles) : undefined;
-    const specialtySet = specialty?.length ? new Set(specialty) : undefined;
     return map(
       groupBy(
         flatMap(values(roleCards), (card) => {
-          if (!card || !card.set_id || card.type_id !== 'role' || !card.id || !card.name) {
-            return [];
-          }
-          if (specialtySet && !specialtySet.has(card.set_id) && (!roleSet || !roleSet.has(card.id))) {
+          if (!card || !card.id || !card.name) {
             return [];
           }
           return {
@@ -64,7 +59,7 @@ function RoleSelect({ roleCards, onChange, roles, specialty }: {
             card: card,
           };
         }),
-        c => c.card.set_name
+        c => c.card.name
       ),
       (group, set_name) => {
         return {
@@ -90,17 +85,9 @@ function RoleSelect({ roleCards, onChange, roles, specialty }: {
 
 export default function Search() {
   const [userId, setUserId] = useState<string>();
-  const [foc, setFoc] = useState<number>();
-  const [fit, setFit] = useState<number>();
-  const [awa, setAwa] = useState<number>();
-  const [spi, setSpi] = useState<number>();
   const [background, setBackground] = useState<string[]>();
   const [specialty, setSpecialty] = useState<string[]>();
   const [roles, setRole] = useState<string[]>();
-  const roleCards = useRoleCardsMap();
-  const { categories } = useLocale();
-  const backgroundT = categories.background;
-  const specialtyT = categories.specialty;
   return (
     <Box
       maxW="64rem"
@@ -112,19 +99,11 @@ export default function Search() {
       <form onSubmit={e => {
           e.preventDefault();
         }}>
-        { !!backgroundT && <CategorySelect category={backgroundT} onChange={setBackground} /> }
-        { !!specialtyT && <CategorySelect category={specialtyT} onChange={setSpecialty} /> }
-        <RoleSelect roleCards={roleCards} roles={roles} onChange={setRole} specialty={specialty} />
       </form>
       <SearchDecks
-        roleCards={roleCards}
         background={background}
         specialty={specialty}
         roles={roles}
-        awa={awa}
-        spi={spi}
-        foc={foc}
-        fit={fit}
         userId={userId}
         pageSize={5}
         emptyMessage={t`No matching decks.`}

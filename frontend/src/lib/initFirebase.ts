@@ -4,12 +4,12 @@ import { getAuth } from 'firebase/auth';
 import { getFunctions } from 'firebase/functions';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDodDkZvw1vYWul3zM0vo8tnAJFrbYQqbg",
-  authDomain: "rangers-db.firebaseapp.com",
-  projectId: "rangers-db",
-  storageBucket: "rangers-db.appspot.com",
-  messagingSenderId: "1008645024562",
-  appId: "1:1008645024562:web:91b8d35ee4be117fda052b"
+  apiKey: "AIzaSyC0LJSi5gwY2yfWxUkcS_cL6lodd2ss2Ec",
+  authDomain: "conquest-db.firebaseapp.com",
+  projectId: "conquest-db",
+  storageBucket: "conquest-db.appspot.com",
+  messagingSenderId: "760600472805",
+  appId: "1:760600472805:web:0d1133e4c759d62ee3780c"
 };
 
 function createFirebaseApp(config: FirebaseOptions) {

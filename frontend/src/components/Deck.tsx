@@ -61,14 +61,10 @@ function DeckCardRow({ item, showCard }: { item: CardItem; showCard: (card: Card
 }
 
 export function DeckCountLine({ parsedDeck }: { parsedDeck: ParsedDeck }) {
-  if (parsedDeck.maladyCount === 0 && parsedDeck.deckSize === 30) {
-    return null;
-  }
   const deckCountLine = parsedDeck.deckSize === 30 ? t`30 Cards` : t`${parsedDeck.deckSize} / 30 Cards`;
-  const maladyLine = parsedDeck.maladyCount > 0 ? plural(parsedDeck.maladyCount, { one: `(${parsedDeck.maladyCount} Malady)`, other: `(${parsedDeck.maladyCount} Maladies)`}) : '';
   return (
     <Text>
-      { filter([deckCountLine, maladyLine], x => !!x).join(' ') }
+      { filter([deckCountLine], x => !!x).join(' ') }
     </Text>
   );
 }
@@ -90,21 +86,18 @@ export function MiniAspect({ value, aspect, extraSmall }: { value: number | null
   );
 }
 
-export function DeckDescription({ deck, roleCards, ...textProps }: {
+export function DeckDescription({ deck, ...textProps }: {
   deck: DeckFragment | SearchDeckFragment;
-  roleCards?: CardsMap;
 } & Omit<TextProps, 'text'>) {
-  const { categories } = useLocale();
   const background: string | undefined = typeof deck.meta.background === 'string' ? deck.meta.background : undefined;
   const specialty: string | undefined = typeof deck.meta.specialty === 'string' ? deck.meta.specialty : undefined;
   const role: string | undefined = typeof deck.meta.role === 'string' ? deck.meta.role : undefined;
   const description = useMemo(() => {
     return filter([
-      background && categories.background?.options?.[background],
-      specialty && categories.specialty?.options?.[specialty],
-      roleCards && role && roleCards[role]?.name,
+      background,
+      specialty,
     ], x => !!x).join(' - ');
-  }, [categories, roleCards, background, specialty, role]);
+  }, [background, specialty, role]);
   return <Text {...textProps}>{description}</Text>
 }
 
@@ -143,15 +136,9 @@ export function CompactDeckRow({ deck, roleCards, onClick, children, buttons, hr
             <Text fontSize={['md', 'md', 'lg']}>{deck.name}</Text>
           ) }
           { children }
-          <DeckDescription fontSize={['xs', 's', 'm']} deck={deck} roleCards={roleCards} />
+          <DeckDescription fontSize={['xs', 's', 'm']} deck={deck} />
           { !!deck.meta.problem && <DeckProblemComponent errors={deck.meta.problem} limit={1} /> }
         </Flex>
-        <SimpleGrid columns={2} marginRight={1}>
-          <MiniAspect aspect="AWA" value={deck.awa} />
-          <MiniAspect aspect="SPI" value={deck.spi} />
-          <MiniAspect aspect="FIT" value={deck.fit} />
-          <MiniAspect aspect="FOC" value={deck.foc} />
-        </SimpleGrid>
       </Flex>
       { buttons }
     </Flex>

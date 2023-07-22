@@ -42,6 +42,8 @@ function renderNumber(value: number) {
 
 function AspectLevel({ card, mini }: { card: CardFragment; mini?: boolean }) {
   const { aspects} = useLocale();
+  return null;
+  /*
   const aspect = card.aspect_id && aspects[card.aspect_id];
   if (!aspect) {
     return null;
@@ -64,8 +66,11 @@ function AspectLevel({ card, mini }: { card: CardFragment; mini?: boolean }) {
       </Text>
     </Box>
   );
+  */
 }
 function FooterInfo({ card }: { card: CardFragment }) {
+  return null;
+  /*
   return (
     <Flex direction="row" justifyContent="flex-start" alignItems="flex-end">
       <Flex direction="row" justifyContent="flex-end" flex={1}>
@@ -78,6 +83,7 @@ function FooterInfo({ card }: { card: CardFragment }) {
       </Flex>
     </Flex>
   );
+  */
 }
 
 function Equip({ equip, aspect }: { equip: number; aspect?: string }) {
@@ -163,6 +169,8 @@ function ApproachIcon({ type, mini }: { type: 'conflict' | 'reason' | 'connectio
   )
 }
 function ApproachIcons({ card, mini }: { card: CardFragment; mini?: boolean }) {
+  return null;
+  /*
   return (
     <Flex direction="row">
       { map(range(0, card.approach_conflict || 0), idx => <ApproachIcon type="conflict" key={idx} mini={mini} /> ) }
@@ -170,10 +178,12 @@ function ApproachIcons({ card, mini }: { card: CardFragment; mini?: boolean }) {
       { map(range(0, card.approach_exploration || 0), idx => <ApproachIcon type="exploration" key={idx} mini={mini} /> ) }
       { map(range(0, card.approach_reason || 0), idx => <ApproachIcon type="reason" key={idx} mini={mini} /> ) }
     </Flex>
-  );
+  );*/
 }
 
 function Tokens({ count, name, plurals, aspect, aspectId }: { count: number; name: string; plurals: string; aspect: Aspect | undefined; aspectId: string | undefined | null }) {
+  return null;
+  /*
   return (
     <Flex
       bg={aspectId ? `aspect.${aspectId}` : undefined}
@@ -200,10 +210,12 @@ function Tokens({ count, name, plurals, aspect, aspectId }: { count: number; nam
         </Text>
       ) }
     </Flex>
-  );
+  );*/
 }
 
 function CardPresenceAndIcons({ card, mini }: { card: CardFragment; mini?: boolean }) {
+  return null;
+  /*
   return (
     <Flex direction="row" flex={1} alignItems="flex-start" justifyContent="flex-end" backgroundClip="blue">
       { (card.presence !== undefined && card.presence !== null) && (
@@ -216,6 +228,7 @@ function CardPresenceAndIcons({ card, mini }: { card: CardFragment; mini?: boole
       <ApproachIcons card={card} mini={mini} />
     </Flex>
   );
+  */
 }
 
 export function CardHeader({
@@ -235,6 +248,8 @@ export function CardHeader({
   children?: React.ReactNode;
 }) {
   const { aspects, locale } = useLocale();
+  return <Text>{card.name}</Text>;
+  /*
   const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
   const cardTraits = card.traits && locale === 'de'
       ? card.traits.split(' / ').map((item) => '¬' + item).join(' / ')
@@ -289,6 +304,7 @@ export function CardHeader({
       ) : <CardPresenceAndIcons card={card} /> }
     </Flex>
   );
+  */
 }
 
 function CardImageSection({ card, detail }: { card: CardFragment; detail?: boolean }) {
@@ -305,6 +321,8 @@ function CardImageSection({ card, detail }: { card: CardFragment; detail?: boole
 
 function CardBody({ card, padding, problem, count, detail, noImage }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean }) {
   const { aspects } = useLocale();
+  return <Text>{card.text}</Text>;
+  /*
   const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
   return (
     <Flex direction={['column', 'column', 'row']} width="100%">
@@ -347,12 +365,12 @@ function CardBody({ card, padding, problem, count, detail, noImage }: Props & { 
         </Flex>
       ) }
   </Flex>
-  );
+  );*/
 }
 
 export default function Card({ card, noImage }: Props) {
   return (
-    <Box borderWidth={1} margin={2} borderColor={card.aspect_id ? `aspect.${card.aspect_id}` : '#222222'}>
+    <Box borderWidth={1} margin={2} /*borderColor={card.aspect_id ? `aspect.${card.aspect_id}` : '#222222'}*/>
       <Box padding={2}>
         <CardHeader card={card} />
       </Box>

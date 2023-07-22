@@ -52,10 +52,6 @@ function useNavItems(authUser: AuthUser | undefined): Array<NavItem> {
       href: '/decks',
     },
     {
-      label: t`My Campaigns`,
-      href: '/campaigns',
-    },
-    {
       label: t`Cards`,
       href: '/cards',
     },
@@ -122,7 +118,6 @@ export default function WithSubnavigation() {
     skip: !authUser,
   });
   const noHandle = !loading && !profileLoading && !!authUser && !data?.profile?.handle;
-  const pendingFriendRequests = (data?.profile?.received_requests_aggregate.aggregate?.count || 0) > 0;
   return (
     <Box>
       <Flex
@@ -186,11 +181,7 @@ export default function WithSubnavigation() {
                 as={IconButton}
                 variant="ghost"
                 color={colors.icon}
-                icon={(
-                  <Avatar size="xs">
-                    { noHandle || pendingFriendRequests ? <AvatarBadge borderColor='papayawhip' bg='tomato' boxSize='1.25em'/> : null}
-                  </Avatar>
-                )}
+                icon={<Avatar size="xs" />}
               />
               <MenuList>
                 { authUser ? (
