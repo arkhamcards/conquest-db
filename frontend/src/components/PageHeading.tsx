@@ -7,7 +7,7 @@ export default function PageHeading({ title, titleNode, children, subHeader }: {
   return (
     <>
       <Head>
-        <title>{title} - {t`RangersDB`}</title>
+        <title>{title} - {t`ConquestDB`}</title>
       </Head>
       <Box paddingTop="2rem" paddingBottom="2em">
         { children ? (

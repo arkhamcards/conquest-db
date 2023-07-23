@@ -37,7 +37,7 @@ export default function ProfilePage() {
     return (
       <>
         <Head>
-          <title>{handle} - {t`RangersDB`}</title>
+          <title>{handle} - {t`ConquestDB`}</title>
         </Head>
         <Box
           maxW="64rem"
@@ -54,7 +54,7 @@ export default function ProfilePage() {
   return (
     <>
       <Head>
-        <title>{user.handle} - {t`RangersDB`}</title>
+        <title>{user.handle} - {t`ConquestDB`}</title>
       </Head>
       <Box
         maxW="64rem"

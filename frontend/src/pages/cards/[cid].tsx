@@ -28,8 +28,8 @@ export default function CardPage() {
     <>
       { !!card && (
         <Head>
-          <title>{card.name} - {t`RangersDB`}</title>
-          <meta property="og:title" content={`${card.name} - ${t`RangersDB`}`} />
+          <title>{card.name} - {t`ConquestDB`}</title>
+          <meta property="og:title" content={`${card.name} - ${t`ConquestDB`}`} />
           <meta property="og:description" content={card.text || ''} />
         </Head>
       )}

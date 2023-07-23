@@ -12,7 +12,7 @@ function Home() {
     <>
       <Head>
         <title>
-          {t`RangersDB`}
+          {t`ConquestDB`}
         </title>
       </Head>
       <Container minH="lg">

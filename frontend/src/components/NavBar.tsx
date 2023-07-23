@@ -151,7 +151,7 @@ export default function WithSubnavigation() {
             as={NextLink}
             href="/"
           >
-            {t`RangersDB`}
+            {t`ConquestDB`}
           </Link>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav navItems={navItems}/>

@@ -51,7 +51,7 @@ export default function ViewDeckPage() {
   return (
     <>
      <Head>
-        <title>{deck?.name || t`Deck`} - {t`RangersDB`}</title>
+        <title>{deck?.name || t`Deck`} - {t`ConquestDB`}</title>
       </Head>
       <Box
         maxW="64rem"
