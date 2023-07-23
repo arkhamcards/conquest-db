@@ -5,7 +5,6 @@ import { find, flatMap, sortBy } from 'lodash';
 import { t } from '@lingui/macro';
 
 import { useLocale } from '../lib/TranslationProvider';
-import { LocationIcon } from '../icons/LocationIcon';
 import { MapLocation } from '../types/types';
 
 export interface MapLocationOption extends OptionBase {
@@ -38,7 +37,6 @@ export default function MapLocationSelect({ value, setValue, decoration, filter:
           name: loc.name,
           label: (
             <Flex direction="row" alignItems="center">
-              <LocationIcon location={loc} size={64} />
               <Flex direction="column" marginLeft={2} justifyContent="center" alignItems="flex-start">
                 <Text>{loc.name}</Text>
                 { !!decoration && decoration(loc) }

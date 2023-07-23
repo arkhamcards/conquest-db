@@ -174,6 +174,9 @@ async function importMetadata() {
         const card = data[k];
         const id = card.id;
         card.pack_id = pack_id;
+        if (card.text) {
+          card.text = card.text.replace(/<br\/>\s+/g, '\n');
+        }
         try {
           const path = `${pack_id}/${card.id}.jpg`;
           await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);

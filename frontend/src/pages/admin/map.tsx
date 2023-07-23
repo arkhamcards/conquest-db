@@ -5,7 +5,6 @@ import { t } from '@lingui/macro'
 
 import { useLocale } from '../../lib/TranslationProvider';
 import { MapLocation } from '../../types/types';
-import { LocationIcon, PathIcon } from '../../icons/LocationIcon';
 
 function LocationRow({ location, cycle }: { location: MapLocation; cycle: string }) {
   const { locations, paths } = useLocale();
@@ -14,7 +13,6 @@ function LocationRow({ location, cycle }: { location: MapLocation; cycle: string
     <ListItem key={location?.id}>
       <Flex direction="column">
         <Flex direction="row" alignItems="center">
-          <LocationIcon location={location} size={48} />
           <Text marginLeft={2}>{location.name}</Text>
         </Flex>
         <Flex direction="column" marginLeft={2} paddingLeft={2} borderLeftWidth="1px">
@@ -29,9 +27,7 @@ function LocationRow({ location, cycle }: { location: MapLocation; cycle: string
             const path = paths[connection.path];
             return (
               <Flex key={connection.id} direction="row" alignItems="center" padding={2}>
-                <LocationIcon location={loc} size={32} />
                 <Text marginLeft={2} marginRight={2}>{loc.name}</Text>
-                { !!path && <PathIcon path={path} size={32} /> }
               </Flex>
             );
           }) }

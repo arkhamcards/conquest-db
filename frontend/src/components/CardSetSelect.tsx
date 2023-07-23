@@ -5,7 +5,6 @@ import { find, flatMap, sortBy, map } from 'lodash';
 import { t } from '@lingui/macro';
 
 import { useLocale } from '../lib/TranslationProvider';
-import { LocationIcon, PathIcon } from '../icons/LocationIcon';
 import { MapLocationOption } from './MapLocationSelect';
 import { PathOption } from './PathTypeSelect';
 import { MapLocation } from '../types/types';
@@ -52,7 +51,6 @@ export default function CardSetSelect({ value, setValue }: Props) {
                 type: 'location',
                 label: (
                   <Flex direction="row" alignItems="center">
-                    <PathIcon path={p} size={48} />
                     <Text marginLeft={2}>{p.name}</Text>
                   </Flex>
                 ),
@@ -75,7 +73,6 @@ export default function CardSetSelect({ value, setValue }: Props) {
                 type: 'location',
                 label: (
                   <Flex direction="row" alignItems="center">
-                    <LocationIcon location={loc} size={64} />
                     <Text marginLeft={2}>{loc.name}</Text>
                   </Flex>
                 ),
@@ -88,7 +85,6 @@ export default function CardSetSelect({ value, setValue }: Props) {
                 type: 'location',
                 label: (
                   <Flex direction="row" alignItems="center">
-                    <LocationIcon location={loc} size={64} />
                     <Text marginLeft={2}>{loc.name}</Text>
                   </Flex>
                 ),
@@ -100,7 +96,6 @@ export default function CardSetSelect({ value, setValue }: Props) {
       },
     ];
   }, [paths, locations]);
-
   const onChange = useCallback((option: SingleValue<MapLocationOption | PathOption>) => {
     if (option && option.value !== value) {
       setValue(option.value);

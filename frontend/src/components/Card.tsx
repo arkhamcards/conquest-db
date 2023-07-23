@@ -153,34 +153,6 @@ function Cost({ cost, aspectId, aspect }: { cost: number | null | undefined; asp
   );
 }
 
-function ApproachIcon({ type, mini }: { type: 'conflict' | 'reason' | 'connection' | 'exploration'; mini?: boolean}) {
-  return (
-    <Flex
-      borderRadius={4}
-      borderWidth="0.25px"
-      borderColor="white"
-      padding={mini ? 0.5 : 1}
-      paddingTop={mini ? 0.5 : 2}
-      paddingBottom={mini ? 0.5 : 2}
-      backgroundColor="black"
-      direction="column" alignItems="center" justifyContent="center" marginLeft={mini ? 0.5 : 1}>
-      <CoreIcon icon={type} size={mini ? 18 : 24} color="white" />
-    </Flex>
-  )
-}
-function ApproachIcons({ card, mini }: { card: CardFragment; mini?: boolean }) {
-  return null;
-  /*
-  return (
-    <Flex direction="row">
-      { map(range(0, card.approach_conflict || 0), idx => <ApproachIcon type="conflict" key={idx} mini={mini} /> ) }
-      { map(range(0, card.approach_connection || 0), idx => <ApproachIcon type="connection" key={idx} mini={mini} /> ) }
-      { map(range(0, card.approach_exploration || 0), idx => <ApproachIcon type="exploration" key={idx} mini={mini} /> ) }
-      { map(range(0, card.approach_reason || 0), idx => <ApproachIcon type="reason" key={idx} mini={mini} /> ) }
-    </Flex>
-  );*/
-}
-
 function Tokens({ count, name, plurals, aspect, aspectId }: { count: number; name: string; plurals: string; aspect: Aspect | undefined; aspectId: string | undefined | null }) {
   return null;
   /*
@@ -321,7 +293,7 @@ function CardImageSection({ card, detail }: { card: CardFragment; detail?: boole
 
 function CardBody({ card, padding, problem, count, detail, noImage }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean }) {
   const { aspects } = useLocale();
-  return <Text>{card.text}</Text>;
+  return <CardText text={card.text} />;
   /*
   const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
   return (

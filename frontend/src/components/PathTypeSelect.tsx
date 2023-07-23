@@ -5,7 +5,6 @@ import { find, flatMap } from 'lodash';
 import { t } from '@lingui/macro';
 
 import { useLocale } from '../lib/TranslationProvider';
-import { PathIcon } from '../icons/LocationIcon';
 
 export interface PathOption extends OptionBase {
   value: string;
@@ -29,7 +28,6 @@ export default function PathTypeSelect({ value, setValue }: Props) {
         label: (
           <Flex direction="row" alignItems="center">
             <Box marginLeft={1} marginRight={3}>
-              <PathIcon path={p} size={48} />
             </Box>
             <Text marginLeft={2}>{p.name}</Text>
           </Flex>
