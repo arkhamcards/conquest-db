@@ -17,6 +17,7 @@ const ICON_MATCH: { [text: string]: string | undefined } = {
   TYRANID: 'tyr_icon',
   NECRON: 'nec_icon',
 };
+
 export function useIconedText(
   text: string | undefined | null,
   options: {

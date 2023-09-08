@@ -11,9 +11,7 @@ import {
   ModalBody,
   ModalCloseButton,
   ModalFooter,
-  AspectRatio,
   useColorMode,
-  Show,
 } from '@chakra-ui/react';
 import { map, range } from 'lodash';
 import { t } from '@lingui/macro';
@@ -21,7 +19,6 @@ import { t } from '@lingui/macro';
 import CardText from './CardText';
 import { CardFragment } from '../generated/graphql/apollo-schema';
 import { Aspect, DeckCardError, DeckError, Slots } from '../types/types';
-import { getPlural } from '../lib/lang';
 import CoreIcon from '../icons/CoreIcon';
 import CardCount from './CardCount';
 import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemComponent';
@@ -110,11 +107,10 @@ function Equip({ equip, aspect }: { equip: number; aspect?: string }) {
   );
 }
 
-function Cost({ cost, aspectId, aspect }: { cost: number | null | undefined; aspectId: string | null | undefined; aspect?: Aspect }) {
+function Cost({ cost }: { cost: number | null | undefined }) {
   const hasCost = cost !== null && cost !== undefined;
   return (
     <Box
-      bg={aspectId ? `aspect.${aspectId}` : `gray.200`}
       paddingTop={1}
       minWidth={12}
       minHeight={12}
@@ -124,17 +120,10 @@ function Cost({ cost, aspectId, aspect }: { cost: number | null | undefined; asp
       marginRight={2}
       position="relative"
     >
-      { !!aspectId && (
-        <Flex direction="column" alignItems="center" justifyContent="center" position="absolute" top="0" left="0" height="100%" width="100%" >
-          <AspectRatio width="90%" ratio={1}>
-            <CoreIcon icon={`${aspectId.toLowerCase()}_chakra`} size={50} color={hasCost ? '#FFFFFF66' : '#FFFFFF99' } />
-          </AspectRatio>
-        </Flex>
-      ) }
       <Flex direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12}>
-        { !!aspect && cost !== null && cost !== undefined && (
+        { cost !== null && cost !== undefined && (
           <Text
-            color={aspect ? 'white' : 'black'}
+            color="black"
             fontSize="2xl"
             fontWeight={900}
             textAlign="center"
@@ -143,47 +132,11 @@ function Cost({ cost, aspectId, aspect }: { cost: number | null | undefined; asp
             { renderNumber(cost) }
           </Text>
         ) }
-        { !!aspect && (
-          <Text textAlign="center" color={aspect ? 'white': 'black'} lineHeight={0.8} fontWeight={600} fontSize="xs">
-            {aspect.short_name}
-          </Text>
-        ) }
       </Flex>
     </Box>
   );
 }
 
-function Tokens({ count, name, plurals, aspect, aspectId }: { count: number; name: string; plurals: string; aspect: Aspect | undefined; aspectId: string | undefined | null }) {
-  return null;
-  /*
-  return (
-    <Flex
-      bg={aspectId ? `aspect.${aspectId}` : undefined}
-      padding={2}
-      paddingTop={1}
-      margin={1}
-      marginRight={0}
-      flexDirection="column"
-      justifyContent="center"
-      alignItems="center"
-    >
-      <Text
-        color={aspect ? '#FFFFFF' : '#000000'}
-        fontSize="2xl"
-        fontWeight={900}
-        textAlign="center"
-        lineHeight={1.1}
-      >
-        {count}
-      </Text>
-      { !!aspect && (
-        <Text color={aspect ? '#FFFFFF': '#000000'} lineHeight={0.8} fontWeight={600} fontSize="xs">
-          { getPlural('en', plurals, count) }
-        </Text>
-      ) }
-    </Flex>
-  );*/
-}
 
 function CardPresenceAndIcons({ card, mini }: { card: CardFragment; mini?: boolean }) {
   return null;
@@ -219,64 +172,83 @@ export function CardHeader({
   includeText?: boolean;
   children?: React.ReactNode;
 }) {
-  const { aspects, locale } = useLocale();
-  return <Text>{card.name}</Text>;
-  /*
-  const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
-  const cardTraits = card.traits && locale === 'de'
-      ? card.traits.split(' / ').map((item) => '¬' + item).join(' / ')
-      : card.traits;
   return (
-    <Flex direction="row" flex={flex} alignItems="flex-start">
+    <Flex direction="row" flex={flex} alignItems="flex-end">
       <Flex direction="row" flexGrow={1} alignItems="flex-start">
-        { card.type_id === 'role' && card.imagesrc ? (
-          <RoleImage name={card.name} url={card.imagesrc} size={includeText ? 'large' : 'small'} />
-        ) : (
-          <Cost cost={card.cost} aspectId={card.aspect_id} aspect={aspect} />
-        ) }
+        <Flex direction="column">
+          { card.type_id === 'warlord' && card.imagesrc ? (
+            <RoleImage name={card.name} url={card.imagesrc} size={includeText ? 'large' : 'small'} />
+          ) : (
+            <Cost cost={card.cost} />
+          ) }
+        </Flex>
         <Flex direction="column"justifyContent="flex-start">
           <Flex direction="column" flex={1}>
             <DeckCardProblemTooltip errors={problem}>
-              <Text
-                fontSize="lg"
-                fontWeight={600}
-                textDecorationLine={problem ? 'line-through' : undefined}
-                noOfLines={2}
-              >
-                { card.name }
-              </Text>
+            <Flex direction="row">
+              { !!card.faction_name && (
+                <Text fontSize="sm">{card.faction_name}</Text>
+              )}
+              { !!card.faction_name && !!card.type_name && <Text ml={2} mr={2} fontSize="sm" color="#BBBBBB">|</Text>}
+              { !!card.type_name && (
+                <Text fontSize="sm">{card.type_name}</Text>
+              )}
+            </Flex>
             </DeckCardProblemTooltip>
           </Flex>
+
+          <Flex direction="row" justifyContent="space-between">
+            <Flex direction="column">
+            <Flex direction="row" alignItems="flex-start" flexGrow={1}>
+              { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique_icon2" size={15} /></Box> }
+                <Text
+                  fontSize="lg"
+                  fontWeight={600}
+                  textDecorationLine={problem ? 'line-through' : undefined}
+                  noOfLines={2}
+                >
+                  { card.name }
+                </Text>
+              </Flex>
+              { !!card.traits && (
+                <Text fontSize="sm" fontStyle="italic" color="#666666">{card.traits}</Text>
+              ) }
+
+            </Flex>
+          </Flex>
+
           { children }
           <Flex direction="row">
             { includeText && card.text ? (
               <Box>
-                <CardText noPadding text={card.text} aspectId={card.aspect_id} />
+                <CardText noPadding text={card.text} />
               </Box>
             ) : (
               <>
-                <Text fontSize="xs" fontWeight={600} noOfLines={2} paddingRight={2}>
+                {/*<Text fontSize="xs" fontWeight={600} noOfLines={2} paddingRight={2}>
                   { locale === 'de' ? '¬' : ''}{card.type_name}{cardTraits ? <i> / {cardTraits}</i> : ''}
                   { ' ' }
                   { (includeSet && card.type_id === 'role') ? t` - ${card.set_name} Specialty` : ''}
                 </Text>
-                { !!card.equip && <Equip equip={card.equip} aspect={card.aspect_id || undefined} /> }
+            { !!card.equip && <Equip equip={card.equip} aspect={card.aspect_id || undefined} /> }*/}
               </>
             ) }
           </Flex>
         </Flex>
       </Flex>
-      { miniLevel ? (
-        <Flex direction="column" alignItems="flex-end">
-          <CardPresenceAndIcons card={card} mini />
-          <Flex direction="row" justifyContent="flex-end" marginTop={1}>
-            <AspectLevel card={card} mini />
-          </Flex>
+      { !!card.command_hammers && (
+        <Flex direction="row">
+          { map(range(0, card.command_hammers), idx => <CoreIcon key={idx} size={24} icon="command_icon" />) }
         </Flex>
-      ) : <CardPresenceAndIcons card={card} /> }
+      )}
+      { card.loyalty_id !== 'common' && (
+        <Flex direction="column" alignItems="flex-end" ml={4}>
+          { card.loyalty_id == 'signature' && <Text fontSize="sm">{t`Sig Squad`}</Text>}
+          { card.loyalty_id === 'loyal' && <CoreIcon size={24} icon="faith_icon" /> }
+        </Flex>
+      ) }
     </Flex>
   );
-  */
 }
 
 function CardImageSection({ card, detail }: { card: CardFragment; detail?: boolean }) {
