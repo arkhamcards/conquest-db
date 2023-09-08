@@ -46109,14 +46109,14 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
-export type CardFragment = { __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null };
+export type CardFragment = { __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null };
 
 export type GetAllCardsQueryVariables = Exact<{
   locale: Scalars['String'];
 }>;
 
 
-export type GetAllCardsQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null }>, all_updated_at: Array<{ __typename?: 'conquest_card_updated', updated_at?: any | null }> };
+export type GetAllCardsQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null }>, all_updated_at: Array<{ __typename?: 'conquest_card_updated', updated_at?: any | null }> };
 
 export type GetCardQueryVariables = Exact<{
   locale: Scalars['String'];
@@ -46124,7 +46124,7 @@ export type GetCardQueryVariables = Exact<{
 }>;
 
 
-export type GetCardQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null }> };
+export type GetCardQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null }> };
 
 export type GetCardsUpdatedAtQueryVariables = Exact<{
   locale: Scalars['String'];
@@ -46347,6 +46347,7 @@ export const CardFragmentDoc = gql`
   back_text
   back_attack
   back_health
+  real_keywords
 }
     `;
 export const UserInfoFragmentDoc = gql`

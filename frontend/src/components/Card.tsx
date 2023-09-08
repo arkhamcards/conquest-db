@@ -107,7 +107,7 @@ function Equip({ equip, aspect }: { equip: number; aspect?: string }) {
   );
 }
 
-function Cost({ cost }: { cost: number | null | undefined }) {
+function Cost({ cost, ambush }: { cost: number | null | undefined; ambush?: boolean }) {
   const hasCost = cost !== null && cost !== undefined;
   return (
     <Box
@@ -123,7 +123,7 @@ function Cost({ cost }: { cost: number | null | undefined }) {
       <Flex direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12}>
         { cost !== null && cost !== undefined && (
           <Text
-            color="black"
+            color={ambush ? 'red' : 'black'}
             fontSize="2xl"
             fontWeight={900}
             textAlign="center"
@@ -179,7 +179,7 @@ export function CardHeader({
           { card.type_id === 'warlord' && card.imagesrc ? (
             <RoleImage name={card.name} url={card.imagesrc} size={includeText ? 'large' : 'small'} />
           ) : (
-            <Cost cost={card.cost} />
+            <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
           ) }
         </Flex>
         <Flex direction="column"justifyContent="flex-start">
