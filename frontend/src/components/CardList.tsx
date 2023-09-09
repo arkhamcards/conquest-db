@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { filter, find, trim, forEach, map, partition, sortBy } from 'lodash';
 import { t } from '@lingui/macro';
 import { FaFilter } from 'react-icons/fa';
-import { Box, Button, ButtonGroup, Flex, Input, List, ListItem, Text, useDisclosure, Tabs, TabList, Tab, TabPanel, TabPanels, IconButton, Collapse, Select, Wrap, WrapItem, Stack, SimpleGrid } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Flex, Input, List, ListItem, Text, useDisclosure, Tabs, TabList, Tab, TabPanel, TabPanels, IconButton, Collapse, Select, Wrap, WrapItem, Stack, SimpleGrid, ResponsiveValue } from '@chakra-ui/react';
 
 import { CardFragment } from '../generated/graphql/apollo-schema';
 import Card, { CardRow, useCardModal } from './Card';
@@ -116,8 +116,9 @@ interface SimpleCardListProps {
   hasFilters?: boolean;
   hasOptions?: boolean;
   renderStyle?: CardRenderStyle;
+  maxColumns?: ResponsiveValue<number>;
 }
-export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard, header = 'set', renderControl, emptyText, filter: filterCard, hasOptions, renderStyle: propRenderStyle }: SimpleCardListProps) {
+export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard, header = 'set', renderControl, emptyText, filter: filterCard, hasOptions, renderStyle: propRenderStyle, maxColumns }: SimpleCardListProps) {
   const { locale } = useLocale();
   const [search, setSearch] = useState('');
   const visibleCards = useMemo(() => {
@@ -240,17 +241,18 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
         </Collapse>
       )}
       { sections.length ?
-        map(sections, (section, idx) => <CardListSection key={idx} section={section} renderControl={renderControl} showCard={showCard} renderStyle={propRenderStyle ?? renderStyle} />)
+        map(sections, (section, idx) => <CardListSection key={idx} section={section} renderControl={renderControl} showCard={showCard} renderStyle={propRenderStyle ?? renderStyle} maxColumns={maxColumns} />)
         : emptyState }
     </>
   );
 }
 
-function CardListSection({ section, renderControl, renderStyle, showCard }: {
+function CardListSection({ section, renderControl, renderStyle, showCard, maxColumns, }: {
   section: ItemSection;
   renderControl?: (card: CardFragment) => React.ReactNode;
   renderStyle: CardRenderStyle;
   showCard: (card: CardFragment) => void;
+  maxColumns?: ResponsiveValue<number>;
 }) {
   switch (renderStyle) {
     case 'list':
@@ -268,7 +270,7 @@ function CardListSection({ section, renderControl, renderStyle, showCard }: {
       return (
         <List>
           { !!section.title && <CardHeader key={section.title} title={section.title} /> }
-          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }}>
+          <SimpleGrid columns={maxColumns ?? { base: 1, sm: 2, md: 3 }}>
             { map(section.items, item => (
               <Card key={item.card.id} card={item.card} noImage flex={1} />
             )) }
@@ -376,6 +378,24 @@ export function SpoilerCardList({
         header={header}
         renderStyle={renderStyle}
       />
+    </List>
+  );
+}
+
+
+export function SignatureCardList({ warlord }: { warlord: CardFragment }) {
+  const { locale } = useLocale();
+  const { data } = useGetCardsQuery({
+    variables: {
+      locale,
+    },
+    fetchPolicy: 'cache-only',
+  });
+  const signatureCards = useMemo(() => sortBy(filter(data?.cards ?? [], card => card.signature_id === warlord.signature_id && card.id !== warlord.id), card => card.position), [data?.cards]);
+  return (
+    <List>
+      <CardHeader title={t`Signature Squad`} />
+      <SimpleCardList cards={signatureCards} noSearch renderStyle="cards" showCard={() => {}} maxColumns={{ sm: 1, md: 2 }} />
     </List>
   );
 }

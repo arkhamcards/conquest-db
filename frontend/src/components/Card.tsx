@@ -15,17 +15,18 @@ import {
   AspectRatio,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { filter, map, range } from 'lodash';
+import { filter, map, range, sortBy } from 'lodash';
 import { t } from '@lingui/macro';
 
 import CardText from './CardText';
-import { CardFragment } from '../generated/graphql/apollo-schema';
+import { CardFragment, useGetCardsQuery } from '../generated/graphql/apollo-schema';
 import { Aspect, DeckCardError, DeckError, Slots } from '../types/types';
 import CoreIcon, { FactionIcon } from '../icons/CoreIcon';
 import CardCount from './CardCount';
 import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemComponent';
 import { useLocale } from '../lib/TranslationProvider';
 import CardImage, { RoleImage } from './CardImage';
+import { SignatureCardList, SimpleCardList } from './CardList';
 
 interface Props {
   card: CardFragment;
@@ -179,6 +180,7 @@ export function CardHeader({
   includeText?: boolean;
   children?: React.ReactNode;
   hideStats?: boolean;
+  isBack?: boolean,
 }) {
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
@@ -248,20 +250,20 @@ export function CardHeader({
   );
 }
 
-function CardAttackHealth({ card, mt, ml }: { card: CardFragment; mt?: number; ml?: number }) {
+function CardAttackHealth({ card, mt, ml, isBack }: { card: CardFragment; mt?: number; ml?: number; isBack?: boolean }) {
   if (card.type_id === 'warlord' || card.type_id === 'army' || card.type_id === 'token') {
     return (
       <Flex direction="column" ml={ml} mt={mt}>
-        <Box bgColor="gray" mb={1}>
-          <AspectRatio ratio={1} minWidth={8}>
-            <Text fontSize="lg" fontWeight={900} color="white">{card.attack}</Text>
-          </AspectRatio>
-        </Box>
-        <Box borderColor="#888888" borderWidth={1} bgColor="white" mb={1}>
-          <AspectRatio ratio={1} minWidth={8}>
-            <Text fontSize="lg" fontWeight={900} color="black">{card.attack}</Text>
-          </AspectRatio>
-        </Box>
+        <AspectRatio ratio={1} width={8} mb={1}>
+          <Box bgColor="gray">
+            <Text fontSize="lg" fontWeight={900} color="white">{isBack ? card.back_attack : card.attack}</Text>
+          </Box>
+        </AspectRatio>
+        <AspectRatio ratio={1} width={8} mb={1}>
+          <Box borderColor="#888888" borderWidth={1} bgColor="white">
+            <Text fontSize="lg" fontWeight={900} color="black">{isBack ? card.back_health : card.health}</Text>
+          </Box>
+        </AspectRatio>
       </Flex>
     );
   }
@@ -342,13 +344,13 @@ function CardImageSection({ card, detail }: { card: CardFragment; detail?: boole
   );
 }
 
-function CardBody({ card, padding, problem, count, detail, noImage }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean }) {
-  const cardText = useMemo(() => filter([card.text, card.keywords], text => !!text).join('\n'), [card.text, card.keywords]);
+function CardBody({ card, padding, problem, count, detail, noImage, isBack }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean; isBack?: boolean }) {
+  const cardText = useMemo(() => filter(isBack ? [t`Bloodied.`, card.keywords, card.back_text] : [card.keywords, card.text], text => !!text).join('\n'), [card.text, card.keywords, isBack]);
   return (
     <Flex direction="row">
       <Flex direction="column" justifyContent="space-between" alignItems="center" minWidth={12}>
-        <CardIcons card={card} direction="column" />
-        <CardAttackHealth card={card} mt={2} ml={2} />
+        { !isBack && <CardIcons card={card} direction="column" /> }
+        <CardAttackHealth card={card} mt={2} ml={2} isBack={isBack} />
       </Flex>
       <Flex direction="column" flex={1}>
         {!!cardText && <CardText text={cardText} /> }
@@ -460,6 +462,17 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
         <ModalBody overflowY="scroll">
           <Box paddingBottom={2}>
             {!!card && <CardBody card={card} problem={problem} count={renderControl ? undefined : 1}/> }
+            { card?.type_id === 'warlord' && (
+                <>
+                  <Box bgColor="red.100">
+                    { !!card.back_name && card.back_name !== card.name && (
+                      <CardHeader card={card} isBack hideStats />
+                    ) }
+                    <CardBody card={card} isBack />
+                  </Box>
+                  <SignatureCardList warlord={card} />
+                </>
+            ) }
           </Box>
         </ModalBody>
         <ModalFooter>
