@@ -15,18 +15,18 @@ import {
   AspectRatio,
   SimpleGrid,
 } from '@chakra-ui/react';
-import { filter, map, range, sortBy } from 'lodash';
+import { filter, map, range } from 'lodash';
 import { t } from '@lingui/macro';
 
 import CardText from './CardText';
-import { CardFragment, useGetCardsQuery } from '../generated/graphql/apollo-schema';
-import { Aspect, DeckCardError, DeckError, Slots } from '../types/types';
+import { CardFragment } from '../generated/graphql/apollo-schema';
+import { DeckCardError, DeckError, Slots } from '../types/types';
 import CoreIcon, { FactionIcon } from '../icons/CoreIcon';
 import CardCount from './CardCount';
 import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemComponent';
 import { useLocale } from '../lib/TranslationProvider';
 import CardImage, { RoleImage } from './CardImage';
-import { SignatureCardList, SimpleCardList } from './CardList';
+import { SignatureCardList } from './CardList';
 
 interface Props {
   card: CardFragment;
@@ -464,10 +464,7 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
             {!!card && <CardBody card={card} problem={problem} count={renderControl ? undefined : 1}/> }
             { card?.type_id === 'warlord' && (
                 <>
-                  <Box bgColor="red.100">
-                    { !!card.back_name && card.back_name !== card.name && (
-                      <CardHeader card={card} isBack hideStats />
-                    ) }
+                  <Box bgColor="red.200" mt={2} pt={1} pb={2}>
                     <CardBody card={card} isBack />
                   </Box>
                   <SignatureCardList warlord={card} />
