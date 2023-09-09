@@ -184,7 +184,7 @@ export function CardHeader({
 }) {
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
-      <Flex direction="row" flexGrow={1} alignItems="flex-start">
+      <Flex direction="row" flex={1} alignItems="flex-start">
           <Flex direction="column">
             { card.type_id === 'warlord' ?
               <RoleImage name={card.name} url={card.imagesrc ?? ''} size={includeText ? 'large' : 'small'} /> : (
@@ -245,7 +245,7 @@ export function CardHeader({
           </Flex>
         </Flex>
       </Flex>
-      { !hideStats && <CardStats card={card} /> }
+      { !hideStats ? <CardStats card={card} /> : <CardLoyaltyColumn card={card} />}
     </Flex>
   );
 }
@@ -293,23 +293,9 @@ function CardIcons({ card, direction }: { card: CardFragment; direction: 'row' |
   );
 }
 
-function CardLoyaltyRow({ card }: { card: CardFragment }) {
-  return (
-    <Flex direction="row">
-      { (card.type_id !== 'warlord' && card.loyalty_id !== 'common') && (
-        <Flex direction="column" alignItems="flex-end" mb={2}>
-          { card.loyalty_id == 'signature' && <Text fontSize="sm">{t`Sig Squad`}</Text>}
-          { card.loyalty_id === 'loyal' && <Text color="blue" fontSize="md">(L)</Text> }
-        </Flex>
-      ) }
-      { !!card.faction_id && card.faction_id !== 'neutral' && <Box m={1}><FactionIcon faction={card.faction_id} size={18} color="#888888" /></Box> }
-    </Flex>
-  );
-
-}
 function CardLoyaltyColumn({ card }: { card: CardFragment }) {
   return (
-    <Flex direction="column" alignItems="flex-end" justifyContent="flex-start">
+    <Flex direction="column" alignItems="flex-end" justifyContent="flex-start" alignSelf="flex-start" width={12}>
       { !!card.faction_id && card.faction_id !== 'neutral' && <Box m={1}><FactionIcon faction={card.faction_id} size={18} color="#888888" /></Box> }
       { (card.type_id !== 'warlord' && card.loyalty_id !== 'common') && (
         <Flex direction="column" alignItems="flex-end" mb={2}>
@@ -323,12 +309,12 @@ function CardLoyaltyColumn({ card }: { card: CardFragment }) {
 
 
 
-function CardStats({ card, reverse, expand }: { card: CardFragment; reverse?: boolean; expand?: boolean }) {
+function CardStats({ card}: { card: CardFragment }) {
   return (
-    <Flex direction={reverse ? 'row-reverse' : 'row'} justifyContent={expand ? 'space-between' : 'flex-end'}>
+    <Flex direction="row" justifyContent="flex-end" alignItems="center">
       <Box mr={2}><CardIcons card={card} direction="column" /></Box>
-      <CardLoyaltyColumn card={card} />
       <CardAttackHealth card={card} ml={2} />
+      <CardLoyaltyColumn card={card} />
     </Flex>
   );
 }
@@ -406,10 +392,9 @@ function CardBody({ card, padding, problem, count, detail, noImage, isBack }: Pr
 export default function Card({ card, noImage, flex }: Props) {
   return (
     <Box borderWidth={1} margin={2}>
-      <Flex direction="row" padding={2}>
-        <Flex direction="row" flex={1}><CardHeader card={card} hideStats /></Flex>
-        <CardLoyaltyColumn card={card} />
-      </Flex>
+      <Box padding={2}>
+        <CardHeader card={card} hideStats />
+      </Box>
       <CardBody card={card} padding={2} detail noImage={noImage} />
     </Box>
   );
