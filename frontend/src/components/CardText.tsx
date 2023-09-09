@@ -64,7 +64,6 @@ export function useIconedText(
 }
 
 export default function CardText({ text, flavor, noPadding }: { text: string | undefined | null; flavor?: string | undefined | null; noPadding?: boolean }) {
-  const { colorMode } = useColorMode();
   const parsed = useIconedText(text, { }, flavor);
   if (noPadding) {
     return <span className='card-text' dangerouslySetInnerHTML={{ __html: parsed }} />;

@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { filter, find, trim, forEach, map, partition, sortBy } from 'lodash';
 import { t } from '@lingui/macro';
 import { FaFilter } from 'react-icons/fa';
-import { Box, Button, ButtonGroup, Flex, Input, List, ListItem, Text, useDisclosure, Tabs, TabList, Tab, TabPanel, TabPanels, IconButton, Collapse, Select, Wrap, WrapItem, Stack } from '@chakra-ui/react';
+import { Box, Button, ButtonGroup, Flex, Input, List, ListItem, Text, useDisclosure, Tabs, TabList, Tab, TabPanel, TabPanels, IconButton, Collapse, Select, Wrap, WrapItem, Stack, SimpleGrid } from '@chakra-ui/react';
 
 import { CardFragment } from '../generated/graphql/apollo-schema';
 import Card, { CardRow, useCardModal } from './Card';
@@ -121,7 +121,7 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
   const { locale } = useLocale();
   const [search, setSearch] = useState('');
   const visibleCards = useMemo(() => {
-    const filtered = filterCard ? filter(cards, c => filterCard(c)) : cards;
+  const filtered = filterCard ? filter(cards, c => filterCard(c)) : cards;
     if (!trim(search)) {
       return sortBy(filtered, c => c.position);
     }
@@ -268,15 +268,11 @@ function CardListSection({ section, renderControl, renderStyle, showCard }: {
       return (
         <List>
           { !!section.title && <CardHeader key={section.title} title={section.title} /> }
-          <Wrap>
+          <SimpleGrid columns={{ base: 1, sm: 2, md: 3 }}>
             { map(section.items, item => (
-              <WrapItem key={item.card.id}>
-                <Box maxWidth={{ base: undefined, md: 300 }}>
-                  <Card card={item.card} noImage />
-                </Box>
-              </WrapItem>)
-            ) }
-          </Wrap>
+              <Card key={item.card.id} card={item.card} noImage flex={1} />
+            )) }
+          </SimpleGrid>
         </List>
       );
     case 'images':

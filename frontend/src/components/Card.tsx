@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import {
   Box,
   Text,
@@ -12,8 +12,10 @@ import {
   ModalCloseButton,
   ModalFooter,
   useColorMode,
+  AspectRatio,
+  SimpleGrid,
 } from '@chakra-ui/react';
-import { map, range } from 'lodash';
+import { filter, map, range } from 'lodash';
 import { t } from '@lingui/macro';
 
 import CardText from './CardText';
@@ -28,6 +30,7 @@ import CardImage, { RoleImage } from './CardImage';
 interface Props {
   card: CardFragment;
   noImage?: boolean;
+  flex?: number;
 }
 
 function renderNumber(value: number) {
@@ -120,7 +123,10 @@ function Cost({ cost, ambush }: { cost: number | null | undefined; ambush?: bool
       marginRight={2}
       position="relative"
     >
-      <Flex direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12}>
+      <Box position="absolute" top={0} left={0}>
+        <CoreIcon icon="prep_icon" size={48} color="#DDDDDD" />
+      </Box>
+      <Flex position="absolute" top={0} left={0} direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12} minWidth={12}>
         { cost !== null && cost !== undefined && (
           <Text
             color={ambush ? 'red' : 'black'}
@@ -164,6 +170,7 @@ export function CardHeader({
   includeSet,
   includeText,
   children,
+  hideStats,
 }: Props & {
   flex?: number;
   miniLevel?: boolean;
@@ -171,17 +178,20 @@ export function CardHeader({
   includeSet?: boolean;
   includeText?: boolean;
   children?: React.ReactNode;
+  hideStats?: boolean;
 }) {
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
       <Flex direction="row" flexGrow={1} alignItems="flex-start">
-        <Flex direction="column">
-          { card.type_id === 'warlord' && card.imagesrc ? (
-            <RoleImage name={card.name} url={card.imagesrc} size={includeText ? 'large' : 'small'} />
-          ) : (
-            <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
-          ) }
-        </Flex>
+        { (card.type_id !== 'warlord' || !!card.imagesrc) && (
+          <Flex direction="column">
+            { card.type_id === 'warlord' && card.imagesrc ? (
+              <RoleImage name={card.name} url={card.imagesrc} size={includeText ? 'large' : 'small'} />
+            ) : (
+              <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
+            ) }
+          </Flex>
+        ) }
         <Flex direction="column"justifyContent="flex-start">
           <Flex direction="column" flex={1}>
             <DeckCardProblemTooltip errors={problem}>
@@ -236,21 +246,77 @@ export function CardHeader({
           </Flex>
         </Flex>
       </Flex>
-      { !!card.command_hammers && (
-        <Flex direction="row">
-          { map(range(0, card.command_hammers), idx => <CoreIcon key={idx} size={24} icon="command_icon" />) }
-        </Flex>
-      )}
-      { card.loyalty_id !== 'common' && (
-        <Flex direction="column" alignItems="flex-end" ml={4}>
-          { card.loyalty_id == 'signature' && <Text fontSize="sm">{t`Sig Squad`}</Text>}
-          { card.loyalty_id === 'loyal' && <CoreIcon size={24} icon="faith_icon" /> }
-        </Flex>
-      ) }
+      { !hideStats && <CardStats card={card} /> }
     </Flex>
   );
 }
 
+function CardAttackHealth({ card, mt }: { card: CardFragment; mt?: number }) {
+  if (card.type_id === 'warlord' || card.type_id === 'army' || card.type_id === 'token') {
+    return (
+      <Flex direction="column" ml={2} mt={mt}>
+        <Box bgColor="gray" mb={1}>
+          <AspectRatio ratio={1} minWidth={8}>
+            <Text fontSize="lg" fontWeight={900} color="white">{card.attack}</Text>
+          </AspectRatio>
+        </Box>
+        <Box borderColor="#888888" borderWidth={1} bgColor="white" mb={1}>
+          <AspectRatio ratio={1} minWidth={8}>
+            <Text fontSize="lg" fontWeight={900} color="black">{card.attack}</Text>
+          </AspectRatio>
+        </Box>
+      </Flex>
+    );
+  }
+  return null;
+}
+
+function CardIcons({ card, direction }: { card: CardFragment; direction: 'row' | 'column'; }) {
+  const numIcons = (card.command_hammers ?? card.shields ?? 0);
+  const columns = direction === 'column' && numIcons > 2 ? 2 : numIcons;
+  return (
+    <SimpleGrid columns={columns} spacing={1}>
+      { !!card.command_hammers && (
+        <>
+          { map(range(0, card.command_hammers), idx => (
+            <Box key={idx} width={4}>
+              <CoreIcon size={24} icon="command_icon" />
+            </Box>
+          )) }
+        </>
+      )}
+      { !!card.shields && (
+        <>
+        { map(range(0, card.shields), idx => <Box key={idx}><Text fontSize="lg">(S)</Text></Box>) }
+        </>
+      )}
+    </SimpleGrid>
+  );
+}
+
+function CardLoyalty({ card }: { card: CardFragment}) {
+  if (card.type_id !== 'warlord' && card.loyalty_id !== 'common') {
+    return (
+      <Flex direction="column" alignItems="flex-end" mb={2}>
+        { card.loyalty_id == 'signature' && <Text fontSize="sm">{t`Sig Squad`}</Text>}
+        { card.loyalty_id === 'loyal' && <Text color="blue" fontSize="md">(L)</Text> }
+      </Flex>
+    );
+  }
+  return null;
+}
+
+function CardStats({ card, reverse, expand }: { card: CardFragment; reverse?: boolean; expand?: boolean }) {
+  return (
+    <Flex direction={reverse ? 'row-reverse' : 'row'} justifyContent={expand ? 'space-between' : 'flex-end'}>
+      <Flex direction="column" justifyContent="flex-end">
+        <CardLoyalty card={card} />
+        <CardIcons card={card} direction="row" />
+      </Flex>
+      <CardAttackHealth card={card} />
+    </Flex>
+  );
+}
 function CardImageSection({ card, detail }: { card: CardFragment; detail?: boolean }) {
   return (
     <Flex direction="column" alignItems="flex-start" justifyContent="space-between">
@@ -264,8 +330,21 @@ function CardImageSection({ card, detail }: { card: CardFragment; detail?: boole
 }
 
 function CardBody({ card, padding, problem, count, detail, noImage }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean }) {
-  const { aspects } = useLocale();
-  return <CardText text={card.text} />;
+  const cardText = useMemo(() => filter([card.text, card.keywords], text => !!text).join('\n'), [card.text, card.keywords]);
+  return (
+    <Flex direction="row">
+      <Flex direction="column" justifyContent="space-between">
+        <CardIcons card={card} direction="column" />
+        <CardAttackHealth card={card} mt={2} />
+      </Flex>
+      <Flex direction="column" flex={1} ml={2}>
+        {!!cardText && <CardText text={cardText} /> }
+      </Flex>
+      <Flex direction="column" alignItems="flex-end" justifyContent="flex-end">
+        <CardLoyalty card={card} />
+      </Flex>
+    </Flex>
+  );
   /*
   const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
   return (
@@ -312,11 +391,11 @@ function CardBody({ card, padding, problem, count, detail, noImage }: Props & { 
   );*/
 }
 
-export default function Card({ card, noImage }: Props) {
+export default function Card({ card, noImage, flex }: Props) {
   return (
     <Box borderWidth={1} margin={2} /*borderColor={card.aspect_id ? `aspect.${card.aspect_id}` : '#222222'}*/>
       <Box padding={2}>
-        <CardHeader card={card} />
+        <CardHeader card={card} hideStats />
       </Box>
       <CardBody card={card} padding={2} detail noImage={noImage} />
     </Box>
@@ -363,7 +442,7 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
       <ModalContent maxW={['95%', '90%', '90%', '800px']}>
         <ModalHeader>
           <Box paddingRight={8}>
-            { !!card && <CardHeader card={card} problem={problem} /> }
+            { !!card && <CardHeader card={card} problem={problem} hideStats /> }
           </Box>
         </ModalHeader>
         <ModalCloseButton />
