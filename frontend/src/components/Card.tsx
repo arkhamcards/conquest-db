@@ -125,7 +125,7 @@ function Cost({ cost, ambush }: { cost: number | null | undefined; ambush?: bool
       position="relative"
     >
       <Box position="absolute" top={0} left={0}>
-        <CoreIcon icon="prep_icon" size={48} color="#DDDDDD" />
+        <CoreIcon icon="cost" size={48} color="#DDDDDD" />
       </Box>
       <Flex position="absolute" top={0} left={0} direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12} minWidth={12}>
         { cost !== null && cost !== undefined && (

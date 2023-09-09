@@ -1,10 +1,10 @@
 @font-face {
-  font-family: 'icomoon';
-  src:  url('/fonts/icomoon.eot?k6605g');
-  src:  url('/fonts/icomoon.eot?k6605g#iefix') format('embedded-opentype'),
-    url('/fonts/icomoon.ttf?k6605g') format('truetype'),
-    url('/fonts/icomoon.woff?k6605g') format('woff'),
-    url('/fonts/icomoon.svg?k6605g#icomoon') format('svg');
+  font-family: 'apoka';
+  src:  url('/fonts/apoka.eot?tjjw4i');
+  src:  url('/fonts/apoka.eot?tjjw4i#iefix') format('embedded-opentype'),
+    url('/fonts/apoka.ttf?tjjw4i') format('truetype'),
+    url('/fonts/apoka.woff?tjjw4i') format('woff'),
+    url('/fonts/apoka.svg?tjjw4i#apoka') format('svg');
   font-weight: normal;
   font-style: normal;
   font-display: block;
@@ -12,7 +12,7 @@
 
 [class^="icon-"], [class*=" icon-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
-  font-family: 'icomoon' !important;
+  font-family: 'apoka' !important;
   speak: never;
   font-style: normal;
   font-weight: normal;
@@ -25,50 +25,74 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-blue_planet:before {
-  content: "\e900";
+.icon-space_marines:before {
+  content: "\e928";
 }
-.icon-apoka8_icon:before {
-  content: "\e901";
-}
-.icon-apoka7_icon:before {
-  content: "\e902";
-}
-.icon-apoka6_icon:before {
-  content: "\e903";
-}
-.icon-apoka5_icon:before {
-  content: "\e904";
-}
-.icon-apoka4_icon:before {
-  content: "\e905";
-}
-.icon-apoka3_icon:before {
-  content: "\e906";
-}
-.icon-apoka2_icon:before {
-  content: "\e907";
-}
-.icon-apoka1_icon:before {
-  content: "\e908";
-}
-.icon-prep_icon:before {
-  content: "\e909";
-}
-.icon-am_icon:before {
+.icon-astra_militarum:before {
   content: "\e91c";
 }
-.icon-chaos_icon:before {
+.icon-chaos:before {
   content: "\e91d";
 }
-.icon-command_icon:before {
-  content: "\e91e";
+.icon-tau:before {
+  content: "\e929";
 }
-.icon-de_icon:before {
+.icon-eldar:before {
+  content: "\e920";
+}
+.icon-dark_eldar:before {
   content: "\e91f";
 }
-.icon-eld_icon:before {
-  content: "\e920";
+.icon-orks:before {
+  content: "\e926";
+}
+.icon-necron:before {
+  content: "\e923";
+}
+.icon-tyranid:before {
+  content: "\e925";
+}
+.icon-resource:before {
+  content: "\e927";
+}
+.icon-command:before {
+  content: "\e91e";
+}
+.icon-unique:before {
+  content: "\e92a";
+}
+.icon-cost:before {
+  content: "\e900";
+}
+.icon-blue_planet:before {
+  content: "\e901";
+}
+.icon-apoka8_icon:before {
+  content: "\e902";
+}
+.icon-apoka7_icon:before {
+  content: "\e903";
+}
+.icon-apoka6_icon:before {
+  content: "\e904";
+}
+.icon-apoka5_icon:before {
+  content: "\e905";
+}
+.icon-apoka4_icon:before {
+  content: "\e906";
+}
+.icon-apoka3_icon:before {
+  content: "\e907";
+}
+.icon-apoka2_icon:before {
+  content: "\e908";
+}
+.icon-apoka1_icon:before {
+  content: "\e909";
+}
+.icon-prep_icon:before {
+  content: "\e90a";
 }
 .icon-faith_icon:before {
   content: "\e921";
@@ -76,27 +100,6 @@
 .icon-logo_icon2:before {
   content: "\e922";
 }
-.icon-nec_icon:before {
-  content: "\e923";
-}
 .icon-neu_icon2:before {
   content: "\e924";
-}
-.icon-tyr_icon:before {
-  content: "\e925";
-}
-.icon-ork_icon:before {
-  content: "\e926";
-}
-.icon-resource_icon:before {
-  content: "\e927";
-}
-.icon-sm_icon:before {
-  content: "\e928";
-}
-.icon-tau_icon:before {
-  content: "\e929";
-}
-.icon-unique_icon2:before {
-  content: "\e92a";
 }

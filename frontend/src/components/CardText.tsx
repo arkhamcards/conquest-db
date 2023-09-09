@@ -5,17 +5,17 @@ import { Box, useColorMode } from '@chakra-ui/react';
 import { t } from '@lingui/macro'
 
 const ICON_MATCH: { [text: string]: string | undefined } = {
-  RESOURCE: 'resource_icon',
+  RESOURCE: 'resource',
   CARD: 'blue_planet',
-  'ASTRA MILITARUM': 'am_icon',
-  TAU: 'tau_icon',
-  'SPACE MARINE': 'sm_icon',
-  CHAOS: 'chaos_icon',
-  'DARK ELDAR': 'de_icon',
+  'ASTRA MILITARUM': 'astra_militarum',
+  TAU: 'tau',
+  'SPACE MARINE': 'space_marines',
+  CHAOS: 'chaos',
+  'DARK ELDAR': 'dark_eldar',
   ELDAR: 'eld_icon',
-  ORK: 'ork_icon',
-  TYRANID: 'tyr_icon',
-  NECRON: 'nec_icon',
+  ORK: 'orks',
+  TYRANID: 'tyranid',
+  NECRON: 'necron',
 };
 
 export function useIconedText(
@@ -40,11 +40,6 @@ export function useIconedText(
 
   return useMemo(() => {
     const parser = new Parser().addRule(
-      /\[\[(.*?)\]\]/gi,
-      (tag, element) => {
-        return `<span style="text-shadow: 0 0 2px var(--chakra-colors-${colorMode}-text);">${element}</span>`;
-      }
-    ).addRule(
       /\[([^\]0-9X]+)\]/g,
       (tag, element) => {
         const icon = ICON_MATCH[element];

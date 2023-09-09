@@ -22,17 +22,6 @@ const CoreIcon: React.FC<{
   );
 };
 
-const FACTION_TO_ICON: { [faction: string]: string } = {
-  astra_militarum: 'am_icon',
-  tau: 'tau_icon',
-  space_marines: 'sm_icon',
-  chaos: 'chaos_icon',
-  dark_eldar: 'de_icon',
-  eldar: 'eld_icon',
-  orks: 'ork_icon',
-  tyranid: 'tyr_icon',
-  necron: 'nec_icon',
-}
 const FACTION_SIZE_SCALE: { [faction: string]: number } = {
   astra_militarum: 1.2,
   tau: 1.3,
@@ -52,7 +41,7 @@ export const FactionIcon: React.FC<{
 }> = props => {
   const { color, size, faction, className = "" } = props;
   return (
-    <CoreIcon color={color} size={size * FACTION_SIZE_SCALE[faction]} icon={FACTION_TO_ICON[faction]} className={className} />
+    <CoreIcon color={color} size={size * FACTION_SIZE_SCALE[faction]} icon={faction} className={className} />
   );
 };
 
