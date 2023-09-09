@@ -23,25 +23,36 @@ const CoreIcon: React.FC<{
 };
 
 const FACTION_TO_ICON: { [faction: string]: string } = {
-  'ASTRA MILITARUM': 'am_icon',
+  astra_militarum: 'am_icon',
   tau: 'tau_icon',
-  'SPACE MARINE': 'sm_icon',
-  CHAOS: 'chaos_icon',
+  space_marines: 'sm_icon',
+  chaos: 'chaos_icon',
   dark_eldar: 'de_icon',
-  ELDAR: 'eld_icon',
-  ORK: 'ork_icon',
-  TYRANID: 'tyr_icon',
-  NECRON: 'nec_icon',
+  eldar: 'eld_icon',
+  orks: 'ork_icon',
+  tyranid: 'tyr_icon',
+  necron: 'nec_icon',
+}
+const FACTION_SIZE_SCALE: { [faction: string]: number } = {
+  astra_militarum: 1.2,
+  tau: 1.3,
+  space_marines: 2,
+  chaos: 1.5,
+  dark_eldar: 2,
+  eldar: 1.5,
+  orks: 1.4,
+  tyranid: 1,
+  necron: 1,
 }
 export const FactionIcon: React.FC<{
   color?: string,
-  size: string | number,
+  size: number,
   faction: string,
   className?: string
 }> = props => {
-  const { color, size = "100%", faction, className = "" } = props;
+  const { color, size, faction, className = "" } = props;
   return (
-    <CoreIcon color={color} size={size} icon={FACTION_TO_ICON[faction]} className={className} />
+    <CoreIcon color={color} size={size * FACTION_SIZE_SCALE[faction]} icon={FACTION_TO_ICON[faction]} className={className} />
   );
 };
 
