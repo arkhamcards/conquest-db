@@ -1,7 +1,7 @@
-import { concat, forEach, map, flatMap, uniq, sumBy, keys, remove } from 'lodash';
+import { concat, forEach, map, flatMap, uniq, sumBy, keys, values } from 'lodash';
 import { t } from '@lingui/macro';
 
-import { DeckCardError, DeckError, DeckMeta, Faction, FactionType, Slots } from '../types/types';
+import { DeckCardError, DeckError, DeckMeta, FactionType, Slots } from '../types/types';
 import { CardsMap } from '../lib/hooks';
 import { CardFragment, DeckFragment } from '../generated/graphql/apollo-schema';
 
@@ -130,13 +130,13 @@ export default function parseDeck(
     }
     const problems: DeckCardError[] = [];
 
-    if (count > 3) {
+    if (count > (card.quantity ?? 3)) {
       problems.push('too_many_duplicates');
     }
     if (warlordCard && card.signature_id && warlordCard.signature_id !== card.signature_id) {
       problems.push('invalid_signature');
     }
-    if (card.type_id !== 'neutral') {
+    if (card.faction_id !== 'neutral') {
       if (faction) {
         if (faction === card.faction_id) {
           // From our faction, so its allowed.
@@ -173,6 +173,19 @@ export default function parseDeck(
       problem: signatureErrors.length ? uniq(signatureErrors) : undefined,
     },
   ];
+  if (warlordCard) {
+    forEach((cards), (card, code) => {
+      if (card && card.signature_id === warlordCard.signature_id && card.type_id !== 'warlord') {
+        signatureCards.push({
+          type: 'card',
+          id: code,
+          card,
+          count: card.quantity ?? 3,
+          problem: undefined,
+        });
+      }
+    })
+  }
   const armyCards: Item[] = [
     {
       type: 'header',

@@ -113,12 +113,11 @@ export function CountToggle({ code, slots, setSlots }: { code: string; slots: Sl
   );
 }
 
-export function CountControls({ card, slots, setSlots, onClose, countMode, max }: {
+export function CountControls({ card, slots, setSlots, onClose, max }: {
   onClose?: () => void;
   card: CardFragment;
   slots: Slots;
   setSlots: (card: CardFragment, count: number) => void;
-  countMode?: 'noah';
   max?: number;
 }) {
   const onChange = useCallback((value: string) => {
@@ -140,7 +139,7 @@ export function CountControls({ card, slots, setSlots, onClose, countMode, max }
   return (
     <Flex direction="row">
       { map(
-        countMode === 'noah' ? ['0', '2'] : map(range(0, (max || 2) + 1), x => `${x}`),
+        map(range(0, (max || 3) + 1), x => `${x}`),
         value => {
           const radio = getRadioProps({ value });
           return (
@@ -154,7 +153,7 @@ export function CountControls({ card, slots, setSlots, onClose, countMode, max }
 }
 
 
-export function IncDecCountControls({ card, slots, setSlots, onClose }: {
+export function IncDecCountControls({ card, slots, setSlots }: {
   onClose?: () => void;
   card: CardFragment;
   slots: Slots;
@@ -162,7 +161,7 @@ export function IncDecCountControls({ card, slots, setSlots, onClose }: {
 }) {
   const onInc = useCallback(() => {
     if (card.id) {
-      setSlots(card, Math.min((slots[card.id] || 0) + 1, card.quantity || 2));
+      setSlots(card, Math.min((slots[card.id] || 0) + 1, card.quantity || 3));
     }
   }, [card, slots, setSlots]);
   const count = (card.id && slots[card.id]) || 0;
@@ -175,7 +174,7 @@ export function IncDecCountControls({ card, slots, setSlots, onClose }: {
     <Flex direction="row" alignItems="center" marginLeft={2}>
       <Button variant="ghost" onClick={onDec} disabled={count <= 0}>−</Button>
       <CardCount count={count} marginLeft={1} />
-      <Button variant="ghost" onClick={onInc} disabled={count >= (card.quantity || 2)} marginLeft={1}>+</Button>
+      <Button variant="ghost" onClick={onInc} disabled={count >= (card.quantity ?? 3)} marginLeft={1}>+</Button>
     </Flex>
   );
 }

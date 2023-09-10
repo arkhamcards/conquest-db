@@ -42,7 +42,7 @@ function RoleSelect({ roleCards, onChange, roles, specialty }: {
           options: group,
         };
       });
-  }, [roleCards, roles, specialty]);
+  }, [roleCards]);
   return (
     <FormControl marginBottom={4}>
       <FormLabel>{t`Role`}</FormLabel>

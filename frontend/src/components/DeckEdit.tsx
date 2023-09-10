@@ -43,7 +43,7 @@ import { AllFactions, DeckError, DeckMeta, FactionAllies, FactionType, Slots } f
 import { CardsMap } from '../lib/hooks';
 import { CardRow, ShowCard, useCardModal } from './Card';
 import { SimpleCardList } from './CardList';
-import { CountControls, IncDecCountControls } from './CardCount';
+import CardCount, { CountControls, IncDecCountControls } from './CardCount';
 import DeckProblemComponent from './DeckProblemComponent';
 import EditableTextInput from './EditableTextInput';
 import SolidButton from './SolidButton';
@@ -118,7 +118,7 @@ function MetaControls({ meta, setMeta, disabled, hideLabels }: { meta: DeckMeta;
       });
     }
     return result;
-  }, [factions, meta.faction]);
+  }, [meta.faction]);
   return (
     <>
       { map(options, ({ options, id, name }) => {
@@ -152,16 +152,16 @@ function useChooseWarlordModal(
   parsedDeck: ParsedDeck,
   cards: CardsMap,
   showCard: ShowCard,
-  setWarlord?: (warlord: string) => void
+  setWarlord?: (warlord: string) => void,
 ): [() => void, React.ReactNode] {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const onChange = useCallback((role: string) => {
     setWarlord?.(role);
     onClose();
   }, [setWarlord, onClose]);
-  const showRole = useCallback(() => !!parsedDeck.warlord && showCard(parsedDeck.warlord), [showCard, parsedDeck.warlord])
+  const showWarlod = useCallback(() => !!parsedDeck.warlord && showCard(parsedDeck.warlord), [showCard, parsedDeck.warlord])
   if (!setWarlord) {
-    return [showRole, null];
+    return [showWarlod, null];
   }
   return [
     onOpen,
@@ -231,7 +231,6 @@ function EditDescriptionTab({ deck }: { deck: DeckFragment }) {
             )) }
           </Flex>
         </Text>
-
       </>
     );
   }
@@ -259,25 +258,28 @@ function BaseDeckbuildingTabs({
   showCard: ShowCard;
   renderControl: (card: CardFragment) => React.ReactNode;
 }) {
-  const [personalityCards, backgroundCards, specialtyCards, outsideInterestCards] = useMemo(() => {
-    const pc: CardFragment[] = [];
-    const bc: CardFragment[] = [];
-    const sc: CardFragment[] = [];
-    const oic: CardFragment[] = [];
+  const [army, synapse, support, attachment, event, planet] = useMemo(() => {
+    const armyCards: CardFragment[] = [];
+    const synapseCards: CardFragment[] = [];
+    const supportCards: CardFragment[] = [];
+    const attachmentCards: CardFragment[] = [];
+    const eventCards: CardFragment[] = [];
+    const planetCards: CardFragment[] = [];
     const possibleAllyFactions = new Set(faction ? FactionAllies[faction] : []);
     forEach(sortBy(values(cards), c => c?.pack_position || 0), c => {
       if (!c) {
         return;
       }
-      if (c.type_id === 'warlord') {
+      if (c.signature_id) {
+        // We don't show signature cards or warlords here.
         return;
       }
       if (c.faction_id && c.faction_id !== 'neutral') {
         if (faction) {
           // We have chosen a faction.
           if (c.faction_id !== faction) {
-            if (c.type_id !== 'army') {
-              // Only armies can be splashed.
+            if (c.type_id !== 'army' || c.loyalty_id !== 'common') {
+              // Only armies can be splashed, and loyal units never can be.
               return;
             }
             switch (faction) {
@@ -301,65 +303,81 @@ function BaseDeckbuildingTabs({
           }
         }
       }
-      pc.push(c);
+      switch (c.type_id) {
+        case 'army': armyCards.push(c); break;
+        case 'synapse': synapseCards.push(c); break;
+        case 'support': supportCards.push(c); break;
+        case 'event': eventCards.push(c); break;
+        case 'attachment': attachmentCards.push(c); break;
+        case 'planet': planetCards.push(c); break;
+      }
     });
-    return [pc, bc, sc, oic];
+    return [armyCards, synapseCards, supportCards, attachmentCards, eventCards, planetCards];
   }, [cards, faction, allyFaction]);
   const { colors } = useTheme();
   return (
     <Tabs>
       <TabList overflowX="scroll" overflowY="hidden">
         <Tab>{t`Army`}</Tab>
-        <Tab>{t`Background`}</Tab>
-        <Tab>{t`Specialty`}</Tab>
-        <Tab>{t`Outside Interest`}</Tab>
-        <Tab>{t`Description`}</Tab>
+        <Tab>{t`Support`}</Tab>
+        <Tab>{t`Synapse`}</Tab>
+        <Tab>{t`Attachment`}</Tab>
+        <Tab>{t`Event`}</Tab>
+        <Tab>{t`Planet`}</Tab>
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Text fontSize="md" className='lightText' paddingBottom={2} borderBottomWidth="1px" borderBottomColor={colors.divider}>
-            {t`Select 4 different personality cards, 1 from each aspect.`}
-          </Text>
           <SimpleCardList
-            cards={personalityCards}
+            cards={army}
             showCard={showCard}
             header="none"
             renderControl={renderControl}
+            hideFaction
           />
         </TabPanel>
         <TabPanel>
-          <Text fontSize="md" className='lightText' paddingBottom={2} borderBottomWidth="1px" borderBottomColor={colors.divider}>
-            {t`Select 5 different cards from your chosen background.`}
-          </Text>
           <SimpleCardList
-            cards={backgroundCards}
+            cards={support}
             showCard={showCard}
-            header="aspect"
+            header="none"
             renderControl={renderControl}
+            hideFaction
           />
         </TabPanel>
         <TabPanel>
-          <Text fontSize="md" className='lightText' paddingBottom={2} borderBottomWidth="1px" borderBottomColor={colors.divider}>
-            {t`Select 5 different cards from your chosen specialty.`}
-          </Text>
           <SimpleCardList
-            cards={specialtyCards}
+            cards={synapse}
             showCard={showCard}
-            header="aspect"
+            header="none"
             renderControl={renderControl}
+            hideFaction
           />
         </TabPanel>
         <TabPanel>
-          <Text fontSize="md" className='lightText' paddingBottom={1}>
-            {t`Select 1 cards from any background of specialty as your outside interest.`}
-          </Text>
-          <Text fontSize="sm" className='lightText' fontStyle="italic" paddingBottom={2} borderBottomWidth="1px" borderBottomColor={colors.divider}>
-            {t`Note: cards from your chosen specialty/background are not shown here, but your outside interest is allowed to be from your chosen class if you use the other tabs to select it.`}
-          </Text>
           <SimpleCardList
-            cards={outsideInterestCards}
+            cards={attachment}
             showCard={showCard}
+            header="none"
             renderControl={renderControl}
+            hideFaction
+          />
+        </TabPanel>
+        <TabPanel>
+          <SimpleCardList
+            cards={event}
+            showCard={showCard}
+            header="none"
+            renderControl={renderControl}
+            hideFaction
+          />
+        </TabPanel>
+        <TabPanel>
+          <SimpleCardList
+            cards={planet}
+            showCard={showCard}
+            header="none"
+            renderControl={renderControl}
+            hideFaction
           />
         </TabPanel>
         <TabPanel>
@@ -399,72 +417,27 @@ export default function DeckEdit({ deck, cards }: Props) {
     onClose?: () => void,
     max?: number
   ) => {
-    const theMax = undefined;
-
+    if (card.signature_id) {
+      return <CardCount count={card.quantity ?? 3} />;
+    }
     return (
-      <CountControls
+      <IncDecCountControls
         card={card}
         slots={slots}
         setSlots={updateSlots}
-        countMode={'noah'}
         onClose={onClose}
-        max={theMax}
       />
     );
-  }, [slots, sideSlots, updateSlots,]);
-
-  const renderCollectionControl = useCallback(
-    (card: CardFragment, onClose?: () => void) => {
-      return (
-        <Flex direction="column" alignItems="flex-end">
-          <Text fontSize="sm" textAlign="right" marginBottom={2}>
-            {
-              t`When adding a card from the collection, remember to return a deck card.`
-            }
-          </Text>
-          { renderControl(card, onClose, 2) }
-        </Flex>
-      );
-    }, [renderControl]);
-  const renderDisplacedControl = useCallback(
-    (card: CardFragment, onClose?: () => void) => {
-      return (
-        <Flex direction="column" alignItems="flex-end">
-          { !!card.id && (sideSlots[card.id] || 0) > 0 && (
-            <Button
-              marginBottom={2}
-              leftIcon={<FaInbox />}
-              onClick={() => {
-              if (card.id) {
-                const newCount = Math.max((sideSlots[card.id] || 0) - 1, 0);
-                updateSideSlots(card, newCount);
-                if (newCount === 0 && onClose) {
-                  onClose();
-                }
-              }
-            }}>
-              { t`Return a copy to the collection` }
-            </Button>
-          ) }
-          { renderControl(card, onClose) }
-        </Flex>
-      );
-    }, [renderControl, updateSideSlots, sideSlots]);
-
+  }, [slots, updateSlots]);
   const [showCard, cardModal] = useCardModal(slots, renderControl);
-  const [showCollectionCard, collectionCardModal] = useCardModal(slots, renderCollectionControl, 'collectionModal');
-  const [showDisplacedCard, displacedCardModal] = useCardModal(slots, renderDisplacedControl, 'displacedModal');
-
-  const background: string | undefined = typeof meta.background === 'string' ? meta.background : undefined;
-  const specialty: string | undefined = typeof meta.specialty === 'string' ? meta.specialty : undefined;
   const parsedDeck = useMemo(() => parseDeck(
     deck,
     meta,
     slots,
     sideSlots,
     cards,
-  ), [meta, slots, sideSlots, cards]);
-  const setWorlord = useCallback((warlord: string) => {
+  ), [deck, meta, slots, sideSlots, cards]);
+  const setWarlord = useCallback((warlord: string) => {
     setMeta({
       ...meta,
       warlord,
@@ -474,14 +447,8 @@ export default function DeckEdit({ deck, cards }: Props) {
     parsedDeck,
     cards,
     showCard,
+    setWarlord,
   );
-  const setUpgrade = useCallback(() => {
-    setMeta({
-      ...meta,
-      campaign: true,
-    });
-  }, [setMeta, meta]);
-
   const [name, setName] = useState(deck.name);
 
   const hasEdits: boolean = useMemo(() => {
@@ -584,8 +551,6 @@ export default function DeckEdit({ deck, cards }: Props) {
         </Box>
       </SimpleGrid>
       { cardModal }
-      { collectionCardModal }
-      { displacedCardModal }
       { warlordModal }
     </>
   );
@@ -599,8 +564,9 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
   const [createDeck] = useCreateDeckMutation();
   const [meta, setMeta] = useState<DeckMeta>({});
   const placeholderDeckName = useMemo(() => {
-    return t`Deck name`;
-  }, [meta]);
+    const warlord = meta.warlord && warlordCards[meta.warlord];
+    return warlord ? t`${warlord.name} Fights` : t`Deck name`;
+  }, [meta, warlordCards]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | undefined>();
   const onCreateDeck = useCallback(async() => {

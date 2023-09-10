@@ -11,6 +11,7 @@ import LoadingPage from '../../../components/LoadingPage';
 import { useAuth } from '../../../lib/AuthContext';
 import { useAllCardsMap } from '../../../lib/cards';
 import { getLocalizationServerSideProps } from '../../../lib/Lingui';
+import DeckEdit from '../../../components/DeckEdit';
 
 export default function EditDeckPage() {
   useRequireAuth();
@@ -51,7 +52,7 @@ export default function EditDeckPage() {
         py={{ base: "3rem", lg: "4rem" }}
         px={{ base: "1rem", lg: "0" }}
       >
-        { deck ? null /*<DeckEdit deck={deck} cards={cards} />*/ : <LoadingPage /> }
+        { deck ? <DeckEdit deck={deck} cards={cards} /> : <LoadingPage /> }
       </Box>
     </>
   );

@@ -18,6 +18,16 @@ const ICON_MATCH: { [text: string]: string | undefined } = {
   NECRON: 'necron',
 };
 
+const TEXT_MATCH: { [text: string]: string | undefined } = {
+  REACTION: t`Reaction`,
+  INTERRUPT: t`Interrupt`,
+  ACTION: t`Action`,
+  'COMBAT ACTION': t`Combat Action`,
+  'DEPLOY ACTION': t`Deploy Action`,
+  'BATTLE ABILITY': t`Battle Ability`,
+  'FORCED INTERRUPT': t`Forced Interrupt`,
+};
+
 export function useIconedText(
   text: string | undefined | null,
   options: {
@@ -27,16 +37,6 @@ export function useIconedText(
 ): string {
   const { noLines } = options;
   const { colorMode } = useColorMode();
-
-  const TEXT_MATCH: { [text: string]: string | undefined } = {
-    REACTION: t`Reaction`,
-    INTERRUPT: t`Interrupt`,
-    ACTION: t`Action`,
-    'COMBAT ACTION': t`Combat Action`,
-    'DEPLOY ACTION': t`Deploy Action`,
-    'BATTLE ABILITY': t`Battle Ability`,
-    'FORCED INTERRUPT': t`Forced Interrupt`,
-  };
 
   return useMemo(() => {
     const parser = new Parser().addRule(

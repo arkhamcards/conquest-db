@@ -13,13 +13,14 @@ import { useCardSearchControls } from './CardFilter';
 import { useTheme } from '../lib/ThemeContext';
 import CardImage, { CardImagePlaceholder } from './CardImage';
 import { useAllCards } from '../lib/cards';
+import { FactionType } from '../types/types';
 
-function CardButtonRow({ card, showModal, children }: { card: CardFragment; showModal: (card: CardFragment) => void; children?: React.ReactNode }) {
+function CardButtonRow({ card, showModal, children, hideFaction }: { card: CardFragment; showModal: (card: CardFragment) => void; children?: React.ReactNode; hideFaction?: boolean }) {
   const onClick = useCallback(() => showModal(card), [card, showModal]);
 
   return (
     <ListItem>
-      <CardRow card={card} onClick={onClick}>
+      <CardRow card={card} onClick={onClick} hideFaction={hideFaction}>
         {children}
       </CardRow>
     </ListItem>
@@ -117,8 +118,9 @@ interface SimpleCardListProps {
   hasOptions?: boolean;
   renderStyle?: CardRenderStyle;
   maxColumns?: ResponsiveValue<number>;
+  hideFaction?: boolean;
 }
-export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard, header = 'set', renderControl, emptyText, filter: filterCard, hasOptions, renderStyle: propRenderStyle, maxColumns }: SimpleCardListProps) {
+export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard, header = 'set', renderControl, emptyText, filter: filterCard, hasOptions, renderStyle: propRenderStyle, maxColumns, hideFaction }: SimpleCardListProps) {
   const { locale } = useLocale();
   const [search, setSearch] = useState('');
   const visibleCards = useMemo(() => {
@@ -241,18 +243,19 @@ export function SimpleCardList({ noSearch, hasFilters, cards, controls, showCard
         </Collapse>
       )}
       { sections.length ?
-        map(sections, (section, idx) => <CardListSection key={idx} section={section} renderControl={renderControl} showCard={showCard} renderStyle={propRenderStyle ?? renderStyle} maxColumns={maxColumns} />)
+        map(sections, (section, idx) => <CardListSection key={idx} section={section} renderControl={renderControl} showCard={showCard} renderStyle={propRenderStyle ?? renderStyle} maxColumns={maxColumns} hideFaction={hideFaction} />)
         : emptyState }
     </>
   );
 }
 
-function CardListSection({ section, renderControl, renderStyle, showCard, maxColumns, }: {
+function CardListSection({ section, renderControl, renderStyle, showCard, maxColumns, hideFaction }: {
   section: ItemSection;
   renderControl?: (card: CardFragment) => React.ReactNode;
   renderStyle: CardRenderStyle;
   showCard: (card: CardFragment) => void;
   maxColumns?: ResponsiveValue<number>;
+  hideFaction?: boolean;
 }) {
   switch (renderStyle) {
     case 'list':
@@ -260,7 +263,7 @@ function CardListSection({ section, renderControl, renderStyle, showCard, maxCol
         <List>
           { !!section.title && <CardHeader key={section.title} title={section.title} /> }
           { map(section.items, item => (
-            <CardButtonRow key={item.card.id} card={item.card} showModal={showCard}>
+            <CardButtonRow key={item.card.id} card={item.card} showModal={showCard} hideFaction={hideFaction}>
               { !!renderControl && !!item.card.id && renderControl(item.card)}
             </CardButtonRow>
           )) }
@@ -385,7 +388,7 @@ export function SpoilerCardList({
 
 export function SignatureCardList({ warlord }: { warlord: CardFragment }) {
   const allCards = useAllCards();
-  const signatureCards = useMemo(() => sortBy(filter(allCards ?? [], card => card.signature_id === warlord.signature_id && card.id !== warlord.id), card => card.position), [allCards]);
+  const signatureCards = useMemo(() => sortBy(filter(allCards ?? [], card => card.signature_id === warlord.signature_id && card.id !== warlord.id), card => card.position), [allCards, warlord]);
   return (
     <List>
       <CardHeader title={t`Signature Squad`} />

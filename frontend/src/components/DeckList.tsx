@@ -10,7 +10,7 @@ import { DeckFragment, SearchDeckFragment, useDeleteDeckMutation } from '../gene
 import { CardsMap } from '../lib/hooks';
 import { useAuth } from '../lib/AuthContext';
 import { RoleImage } from './CardImage';
-import { DeckDescription, MiniAspect } from './Deck';
+import { DeckDescription } from './Deck';
 import DeckProblemComponent from './DeckProblemComponent';
 import CoreIcon from '../icons/CoreIcon';
 import { DeckError } from '../types/types';
@@ -18,10 +18,12 @@ import useDeleteDialog from './useDeleteDialog';
 import { useTheme } from '../lib/ThemeContext';
 import { useLocale } from '../lib/TranslationProvider';
 import UserLink from './UserLink';
+import { useWarlordCards, useWarlordCardsMap } from '../lib/cards';
 
-export function DeckRow({ deck, onDelete }: {
+export function DeckRow({ deck, onDelete, warlordCards }: {
   deck: DeckFragment;
   onDelete: (deck: DeckFragment) => void;
+  warlordCards: CardsMap;
 }) {
   const { colorMode } = useColorMode();
   const { authUser } = useAuth();
@@ -30,10 +32,9 @@ export function DeckRow({ deck, onDelete }: {
   }, [onDelete, deck]);
   const buttonOrientation = useBreakpointValue<'vertical' | 'horizontal'>(['vertical', 'vertical', 'horizontal']);
   const problem = !!deck.meta.problem && Array.isArray(deck.meta.problem) ? (deck.meta.problem as DeckError[])  : undefined;
-  const role = useMemo(() => {
-    return null;
-//    return typeof deck.meta.role === 'string' && roleCards[deck.meta.role];
-  }, [deck.meta]);
+  const warlord = useMemo(() => {
+    return typeof deck.meta.warlord === 'string' && warlordCards[deck.meta.warlord];
+  }, [deck.meta, warlordCards]);
   const { colors } = useTheme();
 
   return (
@@ -95,6 +96,7 @@ export default function DeckList({
   decks: DeckFragment[] | undefined;
   refetch: () => void;
 }) {
+  const warlordCards = useWarlordCardsMap();
   const [doDelete] = useDeleteDeckMutation();
   const deleteDeck = useCallback(async(d: DeckFragment) => {
     const r = await doDelete({
@@ -124,6 +126,7 @@ export default function DeckList({
             key={deck.id}
             deck={deck}
             onDelete={onDelete}
+            warlordCards={warlordCards}
           />
         )) }
       </List>

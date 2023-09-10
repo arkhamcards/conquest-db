@@ -143,6 +143,7 @@ export function CardHeader({
   includeText,
   children,
   hideStats,
+  hideFaction,
 }: Props & {
   flex?: number;
   miniLevel?: boolean;
@@ -151,7 +152,8 @@ export function CardHeader({
   includeText?: boolean;
   children?: React.ReactNode;
   hideStats?: boolean;
-  isBack?: boolean,
+  isBack?: boolean;
+  hideFaction?: boolean;
 }) {
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
@@ -164,7 +166,6 @@ export function CardHeader({
           </Flex>
         <Flex direction="column"justifyContent="flex-start">
           <Flex direction="column" flex={1}>
-            <DeckCardProblemTooltip errors={problem}>
             <Flex direction="row">
               { !!card.faction_name && (
                 <Text fontSize="sm">{card.faction_name}</Text>
@@ -174,13 +175,13 @@ export function CardHeader({
                 <Text fontSize="sm">{card.type_name}</Text>
               )}
             </Flex>
-            </DeckCardProblemTooltip>
           </Flex>
 
           <Flex direction="row" justifyContent="space-between">
             <Flex direction="column">
             <Flex direction="row" alignItems="flex-start" flexGrow={1}>
               { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique" size={15} /></Box> }
+              <DeckCardProblemTooltip errors={problem}>
                 <Text
                   fontSize="lg"
                   fontWeight={600}
@@ -189,14 +190,14 @@ export function CardHeader({
                 >
                   { card.name }
                 </Text>
+              </DeckCardProblemTooltip>
+
               </Flex>
               { !!card.traits && (
                 <Text fontSize="sm" fontStyle="italic" color="#666666">{card.traits}</Text>
               ) }
-
             </Flex>
           </Flex>
-
           { children }
           <Flex direction="row">
             { includeText && !!card.text && (
@@ -207,7 +208,7 @@ export function CardHeader({
           </Flex>
         </Flex>
       </Flex>
-      { !hideStats ? <CardStats card={card} /> : <CardLoyaltyColumn card={card} />}
+      { !hideStats ? <CardStats card={card} hideFaction={hideFaction} /> : <CardLoyaltyColumn card={card} />}
     </Flex>
   );
 }
@@ -269,14 +270,12 @@ function CardLoyaltyColumn({ card }: { card: CardFragment }) {
   );
 }
 
-
-
-function CardStats({ card}: { card: CardFragment }) {
+function CardStats({ card, hideFaction }: { card: CardFragment; hideFaction?: boolean }) {
   return (
     <Flex direction="row" justifyContent="flex-end" alignItems="center">
       <Box mr={2}><CardIcons card={card} direction="column" /></Box>
       <CardAttackHealth card={card} ml={2} />
-      <CardLoyaltyColumn card={card} />
+      { !hideFaction && <CardLoyaltyColumn card={card} /> }
     </Flex>
   );
 }
@@ -292,63 +291,39 @@ function CardImageSection({ card, detail }: { card: CardFragment; detail?: boole
   );
 }
 
-function CardBody({ card, padding, problem, count, detail, noImage, isBack }: Props & { padding?: number; problem?: DeckError[]; count?: number; detail?: boolean, noImage?: boolean; isBack?: boolean }) {
-  const cardText = useMemo(() => filter(isBack ? [t`Bloodied.`, card.keywords, card.back_text] : [card.keywords, card.text], text => !!text).join('\n'), [card.text, card.keywords, isBack]);
+function CardBody({ card, problem, detail, noImage, isBack }: Props & { problem?: DeckError[]; detail?: boolean, noImage?: boolean; isBack?: boolean }) {
+  const cardText = useMemo(
+    () => filter(isBack ? [t`Bloodied.`, card.keywords, card.back_text] : [card.keywords, card.text], text => !!text).join('\n'),
+    [card.text, card.keywords, isBack, card.back_text],
+  );
   return (
-    <Flex direction="row">
-      <Flex direction="column" justifyContent="space-between" alignItems="center" minWidth={12}>
-        { !isBack && <CardIcons card={card} direction="column" /> }
-        <CardAttackHealth card={card} mt={2} ml={2} isBack={isBack} />
+    <Flex direction="column">
+      <DeckProblemComponent card errors={problem} limit={1} />
+      <Flex direction="row">
+        <Flex direction="column" justifyContent="space-between" alignItems="center" minWidth={12}>
+          { !isBack && <CardIcons card={card} direction="column" /> }
+          <CardAttackHealth card={card} mt={2} ml={2} isBack={isBack} />
+        </Flex>
+        <Flex direction="column" flex={1}>
+          {!!cardText && <CardText text={cardText} /> }
+        </Flex>
+        { !noImage && (
+          <Flex direction="column" alignItems="flex-start" justifyContent="space-between">
+            { !!card?.imagesrc && (
+              <Box marginTop={8}>
+                <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} />
+              </Box>
+            ) }
+          </Flex>
+        ) }
       </Flex>
-      <Flex direction="column" flex={1}>
-        {!!cardText && <CardText text={cardText} /> }
-      </Flex>
+      { !!detail && (
+        <Flex direction="column" flex={1} alignItems="flex-start" justifyContent="flex-end" margin={2}>
+          <FooterInfo card={card} />
+        </Flex>
+      )}
     </Flex>
   );
-  /*
-  const aspect = (card.aspect_id && aspects[card.aspect_id]) || undefined;
-  return (
-    <Flex direction={['column', 'column', 'row']} width="100%">
-      <Flex direction="column">
-        <DeckProblemComponent card errors={problem} limit={1} />
-        <Flex direction="row" alignItems="flex-start" padding={padding}>
-          <Flex direction="column" flex={1}>
-            { !!(card.text || card.flavor) && <CardText text={card.text} flavor={card.flavor} aspectId={card.aspect_id} /> }
-          </Flex>
-          { card.token_name && card.token_plurals && (
-            <Tokens
-              count={card.token_count || 0}
-              name={card.token_name}
-              plurals={card.token_plurals}
-              aspect={aspect}
-              aspectId={card.aspect_id}
-            />
-          ) }
-          { !!card.harm && (
-            <Box padding={1} paddingLeft={3} paddingRight={3} marginLeft={2} marginBottom={2} backgroundColor="#ad1b23">
-              <Text color="#FFFFFF" fontSize="xl" fontWeight={900} >
-                { card.harm }
-              </Text>
-            </Box>
-          ) }
-        </Flex>
-        { !!detail && (
-          <Flex direction="column" flex={1} alignItems="flex-start" justifyContent="flex-end" margin={2}>
-            <FooterInfo card={card} />
-          </Flex>
-        )}
-      </Flex>
-      { !noImage && (
-        <Flex direction="column" alignItems="flex-start" justifyContent="space-between">
-          { !!card?.imagesrc && (
-            <Box marginTop={8}>
-              <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} />
-            </Box>
-          ) }
-        </Flex>
-      ) }
-  </Flex>
-  );*/
 }
 
 export default function Card({ card, noImage, flex }: Props) {
@@ -357,12 +332,23 @@ export default function Card({ card, noImage, flex }: Props) {
       <Box padding={2}>
         <CardHeader card={card} hideStats />
       </Box>
-      <CardBody card={card} padding={2} detail noImage={noImage} />
+      <CardBody card={card} detail noImage={noImage} />
     </Box>
   );
 }
 
-export function CardRow({ card, problem, children, onClick, includeSet, includeText, last }: Props & { children?: React.ReactNode; problem?: DeckCardError[]; includeSet?: boolean; onClick?: () => void; includeText?: boolean; last?: boolean }) {
+type CardRowProps = Props & {
+  children?: React.ReactNode;
+  problem?: DeckCardError[];
+  includeSet?: boolean; onClick?: () => void;
+  includeText?: boolean;
+  last?: boolean;
+  hideFaction?: boolean;
+};
+
+export function CardRow({
+  card, problem, children, onClick, includeSet, includeText, last, hideFaction,
+}: CardRowProps) {
   return (
     <Flex direction="row" padding={2} width="100%" alignItems="flex-start" justifyContent="space-between" borderBottomWidth={last ? undefined : 0.5} borderColor="#BBBBBB">
       <Flex direction="row" flex={1} onClick={onClick} cursor={onClick ? 'pointer' : undefined}>
@@ -373,6 +359,7 @@ export function CardRow({ card, problem, children, onClick, includeSet, includeT
           problem={problem}
           includeSet={includeSet}
           includeText={includeText}
+          hideFaction={hideFaction}
         />
       </Flex>
       { children }
@@ -408,7 +395,7 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
         <ModalCloseButton />
         <ModalBody overflowY="scroll">
           <Box paddingBottom={2}>
-            {!!card && <CardBody card={card} problem={problem} count={renderControl ? undefined : 1}/> }
+            {!!card && <CardBody card={card} problem={problem}/> }
             { card?.type_id === 'warlord' && (
                 <>
                   <Box bgColor="red.200" mt={2} pt={1} pb={2}>

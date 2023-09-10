@@ -36,7 +36,7 @@ import {
 import { HamburgerIcon } from '@chakra-ui/icons';
 import Router from 'next/router';
 import NextLink from 'next/link';
-import { flatMap, map, pick, values } from 'lodash';
+import { flatMap, map, values } from 'lodash';
 import { t, Trans } from '@lingui/macro';
 import { SlCalender } from 'react-icons/sl';
 import { FaComment, FaEdit, FaShare, FaShareAlt, FaTrash } from 'react-icons/fa';
@@ -55,6 +55,8 @@ import SolidButton from './SolidButton';
 import LikeButton from './LikeButton';
 import CommentsComponent from './CommentsComponent';
 import UserLink from './UserLink';
+import { FactionType } from '../types/types';
+import { FactionIcon } from '../icons/CoreIcon';
 
 const SHOW_COMMENTS = process.env.NODE_ENV === 'development';
 
@@ -68,13 +70,13 @@ interface Props {
   onLike?: () => Promise<string | undefined>;
 }
 
-function ChosenRole({ role, showCard, children }: { role: CardFragment; showCard: ShowCard; children: React.ReactNode }) {
-  const onClick = useCallback(() => showCard(role), [role, showCard]);
+function ChosenWarlord({ warlord, showCard, children }: { warlord: CardFragment; showCard: ShowCard; children?: React.ReactNode }) {
+  const onClick = useCallback(() => showCard(warlord), [warlord, showCard]);
   return (
     <Flex marginRight={2} direction="column" onClick={onClick}  cursor="pointer" alignItems="flex-start">
       <CardHeader
         flex={1}
-        card={role}
+        card={warlord}
         miniLevel
         includeSet
         includeText
@@ -87,9 +89,8 @@ function ChosenRole({ role, showCard, children }: { role: CardFragment; showCard
 
 export default function DeckDetail({ deck, cards, onLike }: Props) {
   const { authUser } = useAuth();
-  const { i18n } = useLocale();
+  const { i18n, factions } = useLocale();
   const [showCard, cardModal] = useCardModal(deck.slots);
-  const specialty: string | undefined = typeof deck.meta.specialty === 'string' ? deck.meta.specialty : undefined;
   const hasCards = useMemo(() => values(cards).length > 0, [cards]);
   const parsedDeck = useMemo(() => parseDeck(deck, deck.meta, deck.slots, deck.side_slots, cards), [deck, cards]);
 
@@ -323,6 +324,19 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
             </ButtonGroup>
           </Flex>
         </Box>
+        { !!parsedDeck.warlord ? <ChosenWarlord warlord={parsedDeck.warlord} showCard={showCard} /> : (
+          <Text>
+            { t`No warlord chosen` }
+          </Text>
+        ) }
+        { !!parsedDeck.allyFaction && parsedDeck.faction !== FactionType.Necrons && parsedDeck.faction !== FactionType.Tyranids && (
+          <Flex direction="row" mt={2}>
+            <Text size="md" mr={2}>{t`Ally:`}</Text>
+            <FactionIcon faction={parsedDeck.allyFaction} size={16} color="#888888" />
+            <Text ml={1} fontWeight={600} size="md">{factions[parsedDeck.allyFaction].name}</Text>
+
+          </Flex>
+        )}
         <Grid templateColumns="repeat(6, 1fr)" gap={6}>
           <GridItem colSpan={deck.description ? [6, 6, 4, 3] : 6}>
             <SimpleGrid columns={deck.description ? 1 : [1, 1, 2]}>
@@ -331,9 +345,6 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
                 paddingRight={deck.description ? [0, 0, 6] : undefined}
               >
                 <DeckDescription deck={deck} />
-                <Text>
-                  { t`Not set` }
-                </Text>
               </Box>
             </SimpleGrid>
             { !!parsedDeck.problem?.length && hasCards && (
@@ -361,11 +372,11 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
               </Stack>
             </GridItem>
           ) }
-          { SHOW_COMMENTS && !!deck.published && (
+          { false /*SHOW_COMMENTS && !!deck.published && (
             <GridItem colSpan={6}>
               <CommentsComponent comments={deck.comments} deckId={deck.id} />
             </GridItem>
-          ) }
+          )*/ }
         </Grid>
       </Box>
       {shareModal}

@@ -387,27 +387,6 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
     parse: parseNumberCompare,
     serialize: serializeNumberCompare,
   });
-  const [awa, setAwa] = useSearchQueryState<NumberCompare>('awa', {
-    history: 'replace',
-    parse: parseNumberCompare,
-    serialize: serializeNumberCompare,
-  });
-  const [fit, setFit] = useSearchQueryState<NumberCompare>('fit', {
-    history: 'replace',
-    parse: parseNumberCompare,
-    serialize: serializeNumberCompare,
-  });
-  const [foc, setFoc] = useSearchQueryState<NumberCompare>('foc', {
-    history: 'replace',
-    parse: parseNumberCompare,
-    serialize: serializeNumberCompare,
-  });
-  const [spi, setSpi] = useSearchQueryState<NumberCompare>('spi', {
-    history: 'replace',
-    parse: parseNumberCompare,
-    serialize: serializeNumberCompare,
-  });
-
   const [approach, setApproach] = useSearchQueryState<string[]>('a', {
     history: 'replace',
     parse: parseArray,
@@ -479,7 +458,7 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
       return costFilter(cost, card) && equipFilter(equip, card);
       */
     }];
-  }, [traits, cardSets, types, cost, equip, awa, foc, fit, spi, approach]);
+  }, [traits, cardSets, types, cost, equip, approach]);
   return [(
     <Stack key="controls">
       <FormControl>

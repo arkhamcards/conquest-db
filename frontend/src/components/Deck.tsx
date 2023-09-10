@@ -1,31 +1,27 @@
 import React, { useCallback, useMemo } from 'react';
 import {
-  Box,
   Text,
   Flex,
   ListItem,
-  SimpleGrid,
   TextProps,
-  AspectRatio,
   useColorMode,
 } from '@chakra-ui/react';
 import { InfoIcon } from '@chakra-ui/icons';
 import NextLink from 'next/link';
 import { filter } from 'lodash';
-import { plural, t } from '@lingui/macro';
+import { t } from '@lingui/macro';
 
 import { CardFragment, DeckFragment, SearchDeckFragment } from '../generated/graphql/apollo-schema';
-import { DeckCardError } from '../types/types';
+import { DeckCardError, FactionType } from '../types/types';
 import { CardsMap } from '../lib/hooks';
 import { CardRow, ShowCard } from './Card';
 import ListHeader from './ListHeader';
 import CardCount from './CardCount';
 import DeckProblemComponent from './DeckProblemComponent';
-import { useLocale } from '../lib/TranslationProvider';
 import { RoleImage } from './CardImage';
-import CoreIcon from '../icons/CoreIcon';
 import { CardItem, Item, ParsedDeck } from '../lib/parseDeck';
 import { useTheme } from '../lib/ThemeContext';
+import { useLocale } from '../lib/TranslationProvider';
 
 
 export function DeckItemComponent({ item, showCard }: { item: Item; showCard: ShowCard }) {
@@ -52,8 +48,8 @@ function DeckCardRow({ item, showCard }: { item: CardItem; showCard: (card: Card
   return (
     <ListItem key={item.card.id} >
       <Flex direction="row" alignItems="flex-start" justifyContent="flex-start">
-        <CardRow card={item.card} problem={item.problem} onClick={onClick}>
-          <CardCount count={item.count} marginLeft={2} />
+        <CardRow card={item.card} problem={item.problem} onClick={onClick} hideFaction>
+          <CardCount count={item.card.signature_id ? (item.card.quantity ?? 3) : item.count} marginLeft={2} />
         </CardRow>
       </Flex>
     </ListItem>
@@ -69,35 +65,18 @@ export function DeckCountLine({ parsedDeck }: { parsedDeck: ParsedDeck }) {
   );
 }
 
-export function MiniAspect({ value, aspect, extraSmall }: { value: number | null | undefined; aspect: string; extraSmall?: boolean }) {
-  const { aspects } = useLocale();
-  return (
-    <AspectRatio width={extraSmall ? '32px' : '40px'} ratio={1}>
-      <Box bg={`aspect.${aspect}`} flexDirection="column" alignItems="center" position="relative">
-        <Flex direction="column" alignItems="center" justifyContent="center" position="absolute" top="0" left="0" height="100%" width="100%" >
-          <AspectRatio width="90%" ratio={1}>
-            <CoreIcon icon={`${aspect.toLowerCase()}_chakra`} size={50} color="#FFFFFF66" />
-          </AspectRatio>
-        </Flex>
-        <Text color="white" textAlign="center" fontWeight={900} lineHeight={1.1}>{value}</Text>
-        <Text color="white" textAlign="center" fontSize="2xs" lineHeight={1} fontWeight={200} letterSpacing={0.1}>{aspects[aspect]?.short_name}</Text>
-      </Box>
-    </AspectRatio>
-  );
-}
-
 export function DeckDescription({ deck, ...textProps }: {
   deck: DeckFragment | SearchDeckFragment;
 } & Omit<TextProps, 'text'>) {
-  const background: string | undefined = typeof deck.meta.background === 'string' ? deck.meta.background : undefined;
-  const specialty: string | undefined = typeof deck.meta.specialty === 'string' ? deck.meta.specialty : undefined;
-  const role: string | undefined = typeof deck.meta.role === 'string' ? deck.meta.role : undefined;
+  const { factions } = useLocale();
+  const faction: string | undefined = typeof deck.meta.faction === 'string' ? deck.meta.faction : undefined;
+  const ally_faction: string | undefined = typeof deck.meta.ally_faction === 'string' ? deck.meta.ally_faction : undefined;
   const description = useMemo(() => {
     return filter([
-      background,
-      specialty,
-    ], x => !!x).join(' - ');
-  }, [background, specialty, role]);
+      faction,
+      ally_faction,
+    ], x => !!x).map((f) => factions[f as FactionType].name).join(' - ');
+  }, [faction, ally_faction, factions]);
   return <Text {...textProps}>{description}</Text>
 }
 
