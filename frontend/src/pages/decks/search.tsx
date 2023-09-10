@@ -7,33 +7,8 @@ import { flatMap, map, values, groupBy } from 'lodash';
 import PageHeading from '../../components/PageHeading';
 import { CardFragment } from '../../generated/graphql/apollo-schema';
 import { CardsMap } from '../../lib/hooks';
-import { useLocale } from '../../lib/TranslationProvider';
 import SearchDecks from '../../components/SearchDecks';
-import { useRoleCardsMap } from '../../lib/cards';
 import { getLocalizationServerSideProps } from '../../lib/Lingui';
-
-function CategorySelect({ category, onChange }: { category: CategoryTranslation; onChange: (selection: string[]) => void }) {
-  const options = useMemo(() => {
-    return map(category.options, (label, value) => {
-      return {
-        value,
-        label,
-      };
-    })
-  }, [category.options]);
-  return (
-    <FormControl marginBottom={4}>
-      <FormLabel>{category.name}</FormLabel>
-      <Select
-        isMulti
-        onChange={(e) => onChange(map(e, x => x.value))}
-        placeholder={t`Filter by ${category.name}`}
-        options={options}
-      />
-    </FormControl>
-  )
-}
-
 interface RoleOption {
   value: string;
   label: string;

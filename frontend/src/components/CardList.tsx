@@ -258,7 +258,7 @@ function CardListSection({ section, renderControl, renderStyle, showCard, maxCol
     case 'list':
       return (
         <List>
-          { !!section.title &&  <CardHeader key={section.title} title={section.title} /> }
+          { !!section.title && <CardHeader key={section.title} title={section.title} /> }
           { map(section.items, item => (
             <CardButtonRow key={item.card.id} card={item.card} showModal={showCard}>
               { !!renderControl && !!item.card.id && renderControl(item.card)}

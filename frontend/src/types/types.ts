@@ -59,30 +59,19 @@ export interface Slots {
 }
 
 export type DeckCardError =
-  'need_two_cards' |
-  'invalid_role' |
   'too_many_duplicates' |
-  'invalid_aspect_levels' |
-  'invalid_outside_interest';
+  'invalid_faction' |
+  'invalid_signature' |
+  'invalid_loyal' |
+  'invalid_ally' |
+  'non_army_ally_card';
 
 export type DeckError =
   'invalid_aspects' |
-  'invalid_background' |
-  'invalid_specialty' |
   'too_many_duplicates' |
-  'personality' |
-  'too_many_foc_personality' |
-  'too_many_awa_personality' |
-  'too_many_fit_personality' |
-  'too_many_spi_personality' |
-  'background' |
-  'too_many_background' |
-  'specialty' |
-  'too_many_specialty' |
-  'role' |
-  'invalid_outside_interest' |
-  'outside_interest' |
-  'too_many_outside_interest' |
+  'warlord' |
+  'faction' |
+  'invalid_warlord' |
   'too_many_cards' |
   'too_few_cards' |
   DeckCardError;

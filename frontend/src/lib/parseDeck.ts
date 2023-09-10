@@ -1,7 +1,7 @@
 import { concat, forEach, map, flatMap, uniq, sumBy, keys, remove } from 'lodash';
 import { t } from '@lingui/macro';
 
-import { DeckCardError, DeckError, DeckMeta, FactionType, Slots } from '../types/types';
+import { DeckCardError, DeckError, DeckMeta, Faction, FactionType, Slots } from '../types/types';
 import { CardsMap } from '../lib/hooks';
 import { CardFragment, DeckFragment } from '../generated/graphql/apollo-schema';
 
@@ -92,6 +92,17 @@ export interface ParsedDeck {
   loading: boolean;
   deckSize: number;
 }
+
+function getAllyAllowedPredicate(faction: FactionType | undefined, chosenAlly: FactionType | undefined): (card: CardFragment) => boolean {
+  switch (faction) {
+    case FactionType.Necrons:
+      return (card: CardFragment) => card.faction_id !== FactionType.Tyranids;
+    case FactionType.Tyranids:
+      return (card: CardFragment) => false;
+    default:
+      return (card: CardFragment) => card.faction_id === chosenAlly;
+  }
+}
 export default function parseDeck(
   deck: DeckFragment,
   meta: DeckMeta,
@@ -102,8 +113,12 @@ export default function parseDeck(
   const missingCards: string[] = [];
   const warlord = typeof meta.warlord === 'string' ? meta.warlord : '';
   const warlordCard = warlord ? cards[warlord] : undefined;
-  const faction = typeof meta.faction === 'string' ? meta.faction : undefined;
-  const ally_faction = typeof meta.ally_faction === 'string' ? meta.ally_faction : undefined;
+  const faction = typeof meta.faction === 'string' ? (meta.faction as FactionType) : undefined;
+  const chosenAllyFaction = typeof meta.ally_faction === 'string' ? (meta.ally_faction as FactionType) : undefined;
+  const allowedAllyFaction = getAllyAllowedPredicate(faction, chosenAllyFaction);
+
+  typeof meta.ally_faction === 'string' ? meta.ally_faction : undefined;
+
   let items: CardItem[] = flatMap(slots, (count, code) => {
     if (typeof count !== 'number' || count === 0) {
       return [];
@@ -114,19 +129,24 @@ export default function parseDeck(
       return [];
     }
     const problems: DeckCardError[] = [];
-    /*
-    if (count > 2) {
-      if (card.set_id !== 'malady') {
-        problems.push('too_many_duplicates');
-      }
-    } else if (!isUpgrade && count !== 2) {
-      problems.push('need_two_cards');
+
+    if (count > 3) {
+      problems.push('too_many_duplicates');
     }
-    if (card.aspect_id && card.level !== null && card.level !== undefined) {
-      if (stats[card.aspect_id] < card.level) {
-        problems.push('invalid_aspect_levels');
+    if (warlordCard && card.signature_id && warlordCard.signature_id !== card.signature_id) {
+      problems.push('invalid_signature');
+    }
+    if (card.type_id !== 'neutral') {
+      if (faction) {
+        if (faction === card.faction_id) {
+          // From our faction, so its allowed.
+        } else if (!allowedAllyFaction(card)) {
+          problems.push('invalid_ally');
+        } else if (card.type_id !== 'army') {
+          problems.push('non_army_ally_card');
+        }
       }
-    }*/
+    }
     return {
       type: 'card',
       id: code,
@@ -136,218 +156,102 @@ export default function parseDeck(
     };
   });
   const globalProblems: DeckError[] = [];
-  const backgroundErrors: DeckError[] = [];
-  const specialtyErrors: DeckError[] = [];
-  const outsideInterestErrors: DeckError[] = [];
-  const personalityErrors: DeckError[] = [];
+  const signatureErrors: DeckError[] = [];
+  const armyErrors: DeckError[] = [];
+  const supportErrors: DeckError[] = [];
+  const synapseErrors: DeckError[] = [];
+  const attachmentErrors: DeckError[] = [];
+  const eventErrors: DeckError[] = [];
+  const planetErrors: DeckError[] = [];
+
   const deckSize = sumBy(items, i => i.type === 'card' ? i.count : 0);
-/*
-    // Starting decks have more rules.
-    let backgroundNonExpert = 0;
-    let backgroundCount = 0;
-    let specialtyNonExpert = 0;
-    let specialtyCount = 0;
-    let splashCount = 0;
-    let personalityCount: {
-      [aspect: string]: number;
-    } = { [AWA]: 0, [FIT]: 0, [FOC]: 0, [SPI]: 0 };
-    items = map(items, i => {
-      if (i.type !== 'card') {
-        return i;
-      }
-      const problems = [...(i.problem || [])];
-      if (i.card.set_id === 'personality') {
-        if (i.card.aspect_id) {
-          switch (i.card.aspect_id) {
-            case AWA: {
-              personalityCount.AWA += 2;
-              if (personalityCount.AWA > 2) {
-                personalityErrors.push('too_many_awa_personality');
-              }
-              break;
-            }
-            case FOC: {
-              personalityCount.FOC += 2;
-              if (personalityCount.FOC > 2) {
-                personalityErrors.push('too_many_foc_personality');
-              }
-              break;
-            }
-            case FIT: {
-              personalityCount.FIT += 2;
-              if (personalityCount.FIT > 2) {
-                personalityErrors.push('too_many_fit_personality');
-              }
-              break;
-            }
-            case SPI: {
-              personalityCount.SPI += 2;
-              if (personalityCount.SPI > 2) {
-                personalityErrors.push('too_many_spi_personality');
-              }
-              break;
-            }
-          }
-        }
-      } else {
-        switch (i.card.set_type_id) {
-          case 'background':
-            if (i.card.set_id === background) {
-              backgroundCount += i.count;
-              if (!i.card.real_traits || i.card.real_traits.indexOf('Expert') === -1) {
-                backgroundNonExpert += i.count;
-              }
-              if (backgroundCount > 10) {
-                if (backgroundCount > 12 || splashCount >= 2) {
-                  backgroundErrors.push('too_many_background')
-                } else if (backgroundNonExpert < 2) {
-                  backgroundErrors.push('invalid_outside_interest');
-                } else {
-                  splashFaction = 'background';
-                  splashCount += i.count;
-                }
-              }
-            } else {
-              if (i.card.real_traits && i.card.real_traits.indexOf('Expert') !== -1) {
-                problems.push('invalid_outside_interest');
-              } else {
-                splashCount += i.count;
-                if (splashCount > 2){
-                  outsideInterestErrors.push('too_many_outside_interest');
-                }
-              }
-            }
-            break;
-          case 'specialty':
-            if (i.card.set_id === specialty) {
-              specialtyCount += i.count;
-              if (!i.card.real_traits || i.card.real_traits.indexOf('Expert') === -1) {
-                specialtyNonExpert += i.count;
-              }
-              if (specialtyCount > 10) {
-                if (specialtyCount > 12 || splashCount >= 2) {
-                  specialtyErrors.push('too_many_specialty')
-                } else if (specialtyNonExpert < 2) {
-                  specialtyErrors.push('invalid_outside_interest');
-                } else {
-                  splashFaction = 'specialty';
-                  splashCount += i.count;
-                }
-              }
-            } else {
-              if (i.card.real_traits && i.card.real_traits.indexOf('Expert') !== -1) {
-                problems.push('invalid_outside_interest');
-              } else {
-                splashCount += i.count;
-                if (splashCount > 2){
-                  outsideInterestErrors.push('too_many_outside_interest');
-                }
-              }
-            }
-            break;
-        }
-      }
-      return {
-        ...i,
-        problem: problems.length ? problems : undefined,
-      };
-    });
-    if (
-      personalityCount.AWA !== 2 ||
-      personalityCount.FIT !== 2 ||
-      personalityCount.FOC !== 2 ||
-      personalityCount.SPI !== 2
-    ) {
-      personalityErrors.push('personality')
-    }
-    if (specialtyCount < 10) {
-      specialtyErrors.push('specialty');
-    }
-    if (backgroundCount < 10) {
-      backgroundErrors.push('background');
-    }
-    if (splashCount < 2) {
-      outsideInterestErrors.push('outside_interest');
-    }
-  */
-  const backgroundName = background && 'foo';
-  const specialtyName = specialty && 'bar';
-  const personalityCards: Item[] = [
+  const signatureCards: Item[] = [
     {
       type: 'header',
-      id: 'personality',
-      title: t`Personality`,
-      problem: personalityErrors.length ? uniq(personalityErrors) : undefined,
+      id: 'signature',
+      title: t`Signature Squad`,
+      problem: signatureErrors.length ? uniq(signatureErrors) : undefined,
     },
   ];
-  const backgroundCards: Item[] = [
+  const armyCards: Item[] = [
     {
       type: 'header',
-      id: 'background',
-      title: backgroundName ? t`Background: ${backgroundName}` : t`Background`,
-      problem: backgroundErrors.length ? uniq(backgroundErrors) : undefined,
+      id: 'army',
+      title: t`Army`,
+      problem: armyErrors.length ? uniq(armyErrors) : undefined,
     },
   ];
-  const specialtyCards: Item[] = [
+  const supportCards: Item[] = [
     {
       type: 'header',
-      id: 'specialty',
-      title: specialtyName ? t`Specialty: ${specialtyName}` : t`Specialty`,
-      problem: specialtyErrors.length ? uniq(specialtyErrors) : undefined,
+      id: 'support',
+      title: t`Support`,
+      problem: supportErrors.length ? uniq(supportErrors) : undefined,
     },
   ];
-  const outsideInterestCards: Item[] = [
+  const synapseCards: Item[] = [
     {
       type: 'header',
-      title: t`Outside Interest`,
-      id: 'outside_interest',
-      problem: outsideInterestErrors.length ? uniq(outsideInterestErrors) : undefined,
+      id: 'synapse',
+      title: t`Synapse`,
+      problem: synapseErrors.length ? uniq(synapseErrors) : undefined,
     },
   ];
-  const otherCards: Item[] = [
+  const attachmentCards: Item[] = [
     {
       type: 'header',
-      id: 'other',
-      title: t`Rewards and Maladies`,
-      problem: undefined,
+      id: 'attachment',
+      title: t`Attachment`,
+      problem: attachmentErrors.length ? uniq(attachmentErrors) : undefined,
     },
   ];
-  /*
+  const eventCards: Item[] = [
+    {
+      type: 'header',
+      id: 'event',
+      title: t`Event`,
+      problem: eventErrors.length ? uniq(eventErrors) : undefined,
+    },
+  ];
+  const planetCards: Item[] = [
+    {
+      type: 'header',
+      id: 'planet',
+      title: t`Planet`,
+      problem: planetErrors.length ? uniq(planetErrors) : undefined,
+    },
+  ];
+
   forEach(items, i => {
     if (i.type === 'card') {
-      if (i.card.set_id === 'personality') {
-        personalityCards.push(i);
+      if (i.card.signature_id) {
+        signatureCards.push(i);
         return;
       }
-      if (i.card.set_type_id === 'background') {
-        if (i.card.set_id === background) {
-          backgroundCards.push(i);
-        } else {
-          outsideInterestCards.push(i);
-        }
-        return;
+      switch (i.card.type_id) {
+        case 'army': armyCards.push(i); return;
+        case 'synapse': synapseCards.push(i); return;
+        case 'support': supportCards.push(i); return;
+        case 'attachment': attachmentCards.push(i); return;
+        case 'event': eventCards.push(i); return;
+        case 'planet': planetCards.push(i); return;
       }
-      if (i.card.set_type_id === 'specialty') {
-        if (i.card.set_id === specialty) {
-          specialtyCards.push(i);
-        } else {
-          outsideInterestCards.push(i);
-        }
-        return;
-      }
-      otherCards.push(i);
     }
   });
-  */
 
   const result = [
-    ...personalityCards,
-    ...backgroundCards,
-    ...specialtyCards,
-    ...outsideInterestCards,
-    ...(otherCards.length > 1 || otherCards[0].problem?.length ? otherCards : []),
+    ...signatureCards,
+    ...armyCards,
+    ...supportCards,
+    ...synapseCards,
+    ...attachmentCards,
+    ...eventCards,
+    ...planetCards,
   ];
   return {
+    warlord: warlordCard,
+    faction,
+    allyFaction: chosenAllyFaction,
     problem: uniq([
       ...globalProblems,
       ...flatMap(result, i => i.problem || []),

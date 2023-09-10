@@ -36,10 +36,9 @@ export function useCardNeedUpdate(): [boolean, () => void] {
       }
     }
   }, [loading, error, cardData, refetch]);
+
   const forceRefresh = useCallback(() => {
-    refetch({
-      locale,
-    });
+    refetch({ locale, });
   }, [refetch, locale]);
   const needsUpdate = useMemo(() => {
     const noUpdateData = !updatedLoading && !updatedData?.card_updated_at.length;

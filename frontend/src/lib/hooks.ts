@@ -87,37 +87,28 @@ export type DeckCardErrorTranslations = { [error in DeckCardError]: string };
 
 export function getDeckErrors(): DeckErrorTranslations {
   return {
-    invalid_aspects: t`Chosen aspects are invalid.`,
+    faction: t`You must choose a faction.`,
     too_many_duplicates: t`Too many cards with the same name.`,
-    need_two_cards: t`You must include two of each card in your starting deck.`,
-    personality: t`Not enough personality cards.`,
-    too_many_awa_personality: t`Too many AWA personality cards.`,
-    too_many_spi_personality: t`Too many SPI personality cards.`,
-    too_many_foc_personality: t`Too many FOC personality cards.`,
-    too_many_fit_personality: t`Too many FIT personality cards.`,
-    background: t`Not enough background cards.`,
-    too_many_background: t`Too many cards of the chosen background.`,
-    specialty: t`Not enough specialty cards.`,
-    too_many_specialty: t`Too many cards of the chosen specialty.`,
-    role: t`You must choose a role card.`,
-    outside_interest: t`Not enough outside interest cards.`,
-    invalid_background: t`Contains too many cards that do not match your chosen background.`,
-    invalid_specialty: t`Contains too many cards that do not match your chosen background.`,
-    invalid_role: t`Your role card does not match your chosen specialty.`,
-    invalid_aspect_levels: t`Your deck contains cards with aspect requirements that are not allowed.`,
-    invalid_outside_interest: t`Your outside interest card cannot have the Expert trait.`,
-    too_many_outside_interest: t`There are too many outside interest cards in the deck.`,
-    too_many_cards: t`Too many cards. When making deck changes while camping, you should remove cards to make room for rewards to maintain a 30 card deck.`,
-    too_few_cards: t`Not enough cards. When reward cards are removed while camping, you must add back cards from your original deck to maintain a 30 card deck.`,
+    invalid_faction: t`Contains cards that don't match your chosen faction.`,
+    invalid_signature: t`Contains cards from other warlord's Signature Squads.`,
+    invalid_ally: t`Contains cards that do not match your allied faction.`,
+    non_army_ally_card: t`Contains cards from an ally faction that are not Army type.`,
+    invalid_loyal: t`Contains loyal cards from your ally faction.`,
+    invalid_aspects: t`Chosen aspects are invalid.`,
+    warlord: t`You must choose a Warlord card.`,
+    invalid_warlord: t`Your Warlord card does not match your chosen faction.`,
+    too_many_cards: t`Too many cards.`,
+    too_few_cards: t`Not enough cards.`,
   };
 }
 export function getDeckCardErrors(): DeckCardErrorTranslations {
   return {
     too_many_duplicates: t`There are too many cards with this card's name in your deck.`,
-    need_two_cards: t`When starting a campaign, you must include two of each card in your deck.`,
-    invalid_role: t`This role card does not match your chosen specialty.`,
-    invalid_aspect_levels: t`This card's aspect requirement is not satisfied by your chosen aspects.`,
-    invalid_outside_interest: t`Outside interest cards cannot have the Expert trait.`,
+    invalid_faction: t`This card does not match your chosen faction.`,
+    invalid_signature: t`This card is from a different warlord's Signature Squads.`,
+    invalid_ally: t`This card does not match your allied faction.`,
+    non_army_ally_card: t`This ally card is not the Army type.`,
+    invalid_loyal: t`This card is loyal to another faction.`,
   };
 }
 

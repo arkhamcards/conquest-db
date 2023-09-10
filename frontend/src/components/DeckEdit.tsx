@@ -39,9 +39,8 @@ import { t } from '@lingui/macro';
 
 import { CardFragment, DeckDetailFragment, DeckFragment, useCreateDeckMutation, useSaveDeckDescriptionMutation, useSaveDeckMutation } from '../generated/graphql/apollo-schema';
 import { useAuth } from '../lib/AuthContext';
-import AspectCounter from './AspectCounter';
-import { AllFactions, DeckCardError, DeckError, DeckMeta, FactionAllies, FactionType, Slots } from '../types/types';
-import { CardsMap, CategoryTranslation } from '../lib/hooks';
+import { AllFactions, DeckError, DeckMeta, FactionAllies, FactionType, Slots } from '../types/types';
+import { CardsMap } from '../lib/hooks';
 import { CardRow, ShowCard, useCardModal } from './Card';
 import { SimpleCardList } from './CardList';
 import { CountControls, IncDecCountControls } from './CardCount';
@@ -600,7 +599,7 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
   const [createDeck] = useCreateDeckMutation();
   const [meta, setMeta] = useState<DeckMeta>({});
   const placeholderDeckName = useMemo(() => {
-    return t`Name your character`;
+    return t`Deck name`;
   }, [meta]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | undefined>();
@@ -612,8 +611,8 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
     setSubmitting(true);
     setError(undefined);
     const problem: DeckError[] = [
-      'specialty',
-      'background',
+      'warlord',
+      'faction',
     ];
     const result = await createDeck({
       variables: {
@@ -652,7 +651,7 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
       return t`You must choose a faction.`
     }
     if (!meta.warlord) {
-      return t`You must choose a role.`
+      return t`You must choose a warlord.`
     }
     if (meta.faction !== FactionType.Necrons && meta.faction !== FactionType.Tyranids && !meta.ally_faction) {
       return t`You must choose an ally faction.`
@@ -688,7 +687,7 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
               meta={meta}
               setMeta={setMeta}
             />
-            { !!meta.specialty && typeof meta.specialty === 'string' && (
+            { !!meta.faction && typeof meta.faction === 'string' && (
               <FormControl marginBottom={4} isRequired>
                 <FormLabel>{t`Role`}</FormLabel>
                 <WarlordRadioChooser

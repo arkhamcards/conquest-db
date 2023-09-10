@@ -24,7 +24,6 @@ import { DeckCardError, DeckError, Slots } from '../types/types';
 import CoreIcon, { FactionIcon } from '../icons/CoreIcon';
 import CardCount from './CardCount';
 import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemComponent';
-import { useLocale } from '../lib/TranslationProvider';
 import CardImage, { RoleImage } from './CardImage';
 import { SignatureCardList } from './CardList';
 
@@ -41,34 +40,6 @@ function renderNumber(value: number) {
   return value;
 }
 
-function AspectLevel({ card, mini }: { card: CardFragment; mini?: boolean }) {
-  const { aspects} = useLocale();
-  return null;
-  /*
-  const aspect = card.aspect_id && aspects[card.aspect_id];
-  if (!aspect) {
-    return null;
-  }
-  if (mini) {
-    return (
-      <Box padding={0.5} paddingLeft={1} paddingRight={1} backgroundColor={card.aspect_id ? `aspect.${card.aspect_id}` : undefined}>
-        <Text color="#FFFFFF" fontWeight={900} fontSize="xs">
-          { !!card.level && card.level }&nbsp;
-          { aspect.short_name }
-        </Text>
-      </Box>
-    );
-  }
-  return (
-    <Box padding={1} paddingLeft={2} paddingRight={2} backgroundColor={card.aspect_id ? `aspect.${card.aspect_id}` : undefined}>
-      <Text color="#FFFFFF" fontWeight={900} fontSize="m">
-        { !!card.level && `${card.level} ` }
-        {aspect.short_name}
-      </Text>
-    </Box>
-  );
-  */
-}
 function FooterInfo({ card }: { card: CardFragment }) {
   return null;
   /*

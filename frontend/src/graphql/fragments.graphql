@@ -16,10 +16,10 @@ fragment SearchDeck on conquest_deck {
   user {
     ...UserInfo
   }
-  comment_count
-  copy_count
-  like_count
-  liked_by_user
+  #comment_count
+  #copy_count
+  #like_count
+  #liked_by_user
 }
 
 fragment Deck on conquest_deck {
@@ -70,12 +70,12 @@ fragment DeckDetail on conquest_deck {
   user {
     handle
   }
-  comments(
-    order_by: { created_at: asc }
-    limit: 5
-  ) {
-    ...BasicDeckComment
-  }
+  #comments(
+  #  order_by: { created_at: asc }
+  #  limit: 5
+  #) {
+  #  ...BasicDeckComment
+  #}
 }
 
 fragment DeckComment on conquest_comment {

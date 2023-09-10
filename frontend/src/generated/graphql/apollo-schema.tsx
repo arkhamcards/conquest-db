@@ -46150,7 +46150,7 @@ export type SearchDecksQueryVariables = Exact<{
 }>;
 
 
-export type SearchDecksQuery = { __typename?: 'query_root', decks: Array<{ __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, comment_count: number, copy_count: number, like_count: number, liked_by_user?: boolean | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> };
+export type SearchDecksQuery = { __typename?: 'query_root', decks: Array<{ __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> };
 
 export type GetMyDecksQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -46173,7 +46173,7 @@ export type GetDeckQueryVariables = Exact<{
 }>;
 
 
-export type GetDeckQuery = { __typename?: 'query_root', deck?: { __typename?: 'conquest_deck', copy_count: number, comment_count: number, like_count: number, liked_by_user?: boolean | null, id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, original_deck?: { __typename?: 'conquest_deck_copy', deck: { __typename?: 'conquest_deck', id: number, name: string, user: { __typename?: 'conquest_users', id: string, handle?: string | null } } } | null, user: { __typename?: 'conquest_users', handle?: string | null, id: string }, comments: Array<{ __typename?: 'conquest_comment', id: any, text?: string | null, created_at: any, updated_at: any, response_count: number, comment_id?: any | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> } | null };
+export type GetDeckQuery = { __typename?: 'query_root', deck?: { __typename?: 'conquest_deck', copy_count: number, comment_count: number, like_count: number, liked_by_user?: boolean | null, id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, original_deck?: { __typename?: 'conquest_deck_copy', deck: { __typename?: 'conquest_deck', id: number, name: string, user: { __typename?: 'conquest_users', id: string, handle?: string | null } } } | null, user: { __typename?: 'conquest_users', handle?: string | null, id: string } } | null };
 
 export type GetDeckCommentsQueryVariables = Exact<{
   deckId: Scalars['Int'];
@@ -46271,13 +46271,13 @@ export type UnlikeDeckMutation = { __typename?: 'mutation_root', update_conquest
 
 export type UserInfoFragment = { __typename?: 'conquest_users', id: string, handle?: string | null };
 
-export type SearchDeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, comment_count: number, copy_count: number, like_count: number, liked_by_user?: boolean | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
+export type SearchDeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
 export type DeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
 export type BasicDeckCommentFragment = { __typename?: 'conquest_comment', id: any, text?: string | null, created_at: any, updated_at: any, response_count: number, comment_id?: any | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
-export type DeckDetailFragment = { __typename?: 'conquest_deck', copy_count: number, comment_count: number, like_count: number, liked_by_user?: boolean | null, id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, original_deck?: { __typename?: 'conquest_deck_copy', deck: { __typename?: 'conquest_deck', id: number, name: string, user: { __typename?: 'conquest_users', id: string, handle?: string | null } } } | null, user: { __typename?: 'conquest_users', handle?: string | null, id: string }, comments: Array<{ __typename?: 'conquest_comment', id: any, text?: string | null, created_at: any, updated_at: any, response_count: number, comment_id?: any | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> };
+export type DeckDetailFragment = { __typename?: 'conquest_deck', copy_count: number, comment_count: number, like_count: number, liked_by_user?: boolean | null, id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, original_deck?: { __typename?: 'conquest_deck_copy', deck: { __typename?: 'conquest_deck', id: number, name: string, user: { __typename?: 'conquest_users', id: string, handle?: string | null } } } | null, user: { __typename?: 'conquest_users', handle?: string | null, id: string } };
 
 export type DeckCommentFragment = { __typename?: 'conquest_comment', deck_id?: number | null, id: any, text?: string | null, created_at: any, updated_at: any, response_count: number, comment_id?: any | null, responses: Array<{ __typename?: 'conquest_comment', id: any, text?: string | null, created_at: any, updated_at: any, response_count: number, comment_id?: any | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }>, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
@@ -46370,10 +46370,6 @@ export const SearchDeckFragmentDoc = gql`
   user {
     ...UserInfo
   }
-  comment_count
-  copy_count
-  like_count
-  liked_by_user
 }
     ${UserInfoFragmentDoc}`;
 export const DeckFragmentDoc = gql`
@@ -46391,19 +46387,6 @@ export const DeckFragmentDoc = gql`
     ...UserInfo
   }
   published
-}
-    ${UserInfoFragmentDoc}`;
-export const BasicDeckCommentFragmentDoc = gql`
-    fragment BasicDeckComment on conquest_comment {
-  id
-  user {
-    ...UserInfo
-  }
-  text
-  created_at
-  updated_at
-  response_count
-  comment_id
 }
     ${UserInfoFragmentDoc}`;
 export const DeckDetailFragmentDoc = gql`
@@ -46426,12 +46409,21 @@ export const DeckDetailFragmentDoc = gql`
   user {
     handle
   }
-  comments(order_by: {created_at: asc}, limit: 5) {
-    ...BasicDeckComment
-  }
 }
-    ${DeckFragmentDoc}
-${BasicDeckCommentFragmentDoc}`;
+    ${DeckFragmentDoc}`;
+export const BasicDeckCommentFragmentDoc = gql`
+    fragment BasicDeckComment on conquest_comment {
+  id
+  user {
+    ...UserInfo
+  }
+  text
+  created_at
+  updated_at
+  response_count
+  comment_id
+}
+    ${UserInfoFragmentDoc}`;
 export const DeckCommentFragmentDoc = gql`
     fragment DeckComment on conquest_comment {
   ...BasicDeckComment
