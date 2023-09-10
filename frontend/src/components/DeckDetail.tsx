@@ -39,17 +39,14 @@ import NextLink from 'next/link';
 import { flatMap, map, pick, values } from 'lodash';
 import { t, Trans } from '@lingui/macro';
 import { SlCalender } from 'react-icons/sl';
-import { FaArrowLeft, FaArrowRight, FaComment, FaCopy, FaEdit, FaMoon, FaShare, FaShareAlt, FaTrash } from 'react-icons/fa';
+import { FaComment, FaEdit, FaShare, FaShareAlt, FaTrash } from 'react-icons/fa';
 
 import { CardFragment, DeckDetailFragment, DeckFragment, useCreateDeckMutation, useDeleteDeckMutation, useCloneDeckMutation, usePublishDeckMutation } from '../generated/graphql/apollo-schema';
 import { useAuth } from '../lib/AuthContext';
-import AspectCounter from './AspectCounter';
-import { AWA, FIT, FOC, SPI } from '../types/types';
 import { CardsMap } from '../lib/hooks';
 import { CardHeader, ShowCard, useCardModal } from './Card';
 import DeckProblemComponent from './DeckProblemComponent';
 import { useLocale } from '../lib/TranslationProvider';
-import CoreIcon from '../icons/CoreIcon';
 import parseDeck, { ParsedDeck } from '../lib/parseDeck';
 import useDeleteDialog from './useDeleteDialog';
 import { DeckCountLine, DeckDescription, DeckItemComponent } from './Deck';
@@ -58,7 +55,6 @@ import SolidButton from './SolidButton';
 import LikeButton from './LikeButton';
 import CommentsComponent from './CommentsComponent';
 import UserLink from './UserLink';
-import DeckChanges from './DeckChanges';
 
 const SHOW_COMMENTS = process.env.NODE_ENV === 'development';
 
@@ -382,16 +378,10 @@ export default function DeckDetail({ deck, cards, onLike }: Props) {
 
 export function useShareableDeckModal(deck: ParsedDeck, name: string): [() => void, React.ReactNode] {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { aspects, categories } = useLocale();
-  const role = deck.role?.name;
-  const background = deck.background && categories.background?.options[deck.background];
-  const specialty = deck.specialty && categories.specialty?.options[deck.specialty];
-  const aspectList = [
-    `${deck.stats.awa} ${aspects.AWA?.short_name}`,
-    `${deck.stats.spi} ${aspects.SPI?.short_name}`,
-    `${deck.stats.fit} ${aspects.FIT?.short_name}`,
-    `${deck.stats.foc} ${aspects.FOC?.short_name}`,
-  ].join(', ');
+  const { factions } = useLocale();
+  const warlord = deck.warlord?.name;
+  const faction = deck.faction && factions[deck.faction];
+  const allyFaction = deck.allyFaction && factions[deck.allyFaction];
   return [
     onOpen,
     <Modal key="access" isOpen={isOpen} onClose={onClose}>
@@ -414,8 +404,8 @@ export function useShareableDeckModal(deck: ParsedDeck, name: string): [() => vo
                 <Text fontSize="sm">
                   {name}<br/>
                   ----------------------------------------------------------------------<br/>
-                  {background} - {specialty} - {role}<br/>
-                  {aspectList}<br/>
+                  {warlord}<br/>
+                  {faction?.name} {allyFaction ? ` (${allyFaction.name})` : ''}<br/>
                   { flatMap(deck.cards, (item) => {
                     if (item.type === 'header') {
                       return (
@@ -442,8 +432,8 @@ export function useShareableDeckModal(deck: ParsedDeck, name: string): [() => vo
               <Text fontSize="sm">
                   {name}<br/>
                   ----------------------------------------------------------------------<br/>
-                  **{background}** - **{specialty}** - **{role}**<br/><br/>
-                  **{aspectList}**<br/><br/>
+                  **{warlord}**<br/>
+                  **{faction?.name}** {allyFaction ? ` (**${allyFaction.name}**)` : ''}<br/>
                   { flatMap(deck.cards, (item) => {
                     if (item.type === 'header') {
                       return (

@@ -99,7 +99,7 @@ export function LanguageSwitcher() {
   );
 }
 
-export default function WithSubnavigation() {
+export default function NavBar() {
   const { colors } = useTheme();
   const { isOpen, onToggle } = useDisclosure();
   const { authUser, loading, signOut } = useAuth();

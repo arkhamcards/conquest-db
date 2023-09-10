@@ -1,8 +1,8 @@
 import { concat, forEach, map, flatMap, uniq, sumBy, keys, remove } from 'lodash';
 import { t } from '@lingui/macro';
 
-import { AspectStats, AWA, DeckCardError, DeckError, DeckMeta, FIT, FOC, Slots, SPI } from '../types/types';
-import { CardsMap, CategoryTranslations } from '../lib/hooks';
+import { DeckCardError, DeckError, DeckMeta, FactionType, Slots } from '../types/types';
+import { CardsMap } from '../lib/hooks';
 import { CardFragment, DeckFragment } from '../generated/graphql/apollo-schema';
 
 export interface HeaderItem {
@@ -85,6 +85,9 @@ function computeDeckChanges(
 }
 export interface ParsedDeck {
   problem: DeckError[] | undefined;
+  warlord: CardFragment | undefined;
+  faction: FactionType | undefined;
+  allyFaction: FactionType | undefined;
   cards: Item[];
   loading: boolean;
   deckSize: number;
@@ -97,10 +100,10 @@ export default function parseDeck(
   cards: CardsMap,
 ): ParsedDeck {
   const missingCards: string[] = [];
-  const role = typeof meta.role === 'string' ? meta.role : '';
-  const roleCard = role ? cards[role] : undefined;
-  const background = typeof meta.background === 'string' ? meta.background : undefined;
-  const specialty = typeof meta.specialty === 'string' ? meta.specialty : undefined;
+  const warlord = typeof meta.warlord === 'string' ? meta.warlord : '';
+  const warlordCard = warlord ? cards[warlord] : undefined;
+  const faction = typeof meta.faction === 'string' ? meta.faction : undefined;
+  const ally_faction = typeof meta.ally_faction === 'string' ? meta.ally_faction : undefined;
   let items: CardItem[] = flatMap(slots, (count, code) => {
     if (typeof count !== 'number' || count === 0) {
       return [];
@@ -137,7 +140,6 @@ export default function parseDeck(
   const specialtyErrors: DeckError[] = [];
   const outsideInterestErrors: DeckError[] = [];
   const personalityErrors: DeckError[] = [];
-  let splashFaction: 'background' | 'specialty' | undefined = undefined;
   const deckSize = sumBy(items, i => i.type === 'card' ? i.count : 0);
 /*
     // Starting decks have more rules.

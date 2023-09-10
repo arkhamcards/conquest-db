@@ -384,14 +384,8 @@ export function SpoilerCardList({
 
 
 export function SignatureCardList({ warlord }: { warlord: CardFragment }) {
-  const { locale } = useLocale();
-  const { data } = useGetCardsQuery({
-    variables: {
-      locale,
-    },
-    fetchPolicy: 'cache-only',
-  });
-  const signatureCards = useMemo(() => sortBy(filter(data?.cards ?? [], card => card.signature_id === warlord.signature_id && card.id !== warlord.id), card => card.position), [data?.cards]);
+  const allCards = useAllCards();
+  const signatureCards = useMemo(() => sortBy(filter(allCards ?? [], card => card.signature_id === warlord.signature_id && card.id !== warlord.id), card => card.position), [allCards]);
   return (
     <List>
       <CardHeader title={t`Signature Squad`} />

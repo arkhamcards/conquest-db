@@ -54,6 +54,7 @@ export default function ProfileSettings() {
       });
     };
   }, [refetch, authUser]);
+  console.log(data?.settings?.private_decks);
   return (
     <>
       { loading ? <LoadingPage /> : (

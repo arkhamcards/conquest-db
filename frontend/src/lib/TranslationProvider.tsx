@@ -1,29 +1,21 @@
 import React, { createContext, useContext, useMemo } from 'react'
-import { AspectMap, CampaignCycle, MapLocations, PathTypeMap } from '../types/types';
+import { FactionMap } from '../types/types';
 import { useLingui, } from '@lingui/react';
 import { I18n } from '@lingui/core';
 import { t } from '@lingui/macro';
-import { DeckCardErrorTranslations, DeckErrorTranslations, getAspectMap, getCampaignCycles, getDeckCardErrors, getDeckErrors, getMapLocations, getPathTypes } from './hooks';
+import { DeckCardErrorTranslations, DeckErrorTranslations, getFactionMap, getDeckCardErrors, getDeckErrors } from './hooks';
 
 interface TranslationContextType {
   deckErrors: DeckErrorTranslations;
   cardErrors: DeckCardErrorTranslations;
-  aspects: AspectMap;
-  approaches: { [approach: string]: string };
-  paths: PathTypeMap;
-  locations: MapLocations;
+  factions: FactionMap;
   locale: string;
   i18n: I18n | null;
-  cycles: CampaignCycle[];
 }
 const TranslationContext = createContext<TranslationContextType>({
   deckErrors: getDeckErrors(),
   cardErrors: getDeckCardErrors(),
-  aspects: getAspectMap(),
-  paths: getPathTypes(),
-  locations: getMapLocations(),
-  cycles: getCampaignCycles(),
-  approaches: {},
+  factions: getFactionMap(),
   locale: 'en',
   i18n: null,
 });
@@ -34,16 +26,7 @@ export function TranslationProvider({ children }: { children: React.ReactNode })
     return {
       deckErrors: getDeckErrors(),
       cardErrors: getDeckCardErrors(),
-      aspects: getAspectMap(),
-      paths: getPathTypes(),
-      locations: getMapLocations(),
-      cycles: getCampaignCycles(),
-      approaches: {
-        conflict: t`Conflict`,
-        connection: t`Connection`,
-        exploration: t`Exploration`,
-        reason: t`Reason`,
-      },
+      factions: getFactionMap(),
       locale: i18n.locale,
       i18n,
     };

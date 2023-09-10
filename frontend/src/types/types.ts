@@ -1,77 +1,61 @@
 import { pathToArray } from "graphql/jsutils/Path";
 
-export interface Aspect {
+
+export enum FactionType {
+  SpaceMarines = 'space_marines',
+  Tau = 'tau',
+  Eldar =  'eldar',
+  DarkEldar = 'dark_eldar',
+  Chaos = 'chaos',
+  Orks = 'orks',
+  AstraMilitarum = 'astra_militarum',
+
+  Necrons = 'necrons',
+
+  Tyranids = 'tyranids',
+};
+
+export const AllFactions = [
+  FactionType.SpaceMarines,
+  FactionType.Tau,
+  FactionType.Eldar,
+  FactionType.DarkEldar,
+  FactionType.Chaos,
+  FactionType.Orks,
+  FactionType.AstraMilitarum,
+  FactionType.Necrons,
+  FactionType.Tyranids,
+];
+
+export interface Faction {
+  id: FactionType;
   name: string;
-  short_name: string;
+  allies: FactionType[];
 }
 
-export type AspectMap = {
-  [code: string]: Aspect | undefined;
-}
+export const FactionAllies: { [code in FactionType]: FactionType[] } = {
+  [FactionType.SpaceMarines]: [FactionType.AstraMilitarum, FactionType.Tau],
+  [FactionType.Tau]: [FactionType.SpaceMarines, FactionType.Eldar],
+  [FactionType.Eldar]: [FactionType.Tau, FactionType.DarkEldar],
+  [FactionType.DarkEldar]: [FactionType.Eldar, FactionType.Chaos],
+  [FactionType.Chaos]: [FactionType.DarkEldar, FactionType.Orks],
+  [FactionType.Orks]: [FactionType.Chaos, FactionType.AstraMilitarum],
+  [FactionType.AstraMilitarum]: [FactionType.Orks, FactionType.SpaceMarines],
+  [FactionType.Necrons]: [FactionType.SpaceMarines, FactionType.AstraMilitarum, FactionType.Orks, FactionType.Chaos, FactionType.DarkEldar, FactionType.Tau],
+  [FactionType.Tyranids]: [],
+};
 
-export const AWA = 'AWA';
-export const FIT = 'FIT';
-export const FOC = 'FOC';
-export const SPI = 'SPI';
-export type AspectType = typeof AWA | typeof FIT | typeof FOC | typeof SPI;
-
-export interface MapLocationConnection {
-  id: string;
-  path: Path;
-}
-
-export interface CampaignCycle {
-  id: string;
-  name: string;
-}
-
-export interface MapLocation {
-  id: string;
-  name: string;
-  background?: boolean;
-  type: 'location' | 'trail' | 'general';
-  cycles?: string[];
-  connections: MapLocationConnection[];
-}
-
-export interface MapLocations {
-  [code: string]: MapLocation | undefined;
-}
-
-export enum Path {
-  WOODS = 'woods',
-  MOUNTAIN_PASS = 'mountain_pass',
-  OLD_GROWTH = 'old_growth',
-  LAKESHORE = 'lakeshore',
-  GRASSLAND = 'grassland',
-  RAVINE = 'ravine',
-  SWAMP = 'swamp',
-  RIVER = 'river',
-}
-export interface PathType {
-  id: Path;
-  name: string;
-  color: string;
-}
-
-export interface PathTypeMap {
-  [code: string]: PathType | undefined;
-}
+export type FactionMap = { [id in FactionType]: Faction };
 
 export interface DeckMeta {
-  background?: string;
-  specialty?: string;
+  warlord?: string;
+  faction?: string;
+  ally_faction?: string;
   [key: string]: string | boolean | number | undefined;
 }
 
 export interface Slots {
   [code: string]: number | undefined;
-}
-export interface AspectStats {
-  awa: number;
-  fit: number;
-  foc: number;
-  spi: number;
 }
 
 export type DeckCardError =

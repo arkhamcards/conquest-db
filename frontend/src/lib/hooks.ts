@@ -1,13 +1,11 @@
 import { useCallback, useEffect, useMemo } from 'react';
-import { forEach, omit } from 'lodash';
+import { forEach } from 'lodash';
 import Router,{ useRouter } from 'next/router';
 import { t } from '@lingui/macro';
 
 import { useAuth } from './AuthContext';
 import { CardFragment, useLikeDeckMutation, useUnlikeDeckMutation } from '../generated/graphql/apollo-schema';
-import { AspectMap, CampaignCycle, DeckCardError, DeckError, MapLocation, MapLocationConnection, MapLocations, Path, PathType, PathTypeMap } from '../types/types';
-import { useLocale } from './TranslationProvider';
-import { useRoleCardsMap } from './cards';
+import { DeckError, DeckCardError, FactionMap, FactionType, FactionAllies } from '../types/types';
 
 export function useRequireAuth() {
   const { authUser, loading } = useAuth();
@@ -121,4 +119,65 @@ export function getDeckCardErrors(): DeckCardErrorTranslations {
     invalid_aspect_levels: t`This card's aspect requirement is not satisfied by your chosen aspects.`,
     invalid_outside_interest: t`Outside interest cards cannot have the Expert trait.`,
   };
+}
+
+export function getFactionMap(): FactionMap {
+  const names = {
+    [FactionType.SpaceMarines]: t`Space Marines`,
+    [FactionType.Tau]: t`Tau`,
+    [FactionType.Eldar]: t`Eldar`,
+    [FactionType.DarkEldar]: t`Dark Eldar`,
+    [FactionType.Chaos]: t`Chaos`,
+    [FactionType.Orks]: t`Orks`,
+    [FactionType.AstraMilitarum]: t`Astra Militarum`,
+    [FactionType.Necrons]: t`Necrons`,
+    [FactionType.Tyranids]: t`Tyanids`,
+  };
+  const result: any = {};
+  forEach(names, (name, id) => {
+    result[id] = {
+      id,
+      name,
+      allies: FactionAllies[id as FactionType],
+    };
+  });
+  return result;
+}
+
+interface BasicDeck {
+  id?: number | null | undefined;
+  liked_by_user?: boolean | null | undefined;
+}
+export type LikeDeck<T extends BasicDeck> = (deck: T) => Promise<string | undefined>;
+export function useLikeAction<T extends BasicDeck>(updateCache: (d: T, liked: boolean) => void): LikeDeck<T> {
+  const { authUser } = useAuth();
+  const [doLike] = useLikeDeckMutation();
+  const [doUnlike] = useUnlikeDeckMutation();
+  return useCallback(async(deck: T) => {
+    if (authUser && deck.id) {
+      if (deck.liked_by_user) {
+        const r = await doUnlike({
+          variables: {
+            deckId: deck.id,
+            userId: authUser.uid,
+          },
+        });
+        if (r.errors?.length) {
+          return r.errors[0].message;
+        }
+        updateCache(deck, false);
+      } else {
+        const r = await doLike({
+          variables: {
+            deckId: deck.id,
+          },
+        });
+        if (r.errors?.length) {
+          return r.errors[0].message;
+        }
+        updateCache(deck, true);
+      }
+    }
+    return undefined;
+  }, [doLike, doUnlike, updateCache, authUser]);
 }

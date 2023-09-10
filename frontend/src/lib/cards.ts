@@ -72,16 +72,15 @@ export function useAllCardsMap(): CardsMap {
 }
 
 export function useCards(): CardFragment[] | undefined {
-  const allCards = useAllCards();
-  return useMemo(() => allCards ? filter(allCards, card => !card.spoiler) : undefined, [allCards]);
+  return useAllCards();
 }
 
-export function useRoleCards(): CardFragment[] | undefined {
+export function useWarlordCards(): CardFragment[] | undefined {
   const allCards = useAllCards();
-  return useMemo(() => allCards ? filter(allCards, card => card.type_id === 'role') : undefined, [allCards]);
+  return useMemo(() => allCards ? filter(allCards, card => card.type_id === 'warlord') : undefined, [allCards]);
 }
 
-export function useRoleCardsMap(): CardsMap {
-  const roleCards = useRoleCards();
-  return useCardsMap(roleCards);
+export function useWarlordCardsMap(): CardsMap {
+  const warlordCards = useWarlordCards();
+  return useCardsMap(warlordCards);
 }

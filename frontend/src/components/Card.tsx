@@ -209,7 +209,7 @@ export function CardHeader({
           <Flex direction="row" justifyContent="space-between">
             <Flex direction="column">
             <Flex direction="row" alignItems="flex-start" flexGrow={1}>
-              { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique_icon2" size={15} /></Box> }
+              { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique" size={15} /></Box> }
                 <Text
                   fontSize="lg"
                   fontWeight={600}
@@ -270,7 +270,7 @@ function CardIcons({ card, direction }: { card: CardFragment; direction: 'row' |
         <>
           { map(range(0, card.command_hammers), idx => (
             <Box key={idx} width={4}>
-              <CoreIcon size={24} icon="command_icon" />
+              <CoreIcon size={24} icon="command" />
             </Box>
           )) }
         </>

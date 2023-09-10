@@ -2,20 +2,19 @@ import React, { useCallback } from 'react';
 import { t } from '@lingui/macro';
 import { Box, Button } from '@chakra-ui/react';
 
-import { useCardsMap, useRequireAuth } from '../../lib/hooks';
+import { useRequireAuth } from '../../lib/hooks';
 import DeckList from '../../components/DeckList';
 import { DeckFragment, useGetMyDecksQuery, useGetMyDecksTotalQuery } from '../../generated/graphql/apollo-schema';
 import PageHeading from '../../components/PageHeading';
 import { useAuth } from '../../lib/AuthContext';
-import { useLocale } from '../../lib/TranslationProvider';
 import PaginationWrapper from '../../components/PaginationWrapper';
 import { AuthUser } from '../../lib/useFirebaseAuth';
-import { useRoleCardsMap } from '../../lib/cards';
+import { useWarlordCardsMap } from '../../lib/cards';
+import { useNewDeckModal } from '../../components/DeckEdit';
 import { getLocalizationServerSideProps } from '../../lib/Lingui';
 
 export default function DecksPage() {
   useRequireAuth();
-  const { locale } = useLocale();
   const { authUser } = useAuth();
   const { data: totalDecks } = useGetMyDecksTotalQuery({
     variables: {
@@ -23,6 +22,7 @@ export default function DecksPage() {
     },
     skip: !authUser,
   });
+  const warlordCards = useWarlordCardsMap();
 
   const { data, fetchMore } = useGetMyDecksQuery({
     variables: {
@@ -49,7 +49,7 @@ export default function DecksPage() {
     }
     return [];
   }, [fetchMore]);
-  // const [showNewDeck, newDeckModal] = useNewDeckModal(roleCards);
+  const [showNewDeck, newDeckModal] = useNewDeckModal(warlordCards);
   return (
     <>
       <Box
@@ -59,7 +59,7 @@ export default function DecksPage() {
         px={{ base: "1rem", lg: "0" }}
       >
         <PageHeading title={t`My Decks`}>
-          { null /*!!authUser && <Button onClick={showNewDeck}>{t`New deck`}</Button> */ }
+          { !!authUser && <Button onClick={showNewDeck}>{t`New deck`}</Button> }
         </PageHeading>
         <PaginationWrapper<DeckFragment>
           total={totalDecks?.total.aggregate?.count}
@@ -74,7 +74,7 @@ export default function DecksPage() {
           ) }
         </PaginationWrapper>
       </Box>
-      { null /*newDeckModal*/ }
+      { newDeckModal }
     </>
   );
 }
