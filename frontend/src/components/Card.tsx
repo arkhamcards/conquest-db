@@ -26,6 +26,7 @@ import CardCount from './CardCount';
 import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemComponent';
 import CardImage, { RoleImage } from './CardImage';
 import { SignatureCardList } from './CardList';
+import { useTheme } from '../lib/ThemeContext';
 
 interface Props {
   card: CardFragment;
@@ -84,6 +85,8 @@ function Equip({ equip, aspect }: { equip: number; aspect?: string }) {
 
 function Cost({ cost, ambush }: { cost: number | null | undefined; ambush?: boolean }) {
   const hasCost = cost !== null && cost !== undefined;
+  const { colorMode } = useColorMode();
+  const { colors } = useTheme();
   return (
     <Box
       paddingTop={1}
@@ -96,12 +99,12 @@ function Cost({ cost, ambush }: { cost: number | null | undefined; ambush?: bool
       position="relative"
     >
       <Box position="absolute" top={0} left={0}>
-        <CoreIcon icon="cost" size={48} color="#DDDDDD" />
+        <CoreIcon icon="cost" size={48} color={colorMode === 'light' ? '#CCCCCC' : '#666666'} />
       </Box>
       <Flex position="absolute" top={0} left={0} direction="column" justifyContent="center" alignItems="center" flex={1} minHeight={12} minWidth={12}>
         { cost !== null && cost !== undefined && (
           <Text
-            color={ambush ? 'red' : 'black'}
+            color={ambush ? 'red' : colors.text}
             fontSize="2xl"
             fontWeight={900}
             textAlign="center"
@@ -155,12 +158,15 @@ export function CardHeader({
   isBack?: boolean;
   hideFaction?: boolean;
 }) {
+  const { colors } = useTheme();
+  const { colorMode } = useColorMode();
+
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
       <Flex direction="row" flex={1} alignItems="flex-start">
           <Flex direction="column">
             { card.type_id === 'warlord' ?
-              <Box bgColor="goldenrod" padding={3} mr={2} borderRadius={12}><CoreIcon icon="command" size={36} color="#000000" /></Box> :
+              <Box bgColor="goldenrod" padding={3} mr={2} borderRadius={12}><CoreIcon icon="command" size={36} color="#333333" /></Box> :
               <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
             }
           </Flex>
@@ -168,11 +174,11 @@ export function CardHeader({
           <Flex direction="column" flex={1}>
             <Flex direction="row">
               { !!card.faction_name && (
-                <Text fontSize="sm">{card.faction_name}</Text>
+                <Text fontSize="sm" color={colors.text}>{card.faction_name}</Text>
               )}
-              { !!card.faction_name && !!card.type_name && <Text ml={2} mr={2} fontSize="sm" color="#BBBBBB">|</Text>}
+              { !!card.faction_name && !!card.type_name && <Text ml={2} mr={2} fontSize="sm" color={colors.lightText}>|</Text>}
               { !!card.type_name && (
-                <Text fontSize="sm">{card.type_name}</Text>
+                <Text fontSize="sm" color={colors.text}>{card.type_name}</Text>
               )}
             </Flex>
           </Flex>
@@ -180,7 +186,7 @@ export function CardHeader({
           <Flex direction="row" justifyContent="space-between">
             <Flex direction="column">
             <Flex direction="row" alignItems="flex-start" flexGrow={1}>
-              { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique" size={15} /></Box> }
+              { !!card.unique && <Box mr={1} mb={1}><CoreIcon icon="unique" size={15} color={colorMode === 'light' ? '#333333' : '#EEEEEE'} /></Box> }
               <DeckCardProblemTooltip errors={problem}>
                 <Text
                   fontSize="lg"
@@ -194,7 +200,7 @@ export function CardHeader({
 
               </Flex>
               { !!card.traits && (
-                <Text fontSize="sm" fontStyle="italic" color="#666666">{card.traits}</Text>
+                <Text fontSize="sm" fontStyle="italic" color={colors.lightText}>{card.traits}</Text>
               ) }
             </Flex>
           </Flex>
@@ -340,8 +346,9 @@ type CardRowProps = Props & {
 export function CardRow({
   card, problem, children, onClick, includeSet, includeText, last, hideFaction,
 }: CardRowProps) {
+  const { colors } = useTheme();
   return (
-    <Flex direction="row" padding={2} width="100%" alignItems="flex-start" justifyContent="space-between" borderBottomWidth={last ? undefined : 0.5} borderColor="#BBBBBB">
+    <Flex direction="row" padding={2} width="100%" alignItems="flex-start" justifyContent="space-between" borderBottomWidth={last ? undefined : 0.5} borderColor={colors.divider}>
       <Flex direction="row" flex={1} onClick={onClick} cursor={onClick ? 'pointer' : undefined}>
         <CardHeader
           flex={1}
