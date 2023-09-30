@@ -12,9 +12,11 @@ fragment Card on conquest_card {
   type_id
   back_card_id
   imagesrc
+  back_imagesrc
   illustrator
   pack_id
   position
+  horizontal
 
   cost
   command_hammers
@@ -31,6 +33,7 @@ fragment Card on conquest_card {
   back_health
   tts_sheet_url
   tts_sheet_position
+  back_tts_sheet_url
 }
 
 fragment CardText on conquest_card_text {
@@ -43,6 +46,7 @@ fragment CardText on conquest_card_text {
   imagesrc
   back_traits
   back_text
+  back_imagesrc
   keywords
 }
 
@@ -80,11 +84,23 @@ fragment CardTypeText on conquest_type_text {
   name
 }
 
+fragment CardCycle on conquest_cycle {
+  id
+  name
+  position
+}
+
+fragment CardCycleText on conquest_cycle_text {
+  id
+  locale
+  name
+}
 
 fragment CardPack on conquest_pack {
   id
   name
   position
+  cycle_id
 }
 
 fragment CardPackText on conquest_pack_text {
@@ -111,6 +127,9 @@ query getMetadata {
   }
   conquest_loyalty {
     ...CardLoyalty
+  }
+  conquest_cycle {
+    ...CardCycle
   }
   conquest_pack {
     ...CardPack
@@ -150,14 +169,18 @@ mutation upsertCard(
   $quantity: Int,
   $position: Int,
   $imagesrc: String
+  $back_imagesrc: String,
   $signature_id: Int,
   $back_attack: Int,
   $back_health: Int,
   $back_traits: String,
+  $back_text: String,
   $keywords: String,
+  $horizontal: Boolean,
 
   $tts_sheet_url: String,
   $tts_sheet_position: Int,
+  $back_tts_sheet_url: String
 ) {
 	insert_conquest_card_one(
     object: {
@@ -186,10 +209,14 @@ mutation upsertCard(
       back_attack: $back_attack
       back_health: $back_health
       back_traits: $back_traits
+      back_text: $back_text
+      back_imagesrc: $back_imagesrc
       keywords: $keywords
 
       tts_sheet_url: $tts_sheet_url
       tts_sheet_position: $tts_sheet_position
+      back_tts_sheet_url: $back_tts_sheet_url
+      horizontal: $horizontal
     }
     on_conflict: {
       constraint: card_pkey
@@ -219,9 +246,13 @@ mutation upsertCard(
         back_attack,
         back_health,
         back_traits,
+        back_text,
+        back_imagesrc,
         keywords,
         tts_sheet_url,
-        tts_sheet_position
+        tts_sheet_position,
+        back_tts_sheet_url,
+        horizontal
       ]
     }
   ) {
@@ -332,6 +363,11 @@ query getLocaleText(
   ) {
     ...CardLoyaltyText
   }
+  conquest_cycle_text(
+    where: { locale: { _eq: $locale }}
+  ) {
+    ...CardCycleText
+  }
   conquest_pack_text(
     where: { locale: { _eq: $locale }}
   ) {
@@ -359,6 +395,7 @@ mutation upsertCardText(
   $imagesrc: String,
   $back_text: String,
   $back_traits: String,
+  $back_imagesrc: String,
   $keywords: String
 ) {
 	insert_conquest_card_text_one(
@@ -372,6 +409,7 @@ mutation upsertCardText(
       imagesrc: $imagesrc
       back_text: $back_text
       back_traits: $back_traits
+      back_imagesrc: $back_imagesrc
       keywords: $keywords
     }
     on_conflict: {
@@ -386,6 +424,7 @@ mutation upsertCardText(
         imagesrc,
         back_text,
         back_traits,
+        back_imagesrc,
         keywords
       ]
     }
@@ -396,19 +435,20 @@ mutation upsertCardText(
 }
 
 
-mutation upsertCardPack(
+
+mutation upsertCardCycle(
   $id: String!,
   $name: String!,
-  $position: Int!
+  $position: Int!,
 ) {
-	insert_conquest_pack_one(
+	insert_conquest_cycle_one(
     object: {
       id: $id
       name: $name
       position: $position
     }
     on_conflict: {
-      constraint: pack_pkey
+      constraint: cycle_pkey
       update_columns: [
         id,
         name,
@@ -421,6 +461,63 @@ mutation upsertCardPack(
     position
   }
 }
+
+
+mutation upsertCardCycleText(
+  $id: String!,
+  $locale: String!,
+  $name: String
+) {
+	insert_conquest_cycle_text_one(
+    object: {
+      id: $id
+      locale: $locale
+      name: $name
+    }
+    on_conflict: {
+      constraint: cycle_text_pkey
+      update_columns: [
+        id,
+        locale,
+        name
+      ]
+    }
+  ) {
+    id
+    locale
+    name
+  }
+}
+mutation upsertCardPack(
+  $id: String!,
+  $name: String!,
+  $position: Int!,
+  $cycle_id: String!
+) {
+	insert_conquest_pack_one(
+    object: {
+      id: $id
+      name: $name
+      position: $position
+      cycle_id: $cycle_id
+    }
+    on_conflict: {
+      constraint: pack_pkey
+      update_columns: [
+        id,
+        name,
+        position,
+        cycle_id
+      ]
+    }
+  ) {
+    id
+    name
+    position
+    cycle_id
+  }
+}
+
 
 mutation upsertCardPackText(
   $id: String!,

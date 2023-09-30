@@ -28,10 +28,18 @@ export const TABLES: { [key: string]: Table } = {
     fields: [],
     textFields: ['name'], // warlord, army, synapse, support, attachment, event
   },
-  pack: {
-    collection: 'pack',
+  cycle: {
+    collection: 'cycle',
     fields: ['position'],
     textFields: ['name']
+  },
+  pack: {
+    collection: 'pack',
+    fields: ['position', 'cycle_id'],
+    textFields: ['name'],
+    foreignKeys: {
+      cycle_id: 'cycle',
+    }
   },
   card: {
     collection: 'card',
@@ -48,7 +56,8 @@ export const TABLES: { [key: string]: Table } = {
       'health', // int
       'shields', //int
       'unique', // boolean
-      'preparation', //bolean
+      'preparation', // boolean
+      'horizontal', // boolean
       'illustrator',
       'back_card_id',
       'position',
@@ -64,6 +73,7 @@ export const TABLES: { [key: string]: Table } = {
       'text',
       'flavor',
       'imagesrc',
+      'back_imagesrc',
       'back_traits',
       'back_text',
       'back_flavor',
@@ -81,6 +91,14 @@ export const TABLES: { [key: string]: Table } = {
 
 
 export const METADATA = [
+  {
+    file: 'cycles.json',
+    ...TABLES.cycle,
+    getData: (data: GetMetadataQuery) => data.conquest_cycle,
+    getLocale: (data: GetLocaleTextQuery) => data.conquest_cycle_text,
+    upsert: client.upsertCardCycle,
+    upsertText: client.upsertCardCycleText,
+  },
   {
     file: 'packs.json',
     ...TABLES.pack,

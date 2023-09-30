@@ -60,6 +60,7 @@ if (!BASE_DIR) {
 }
 
 async function readBasicFile<T>(path: string): Promise<any[]> {
+  console.log(`Reading: ${path}`);
   const rawData = await readFile(path, 'utf8');
   try {
     return JSON.parse(rawData);
@@ -180,16 +181,27 @@ async function importMetadata() {
       for (let k = 0; k < data.length; k++) {
         const card = data[k];
         const id = card.id;
-        card.pack_id = pack_id;
+        if (!card.pack_id) {
+          card.pack_id = pack_id;
+        }
         if (card.text) {
           card.text = card.text.replace(/<br\/>\s+/g, '\n');
         }
         try {
-          const path = `${pack_id}/${card.id}.jpg`;
+          const path = `${card.pack_id}/${card.id}.jpg`;
           await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
           card.imagesrc = `${BASE_IMAGE_URL}${path}`;
         } catch (e) {
           console.log(`Could not find image for ${card.id}`);
+        }
+        if (card.type_id === 'warlord') {
+          try {
+            const path = `${card.pack_id}/${card.id}b.jpg`;
+            await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
+            card.back_imagesrc = `${BASE_IMAGE_URL}${path}`;
+          } catch (e) {
+            console.log(`Could not find image for ${card.id}`);
+          }
         }
         const existing = find(cards.conquest_card, c => c.id === card.id);
         if (!existing || !deepEqual(
