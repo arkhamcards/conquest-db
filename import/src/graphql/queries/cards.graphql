@@ -29,6 +29,8 @@ fragment Card on conquest_card {
   back_text
   back_attack
   back_health
+  tts_sheet_url
+  tts_sheet_position
 }
 
 fragment CardText on conquest_card_text {
@@ -152,7 +154,10 @@ mutation upsertCard(
   $back_attack: Int,
   $back_health: Int,
   $back_traits: String,
-  $keywords: String
+  $keywords: String,
+
+  $tts_sheet_url: String,
+  $tts_sheet_position: Int,
 ) {
 	insert_conquest_card_one(
     object: {
@@ -182,6 +187,9 @@ mutation upsertCard(
       back_health: $back_health
       back_traits: $back_traits
       keywords: $keywords
+
+      tts_sheet_url: $tts_sheet_url
+      tts_sheet_position: $tts_sheet_position
     }
     on_conflict: {
       constraint: card_pkey
@@ -211,7 +219,9 @@ mutation upsertCard(
         back_attack,
         back_health,
         back_traits,
-        keywords
+        keywords,
+        tts_sheet_url,
+        tts_sheet_position
       ]
     }
   ) {

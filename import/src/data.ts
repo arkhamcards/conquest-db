@@ -1,7 +1,7 @@
 import client from './graphql/client';
 import { GetLocaleTextQuery, GetMetadataQuery } from './graphql/schema';
 
-export const LOCALES = ['de', 'it', 'pseudo'];
+export const LOCALES = ['pseudo'];
 
 export interface Table {
   collection: string;
@@ -55,6 +55,8 @@ export const TABLES: { [key: string]: Table } = {
       'back_attack',
       'back_health',
       'signature_id',
+      'tts_sheet_url',
+      'tts_sheet_position',
     ],
     textFields: [
       'name',

@@ -61,7 +61,14 @@ if (!BASE_DIR) {
 
 async function readBasicFile<T>(path: string): Promise<any[]> {
   const rawData = await readFile(path, 'utf8');
-  return JSON.parse(rawData);
+  try {
+    return JSON.parse(rawData);
+  } catch (e) {
+    console.log(typeof rawData);
+    console.log(`The bad char is '${rawData[0]}'`);
+    console.error(`Problem parsing json of file: ${path}`);
+    throw e;
+  }
 }
 
 async function importMetadata() {
