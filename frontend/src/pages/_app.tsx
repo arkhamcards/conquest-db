@@ -13,7 +13,6 @@ import Layout from '../components/Layout';
 import { TranslationProvider } from '../lib/TranslationProvider';
 import { useLinguiInit } from '../lib/Lingui';
 import { ThemeContextProvider } from '../lib/ThemeContext';
-import { useRouter } from 'next/router';
 
 const I18nProvider: FunctionComponent<I18nProviderProps & { forceRenderOnLocaleChange?: boolean }> = ({
   i18n,
