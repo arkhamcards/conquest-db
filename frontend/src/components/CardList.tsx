@@ -64,23 +64,14 @@ export default function CardList() {
   }
   return (
     <>
-      <Tabs width="100%">
-        <TabList>
-          <Tab>{t`Ranger`}</Tab>
-        </TabList>
-        <TabPanels>
-          <TabPanel>
-            <SimpleCardList
-              cards={standardCards}
-              controls={controls}
-              showCard={showCard}
-              filter={filterCard}
-              hasFilters={hasFilters}
-              hasOptions
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
+      <SimpleCardList
+        cards={standardCards}
+        controls={controls}
+        showCard={showCard}
+        filter={filterCard}
+        hasFilters={hasFilters}
+        hasOptions
+      />
       { modal }
     </>
   );
