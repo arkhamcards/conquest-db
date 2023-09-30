@@ -288,18 +288,20 @@ function CardBody({ card, problem, detail, noImage, isBack }: Props & { problem?
   return (
     <Flex direction="column">
       <DeckProblemComponent card errors={problem} limit={1} />
-      <Flex direction="row">
-        <Flex direction="column" justifyContent="space-between" alignItems="center" minWidth={12}>
-          { !isBack && <CardIcons card={card} direction="column" /> }
-          <CardAttackHealth card={card} mt={2} ml={2} isBack={isBack} />
-        </Flex>
-        <Flex direction="column" flex={1}>
-          {!!cardText && <CardText text={cardText} /> }
+      <Flex direction={['column', 'row']}>
+        <Flex direction="row">
+          <Flex direction="column" justifyContent="space-between" alignItems="center" minWidth={12}>
+            { !isBack && <CardIcons card={card} direction="column" /> }
+            <CardAttackHealth card={card} mt={2} ml={2} isBack={isBack} />
+          </Flex>
+          <Flex direction="column" flex={1}>
+            {!!cardText && <CardText text={cardText} /> }
+          </Flex>
         </Flex>
         { !noImage && (
-          <Flex direction="column" alignItems="flex-start" justifyContent="space-between">
+          <Flex direction="column" alignItems={['center', 'flex-start']} justifyContent="space-between">
             { !!card?.imagesrc && (
-              <Box marginTop={8}>
+              <Box marginTop={8} marginBottom={2}>
                 <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} rotate={card.horizontal ?? false} />
               </Box>
             ) }
