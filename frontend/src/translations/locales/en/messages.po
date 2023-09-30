@@ -91,8 +91,8 @@ msgstr "Bloodied."
 msgid "Cancel"
 msgstr "Cancel"
 
-msgid "Card set"
-msgstr "Card set"
+msgid "Card pack"
+msgstr "Card pack"
 
 msgid "Cards"
 msgstr "Cards"
@@ -114,6 +114,9 @@ msgstr "Chosen aspects are invalid."
 
 msgid "Combat Action"
 msgstr "Combat Action"
+
+msgid "Command Hammers"
+msgstr "Command Hammers"
 
 msgid "Comment"
 msgstr "Comment"
@@ -241,11 +244,17 @@ msgstr "Event"
 msgid "Faction"
 msgstr "Faction"
 
-msgid "Filter by card set"
-msgstr "Filter by card set"
+msgid "Factions"
+msgstr "Factions"
+
+msgid "Filter by card pack"
+msgstr "Filter by card pack"
 
 msgid "Filter by card type"
 msgstr "Filter by card type"
+
+msgid "Filter by faction"
+msgstr "Filter by faction"
 
 msgid "Filter by Role"
 msgstr "Filter by Role"
@@ -346,15 +355,8 @@ msgstr "Note: These cards might contain campaign spoilers."
 msgid "Orks"
 msgstr "Orks"
 
-#. card_set_header
-msgid "Other"
-msgstr "Other"
-
 msgid "Password"
 msgstr "Password"
-
-msgid "Personality"
-msgstr "Personality"
 
 msgid "Planet"
 msgstr "Planet"
@@ -418,6 +420,9 @@ msgstr "Share"
 
 msgid "Shareable Deck"
 msgstr "Shareable Deck"
+
+msgid "Shields"
+msgstr "Shields"
 
 msgid "Show all"
 msgstr "Show all"

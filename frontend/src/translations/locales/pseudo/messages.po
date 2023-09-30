@@ -91,7 +91,7 @@ msgstr ""
 msgid "Cancel"
 msgstr ""
 
-msgid "Card set"
+msgid "Card pack"
 msgstr ""
 
 msgid "Cards"
@@ -113,6 +113,9 @@ msgid "Chosen aspects are invalid."
 msgstr ""
 
 msgid "Combat Action"
+msgstr ""
+
+msgid "Command Hammers"
 msgstr ""
 
 msgid "Comment"
@@ -241,10 +244,16 @@ msgstr ""
 msgid "Faction"
 msgstr ""
 
-msgid "Filter by card set"
+msgid "Factions"
+msgstr ""
+
+msgid "Filter by card pack"
 msgstr ""
 
 msgid "Filter by card type"
+msgstr ""
+
+msgid "Filter by faction"
 msgstr ""
 
 msgid "Filter by Role"
@@ -346,14 +355,7 @@ msgstr ""
 msgid "Orks"
 msgstr ""
 
-#. card_set_header
-msgid "Other"
-msgstr "<<<<<<< HEAD"
-
 msgid "Password"
-msgstr ""
-
-msgid "Personality"
 msgstr ""
 
 msgid "Planet"
@@ -417,6 +419,9 @@ msgid "Share"
 msgstr ""
 
 msgid "Shareable Deck"
+msgstr ""
+
+msgid "Shields"
 msgstr ""
 
 msgid "Show all"

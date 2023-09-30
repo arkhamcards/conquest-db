@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { find, filter, trim, map, sortBy, flatMap, uniq, uniqBy } from 'lodash';
 import { t } from '@lingui/macro';
-import { Flex, Text, FormControl, FormLabel, Input, SimpleGrid, Stack } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Stack } from '@chakra-ui/react';
 import { useQueryState, UseQueryStateOptions } from 'next-usequerystate';
 import { createFilter, MultiValue, OptionBase, Select } from 'chakra-react-select';
 
@@ -102,7 +102,7 @@ function cleanTraits(card: CardFragment): string[] {
   if (!card.traits) {
     return [];
   }
-  return map(card.traits.split('/'), x => trim(x).replace('¬', ''));
+  return map(card.traits.split(','), x => trim(x));
 }
 
 type Operand = 'eq' | 'gt' | 'lt' | 'gte' | 'lte';
@@ -235,46 +235,82 @@ function costFilter(cost: NumberCompare | null, card: CardFragment): boolean {
   return true;
 }
 
-function equipFilter(equip: NumberCompare | null, card: CardFragment): boolean {
-  return true;
-  /*
-  if (!equip) {
+function hammersFilter(hammers: NumberCompare | null, card: CardFragment): boolean {
+  if (!hammers) {
     return true;
   }
-  switch (equip.operand) {
+  switch (hammers.operand) {
     case 'eq': {
-      if (card.equip === null || card.equip === undefined || card.equip !== equip.value) {
+      if (card.command_hammers === null || card.command_hammers === undefined || card.command_hammers !== hammers.value) {
         return false;
       }
       break;
     }
     case 'gt': {
-      if (card.equip === null || card.equip === undefined || card.equip <= equip.value) {
+      if (card.command_hammers === null || card.command_hammers === undefined || card.command_hammers <= hammers.value) {
         return false;
       }
       break;
     }
     case 'gte': {
-      if (card.equip === null || card.equip === undefined || card.equip < equip.value) {
+      if (card.command_hammers === null || card.command_hammers === undefined || card.command_hammers < hammers.value) {
         return false;
       }
       break;
     }
     case 'lt': {
-      if (card.equip !== null && card.equip !== undefined && card.equip >= equip.value) {
+      if (card.command_hammers !== null && card.command_hammers !== undefined && card.command_hammers >= hammers.value) {
         return false;
       }
       break;
     }
     case 'lte': {
-      if (card.equip !== null && card.equip !== undefined && card.equip > equip.value) {
+      if (card.command_hammers !== null && card.command_hammers !== undefined && card.command_hammers > hammers.value) {
         return false;
       }
       break;
     }
   }
   return true;
-  */
+}
+
+function shieldsFilter(shields: NumberCompare | null, card: CardFragment): boolean {
+  if (!shields) {
+    return true;
+  }
+  switch (shields.operand) {
+    case 'eq': {
+      if (card.shields === null || card.shields === undefined || card.shields !== shields.value) {
+        return false;
+      }
+      break;
+    }
+    case 'gt': {
+      if (card.shields === null || card.shields === undefined || card.shields <= shields.value) {
+        return false;
+      }
+      break;
+    }
+    case 'gte': {
+      if (card.shields === null || card.shields === undefined || card.shields < shields.value) {
+        return false;
+      }
+      break;
+    }
+    case 'lt': {
+      if (card.shields !== null && card.shields !== undefined && card.shields >= shields.value) {
+        return false;
+      }
+      break;
+    }
+    case 'lte': {
+      if (card.shields !== null && card.shields !== undefined && card.shields > shields.value) {
+        return false;
+      }
+      break;
+    }
+  }
+  return true;
 }
 
 
@@ -332,27 +368,29 @@ function useSearchQueryState<T>(name: string, options: UseQueryStateOptions<T>):
 }
 
 export function useCardSearchControls(allCards: CardFragment[], controls: 'simple' | 'all'): [React.ReactNode, boolean, (card: CardFragment) => boolean] {
+  const { factions: factionNames } = useLocale();
+  const allFactions = useMemo(() => {
+    const result: StringOption[] = [];
+    for(const faction of Object.values(factionNames)) {
+      result.push({ value: faction.id, name: faction.name, label: faction.name});
+    }
+    return result;
+  }, [factionNames]);
   const allTraits = useMemo(() => {
     return map(
       sortBy(uniq(flatMap(allCards, c => cleanTraits(c))), x => x),
       o => ({ value: o, name: o, label: o })
     );
   }, [allCards]);
-  const allCardSets = useMemo(() => {
-    return [
-      {
-        label: t({
-          comment: 'card_set_header',
-          message: `Other`,
-        }),
-        options: [{
-          value: 'personality',
-          name: t`Personality`,
-          label: t`Personality`,
-        }],
-      }
-    ];
-  }, []);
+  const allCardPacks = useMemo(() => {
+    return sortBy(
+      uniqBy(
+        flatMap(allCards, c => c.pack_id && c.pack_name ? { value: c.pack_id, name: c.pack_name, label: c.pack_name } : []),
+        o => o.value
+      ),
+      o => o.label
+    );
+  }, [allCards]);
   const allTypes = useMemo(() => {
     return sortBy(
       uniqBy(
@@ -362,6 +400,11 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
       o => o.label
     );
   }, [allCards]);
+  const [factions, setFactions] = useSearchQueryState<string[]>('f', {
+    history: 'replace',
+    parse: parseArray,
+    serialize: serializeArray,
+  });
   const [traits, setTraits] = useSearchQueryState<string[]>('k', {
     history: 'replace',
     parse: parseArray,
@@ -372,7 +415,7 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
     parse: parseArray,
     serialize: serializeArray,
   });
-  const [cardSets, setCardSets] = useSearchQueryState<string[]>('set', {
+  const [cardPacks, setCardPacks] = useSearchQueryState<string[]>('p', {
     history: 'replace',
     parse: parseArray,
     serialize: serializeArray,
@@ -382,85 +425,58 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
     parse: parseNumberCompare,
     serialize: serializeNumberCompare,
   });
-  const [equip, setEquip] = useSearchQueryState<NumberCompare>('e', {
+  const [hammers, setHammers] = useSearchQueryState<NumberCompare>('h', {
     history: 'replace',
     parse: parseNumberCompare,
     serialize: serializeNumberCompare,
   });
-  const [approach, setApproach] = useSearchQueryState<string[]>('a', {
+  const [shields, setShields] = useSearchQueryState<NumberCompare>('s', {
     history: 'replace',
-    parse: parseArray,
-    serialize: serializeArray,
+    parse: parseNumberCompare,
+    serialize: serializeNumberCompare,
   });
 
   const [hasFilters, filterCard] = useMemo(() => {
+    const factionSet = factions?.length ? new Set(factions) : undefined;
     const traitSet = traits?.length ? new Set(traits) : undefined;
     const typeSet = types?.length ? new Set(types) : undefined;
-    const cardSetsSet = cardSets?.length ? new Set(cardSets) : undefined;
+    const cardPackSet = cardPacks?.length ? new Set(cardPacks) : undefined;
     return [(
+      !!factionSet ||
       !!traitSet ||
       !!typeSet ||
-      !!cardSetsSet ||
+      !!cardPackSet ||
       !!cost ||
-      !!equip ||
-      !!approach?.length
+      !!hammers ||
+      !!shields
     ),
     (card: CardFragment) => {
-      return true;
-      /*
+      if (factionSet && (!card.faction_id || !factionSet.has(card.faction_id))) {
+        return false;
+      }
       if (traitSet && !find(cleanTraits(card), t => traitSet.has(t))) {
         return false;
       }
       if (typeSet && (!card.type_id || !typeSet.has(card.type_id))) {
         return false;
       }
-      if (cardSetsSet && (!card.set_id || !cardSetsSet.has(card.set_id))) {
+      if (cardPackSet && (!card.pack_id || !cardPackSet.has(card.pack_id))) {
         return false;
       }
-      if (aspectSet) {
-        if (!card.aspect_id || !aspectSet.has(card.aspect_id)) {
-          return false;
-        }
-        switch (card.aspect_id) {
-          case AWA:
-            if (!aspectLevelFilter(awa, card.level)) {
-              return false;
-            }
-            break;
-          case SPI:
-            if (!aspectLevelFilter(spi, card.level)) {
-              return false;
-            }
-            break;
-          case FOC:
-            if (!aspectLevelFilter(foc, card.level)) {
-              return false;
-            }
-            break;
-          case FIT:
-            if (!aspectLevelFilter(fit, card.level)) {
-              return false;
-            }
-            break;
-        }
-      }
-      if (approach?.length) {
-        const cardApproaches = new Set([
-          ...(!!card.approach_connection ? ['connection'] : []),
-          ...(!!card.approach_conflict ? ['conflict'] : []),
-          ...(!!card.approach_reason ? ['reason'] : []),
-          ...(!!card.approach_exploration ? ['exploration'] : []),
-        ]);
-        if (!find(approach, app => cardApproaches.has(app))) {
-          return false;
-        }
-      }
-      return costFilter(cost, card) && equipFilter(equip, card);
-      */
+      return costFilter(cost, card) && hammersFilter(hammers, card) && shieldsFilter(shields, card);
     }];
-  }, [traits, cardSets, types, cost, equip, approach]);
+  }, [traits, cardPacks, types, cost, hammers, shields, factions]);
   return [(
     <Stack key="controls">
+      <FormControl>
+        <FormLabel>{t`Factions`}</FormLabel>
+        <MultiSelect
+          value={factions}
+          placeholder={t`Filter by faction`}
+          setValue={setFactions}
+          options={allFactions}
+        />
+      </FormControl>
       <FormControl>
         <FormLabel>{t`Types`}</FormLabel>
         <MultiSelect
@@ -480,12 +496,12 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
         />
       </FormControl>
       <FormControl>
-        <FormLabel>{t`Card set`}</FormLabel>
-        <MultiGroupSelect
-          placeholder={t`Filter by card set`}
-          value={cardSets}
-          setValue={setCardSets}
-          options={allCardSets}
+        <FormLabel>{t`Card pack`}</FormLabel>
+        <MultiSelect
+          placeholder={t`Filter by card pack`}
+          value={cardPacks}
+          setValue={setCardPacks}
+          options={allCardPacks}
         />
       </FormControl>
       <FormControl>
@@ -493,6 +509,20 @@ export function useCardSearchControls(allCards: CardFragment[], controls: 'simpl
         <NumberCompareInput
           value={cost}
           setValue={setCost}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>{t`Command Hammers`}</FormLabel>
+        <NumberCompareInput
+          value={hammers}
+          setValue={setHammers}
+        />
+      </FormControl>
+      <FormControl>
+        <FormLabel>{t`Shields`}</FormLabel>
+        <NumberCompareInput
+          value={shields}
+          setValue={setShields}
         />
       </FormControl>
     </Stack>
