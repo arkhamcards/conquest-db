@@ -5,7 +5,11 @@ import { t, Trans } from '@lingui/macro';
 import { Box, Container, Heading, Text, Link } from '@chakra-ui/react'
 import NextLink from 'next/link';
 import { GetServerSidePropsContext, GetServerSidePropsResult } from 'next';
+<<<<<<< HEAD
 import { getLocalizationServerSideProps, loadCatalog } from '../lib/Lingui';
+=======
+import { loadCatalog } from '../lib/Lingui';
+>>>>>>> 8d7e139 (Shot in the dark)
 
 function Home() {
   return (
@@ -37,6 +41,24 @@ function Home() {
 }
 
 
+<<<<<<< HEAD
 export default Home;
 
 export const getServerSideProps = getLocalizationServerSideProps;
+=======
+export async function getServerSideProps(
+  ctx: GetServerSidePropsContext
+): Promise<GetServerSidePropsResult<any>> {
+  // some server side logic
+
+  return {
+    props: {
+      i18n: await loadCatalog(ctx.locale as string),
+    },
+  };
+}
+
+
+
+export default Home;
+>>>>>>> 8d7e139 (Shot in the dark)
