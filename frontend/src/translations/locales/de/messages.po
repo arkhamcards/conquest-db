@@ -275,7 +275,7 @@ msgid "Interrupt"
 msgstr ""
 
 msgid "Italian"
-msgstr "Italienisch"
+msgstr "Italienisch<<<<<<< HEAD======="
 
 msgid "Language"
 msgstr "Sprache<<<<<<< HEAD"

@@ -18,7 +18,7 @@ const languageOptions: LanguageOption[] = [
   {
     value: 'en',
     label: <US />,
-  },
+  },/*
   {
     value: 'de',
     label: <DE />,
@@ -27,7 +27,6 @@ const languageOptions: LanguageOption[] = [
     value: 'it',
     label: <IT />,
   },
-  /*
   {
     value: 'fr',
     label: <FR />,
