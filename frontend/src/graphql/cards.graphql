@@ -31,6 +31,7 @@ fragment Card on conquest_card_localized {
   back_attack
   back_health
   real_keywords
+  horizontal
 }
 
 query getAllCards($locale: String!) {

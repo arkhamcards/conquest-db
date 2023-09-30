@@ -311,7 +311,7 @@ function CardBody({ card, problem, detail, noImage, isBack }: Props & { problem?
           <Flex direction="column" alignItems="flex-start" justifyContent="space-between">
             { !!card?.imagesrc && (
               <Box marginTop={8}>
-                <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} />
+                <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} rotate={card.horizontal ?? false} />
               </Box>
             ) }
           </Flex>

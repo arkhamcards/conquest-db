@@ -286,9 +286,14 @@ function CardListSection({ section, renderControl, renderStyle, showCard, maxCol
           { !!section.title && <CardHeader key={section.title} title={section.title} /> }
           <Wrap>
             { map(section.items, item => (
-              <WrapItem padding={2} key={item.card.id}>
+              <WrapItem padding={2} key={item.card.id} onClick={() => showCard(item.card)}>
                 {item.card.imagesrc ?
-                  <CardImage title={item.card.name ?? ''} url={item.card.imagesrc} size="large" /> : (
+                  <CardImage
+                    title={item.card.name ?? ''}
+                    url={item.card.imagesrc}
+                    size="large"
+                    rotate={item.card.horizontal ?? false}
+                  /> : (
                   <CardImagePlaceholder card={item.card} size="large">
                     <Card card={item.card} noImage />
                   </CardImagePlaceholder>
