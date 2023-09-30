@@ -1,59 +1,59 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: \n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-12-08 09:55-0500\n"
-"PO-Revision-Date: \n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: it\n"
+"POT-Creation-Date: 2023-09-30 14:43-0400\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: @lingui/cli\n"
+"Language: it\n"
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 3.0.1\n"
 
 msgid "- Flavor text can be denoted using <f>this is flavor</f> tags, to get card style formatting."
-msgstr "- Il flavor text può essere indicato con i tag <f>questo è del flavor text</f>, per ottenere una formattazione in stile carta."
+msgstr ""
 
 msgid "- You can use the following game specific icons by enclosing them in square brackets:"
-msgstr "- È possibile utilizzare le seguenti icone del gioco racchiudendole tra parentesi quadre:"
+msgstr ""
 
 msgid "(edited)"
 msgstr "(modificato)"
 
 msgid "{0} (Copy)"
-msgstr "{0} (Copia)"
+msgstr ""
 
 msgid "{0} / 30 Cards"
-msgstr "{0} / 30 Carte"
+msgstr ""
 
 msgid "{0} Fights"
 msgstr ""
 
 msgid "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}"
-msgstr "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}>>>>>>> d7712e8 (Compile language, swarp warlord logo)"
+msgstr ">>>>>>> 2fda1c4 (Clear old translatiosn)"
 
 msgid "30 Cards"
-msgstr "30 Carte"
+msgstr ""
 
 msgid "Account Settings"
-msgstr "Impostazioni Account"
+msgstr ""
 
 msgid "Action"
 msgstr ""
 
 msgid "Actions"
-msgstr "Azioni"
+msgstr ""
 
 msgid "Advanced controls"
-msgstr "Controlli Avanzati"
+msgstr ""
 
 msgid "All"
-msgstr "Tutti"
+msgstr ""
 
 msgid "Allow people to view my decks"
-msgstr "Consenti a tutti di vedere i miei mazzi"
+msgstr ""
 
 msgid "Ally"
 msgstr ""
@@ -62,13 +62,13 @@ msgid "Ally:"
 msgstr ""
 
 msgid "Already have an account? <0>Login</0> now."
-msgstr "Hai già un account? <0>Accedi</0> ora."
+msgstr ""
 
 msgid "Are you sure you want to delete the \"{0}\" deck?"
-msgstr "Vuoi davvero cancellare il mazzo \"{0}\"?"
+msgstr ""
 
 msgid "Are you sure you want to delete this deck?"
-msgstr "Vuoi davvero cancellare questo mazzo?"
+msgstr ""
 
 msgid "Army"
 msgstr ""
@@ -80,7 +80,7 @@ msgid "Attachment"
 msgstr ""
 
 msgid "Available"
-msgstr "Disponibili"
+msgstr ""
 
 msgid "Battle Ability"
 msgstr ""
@@ -89,13 +89,13 @@ msgid "Bloodied."
 msgstr ""
 
 msgid "Cancel"
-msgstr "Annulla"
+msgstr ""
 
 msgid "Card set"
-msgstr "Set Carte"
+msgstr ""
 
 msgid "Cards"
-msgstr "Carte"
+msgstr ""
 
 msgid "Chaos"
 msgstr ""
@@ -104,22 +104,22 @@ msgid "Choose {name}"
 msgstr ""
 
 msgid "Choose handle"
-msgstr "Scegli un soprannome"
+msgstr ""
 
 msgid "Choose warlord"
 msgstr ""
 
 msgid "Chosen aspects are invalid."
-msgstr "Gli aspetti scelti non sono validi."
+msgstr ""
 
 msgid "Combat Action"
 msgstr ">>>>>>> d7712e8 (Compile language, swarp warlord logo)"
 
 msgid "Comment"
-msgstr "Commenta<<<<<<< HEAD"
+msgstr ""
 
 msgid "Comments"
-msgstr "Commenti"
+msgstr ""
 
 msgid "ConquestDB"
 msgstr ""
@@ -140,100 +140,100 @@ msgid "Contains cards that don't match your chosen faction."
 msgstr ""
 
 msgid "Contains loyal cards from your ally faction."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Copies"
-msgstr "Copie"
+msgstr ""
 
 msgid "Copy"
-msgstr "Copia"
+msgstr ""
 
 msgid "Copy deck"
-msgstr "Copia mazzo"
+msgstr ""
 
 msgid "Copy of {deckLink} by {authorLink}"
-msgstr "Copia di {deckLink} creato da {authorLink}"
+msgstr ""
 
 msgid "Copy this deck to make your own changes."
-msgstr "Copia questo mazzo per modificarlo."
+msgstr ""
 
 msgid "Cost"
-msgstr "Costo"
+msgstr ""
 
 msgid "Could not find user {handle}"
-msgstr "Utente {handle} non trovato"
+msgstr ""
 
 msgid "Create"
-msgstr "Crea"
+msgstr ""
 
 msgid "Dark Eldar"
 msgstr ""
 
 msgid "Dark mode"
-msgstr "Modalità notte"
+msgstr ""
 
 msgid "Deck"
-msgstr "Mazzo"
+msgstr ""
 
 msgid "Deck name"
 msgstr ""
 
 msgid "Deck search"
-msgstr "Cerca mazzo"
+msgstr ""
 
 msgid "Decklists"
-msgstr "Liste mazzi"
+msgstr ""
 
 msgid "Delete"
-msgstr "Cancella"
+msgstr ""
 
 msgid "Delete deck?"
-msgstr "Cancellare mazzo?"
+msgstr ""
 
 msgid "Deleting this published deck will cause will remove it from search."
-msgstr "Cancellare questo mazzo pubblico lo rimuoverà dalle ricerche."
+msgstr ""
 
 msgid "Deploy Action"
 msgstr ""
 
 msgid "Description"
-msgstr "Descrizione"
+msgstr ""
 
 msgid "Descriptions support basic markdown and html formatting."
-msgstr "Le descrizioni supportano il formato HTML e l'uso del markdown base."
+msgstr ""
 
 msgid "Discard changes"
-msgstr "Annulla cambiamenti"
+msgstr ""
 
 msgid "Don't have an account?"
-msgstr "Non hai un account?<<<<<<< HEAD"
+msgstr ">>>>>>> 2fda1c4 (Clear old translatiosn)"
 
 msgid "Done editing"
-msgstr "Conferma modifiche"
+msgstr ""
 
 msgid "Duplicate this deck while preserving the original."
-msgstr "Duplica questo mazzo (senza cancellare l'originale)."
+msgstr ""
 
 msgid "E-mail Address"
-msgstr "Indirizzo e-mail<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Edit"
-msgstr "Modifica"
+msgstr ""
 
 msgid "Edit comment"
-msgstr "Modifica commento<<<<<<< HEAD"
+msgstr ""
 
 msgid "Edit description"
-msgstr "Modifica descrizione"
+msgstr ""
 
 msgid "Eldar"
 msgstr ""
 
 msgid "Email"
-msgstr "Email"
+msgstr ""
 
 msgid "English"
-msgstr "Inglese"
+msgstr ""
 
 msgid "Event"
 msgstr ""
@@ -242,97 +242,97 @@ msgid "Faction"
 msgstr ""
 
 msgid "Filter by card set"
-msgstr "Filtra per set carte"
+msgstr ""
 
 msgid "Filter by card type"
-msgstr "Filtra per tipo di carta"
+msgstr ""
 
 msgid "Filter by Role"
 msgstr "Filtra per Ruolo"
 
 msgid "Filter by trait"
-msgstr "Filtra per tratto"
+msgstr ""
 
 msgid "Forced Interrupt"
 msgstr ">>>>>>> d7712e8 (Compile language, swarp warlord logo)"
 
 msgid "Forgot Password"
-msgstr "Password dimenticata<<<<<<< HEAD"
+msgstr ""
 
 msgid "German"
-msgstr "Tedesco"
+msgstr ""
 
 msgid "Handle"
-msgstr "Soprannome"
+msgstr ""
 
 msgid "Hide spoilers"
-msgstr "Nascondi spoiler"
+msgstr ""
 
 msgid "If you‘d like to support the development and maintenance of this site, consider supporting us on {patreon}."
-msgstr "Se volete aiutare a supportare e mantenere questo sito, potete trovarci su {patreon}.<<<<<<< HEAD"
+msgstr ">>>>>>> 2fda1c4 (Clear old translatiosn)"
 
 msgid "Interrupt"
 msgstr ""
 
 msgid "Italian"
-msgstr "Italiano<<<<<<< HEAD======="
+msgstr ""
 
 msgid "Language"
-msgstr "Lingua<<<<<<< HEAD"
+msgstr ""
 
 msgid "Light mode"
-msgstr "Modalità giorno"
+msgstr ""
 
 msgid "Like"
-msgstr "Mi piace<<<<<<< HEAD"
+msgstr ""
 
 msgid "Like deck"
-msgstr "Metti un mi piace al mazzo"
+msgstr ""
 
 msgid "Likes"
-msgstr "Mi piace"
+msgstr ""
 
 msgid "Load more"
-msgstr "Caricane altri<<<<<<< HEAD"
+msgstr ""
 
 msgid "Login"
-msgstr "Accedi<<<<<<< HEAD"
+msgstr ""
 
 msgid "Markdown"
 msgstr ""
 
 msgid "Member since {joinDate}"
-msgstr "Membro da {joinDate}"
+msgstr ""
 
 msgid "My Decks"
-msgstr "I miei Mazzi"
+msgstr ""
 
 msgid "Name"
-msgstr "Nome"
+msgstr ""
 
 msgid "Necrons"
 msgstr ""
 
 msgid "New cards are available"
-msgstr "Nuove carte disponibili"
+msgstr ""
 
 msgid "New deck"
-msgstr "Nuovo mazzo"
+msgstr ""
 
 msgid "Next"
-msgstr "Successivo<<<<<<< HEAD"
+msgstr ""
 
 msgid "No matching cards"
-msgstr "Nessuna carta corrispondente"
+msgstr ""
 
 msgid "No matching cards found."
-msgstr "Nessuna carta corrispondente trovata."
+msgstr ""
 
 msgid "No matching decks."
-msgstr "Nessun mazzo corrispondente."
+msgstr ""
 
 msgid "No published decks."
-msgstr "Nessun mazzo pubblicato."
+msgstr ""
 
 msgid "No warlord chosen"
 msgstr ""
@@ -341,80 +341,80 @@ msgid "Not enough cards."
 msgstr ""
 
 msgid "Note: These cards might contain campaign spoilers."
-msgstr "Nota: queste carte potrebbero contenere spoiler."
+msgstr ""
 
 msgid "Orks"
 msgstr ""
 
 #. card_set_header
 msgid "Other"
-msgstr "Altro"
-
-msgid "Password"
-msgstr "Password<<<<<<< HEAD"
-
-msgid "Personality"
-msgstr "Personalità"
-
-msgid "Planet"
 msgstr ""
 
+msgid "Password"
+msgstr ""
+
+msgid "Personality"
+msgstr ""
+
+msgid "Planet"
+msgstr "<<<<<<< HEAD======="
+
 msgid "Please address all deckbuilding errors before publishing."
-msgstr "Per favore, risolvete tutti gli errori di costruzione mazzo prima di pubblicare."
+msgstr ""
 
 msgid "Post"
-msgstr "Inserisci"
+msgstr ""
 
 msgid "Previous"
-msgstr "Precedente<<<<<<< HEAD"
+msgstr ""
 
 msgid "Print"
 msgstr ""
 
 msgid "Profile"
-msgstr "Profilo"
+msgstr ""
 
 msgid "Publish"
-msgstr "Pubblica"
+msgstr ""
 
 msgid "Published decks"
-msgstr "Mazzi pubblicati"
+msgstr ""
 
 msgid "Ranger"
-msgstr "Ranger"
+msgstr ""
 
 msgid "Reaction"
 msgstr ""
 
 msgid "Register"
-msgstr "Registrati"
+msgstr ""
 
 msgid "Register now"
-msgstr "Registrati ora<<<<<<< HEAD"
+msgstr ""
 
 msgid "Reply comment"
-msgstr "Risposta"
+msgstr ""
 
 msgid "Reply to comment"
-msgstr "Rispondi al commento<<<<<<< HEAD"
+msgstr ""
 
 msgid "Role"
-msgstr "Ruolo"
+msgstr ""
 
 msgid "Save"
-msgstr "Salva"
+msgstr ""
 
 msgid "Save changes"
-msgstr "Salva modifiche"
+msgstr ""
 
 msgid "Search by name"
-msgstr "Cerca per nome"
+msgstr ""
 
 msgid "See comments"
-msgstr "Vedi commenti"
+msgstr ""
 
 msgid "Settings"
-msgstr "Impostazioni"
+msgstr ""
 
 msgid "Share"
 msgstr ""
@@ -423,28 +423,28 @@ msgid "Shareable Deck"
 msgstr ""
 
 msgid "Show all"
-msgstr "Mostra tutti"
+msgstr ""
 
 msgid "Sig Squad"
 msgstr ""
 
 msgid "Sign In"
-msgstr "Accedi"
+msgstr ""
 
 msgid "Sign Out"
-msgstr "Disconnettiti"
+msgstr ""
 
 msgid "Sign Up"
-msgstr "Registrati"
+msgstr ""
 
 msgid "Signature Squad"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Space Marines"
 msgstr ""
 
 msgid "Submit"
-msgstr "Invia<<<<<<< HEAD"
+msgstr ""
 
 msgid "Support"
 msgstr ""
@@ -453,16 +453,16 @@ msgid "Synapse"
 msgstr ""
 
 msgid "Tau"
+msgstr "<<<<<<< HEAD"
+
+msgid "The information presented on this site about Conquest, both literal and graphical, is copyrighted by Fantasy Flight Games. This website is not produced, endorsed, supported, or affiliated with Fantasy Flight Games."
 msgstr ""
 
-msgid "The information presented on this site about Earthborne Rangers, both literal and graphical, is copyrighted by Earthborne Games. This website is not produced, endorsed, supported, or affiliated with Earthborne Games."
-msgstr "Le informazioni su Earthborne Rangers mostrate su questo sito, sia in formato testuale che grafico, sono copyright di Earthborne Games e di Fantàsia Edizioni. Questo sito non è stato realizzato da, approvato da, supportato da o affiliato con Earthborne Games o Fantàsia Edizioni.<<<<<<< HEAD"
-
 msgid "The site is likely to go down for maintenance and data might be lost during these early days."
-msgstr "In questa fase iniziale, è possibile che il sito divenga momentaneamente non disponibile causa manutenzione e che i dati possano andare persi."
+msgstr ""
 
 msgid "There are too many cards with this card's name in your deck."
-msgstr "Nel tuo mazzo ci sono troppe carte con questo nome."
+msgstr ""
 
 msgid "This ally card is not the Army type."
 msgstr ""
@@ -477,34 +477,34 @@ msgid "This card is from a different warlord's Signature Squads."
 msgstr ""
 
 msgid "This card is loyal to another faction."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "This comment was edited on {updatedTime}."
-msgstr "Questo commento è stato editato il {updatedTime}.<<<<<<< HEAD"
-
-msgid "Toggle Navigation"
-msgstr "Attiva Navigazione"
-
-msgid "Too many cards with the same name."
-msgstr "Troppe carte con lo stesso nome."
-
-msgid "Too many cards."
 msgstr ""
 
+msgid "Toggle Navigation"
+msgstr ""
+
+msgid "Too many cards with the same name."
+msgstr ""
+
+msgid "Too many cards."
+msgstr "<<<<<<< HEAD"
+
 msgid "Traits"
-msgstr "Tratti"
+msgstr ""
 
 msgid "Tyanids"
 msgstr ""
 
 msgid "Types"
-msgstr "Tipi"
+msgstr ""
 
 msgid "Unlike"
-msgstr "Togli il mi piace<<<<<<< HEAD"
+msgstr ">>>>>>> 2fda1c4 (Clear old translatiosn)"
 
 msgid "Update now"
-msgstr "Aggiorna ora"
+msgstr ""
 
 msgid "View as Cards"
 msgstr ""
@@ -516,7 +516,7 @@ msgid "View as Images"
 msgstr ""
 
 msgid "Warlord"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Welcome to ConquestDB"
 msgstr ""
@@ -525,7 +525,7 @@ msgid "You can view <0>player cards</0>."
 msgstr ""
 
 msgid "You don't seem to have any decks."
-msgstr "Sembra che tu non abbia nessun mazzo."
+msgstr "<<<<<<< HEAD"
 
 msgid "You must choose a faction."
 msgstr ""
@@ -537,7 +537,7 @@ msgid "You must choose a warlord."
 msgstr ""
 
 msgid "You must choose an ally faction."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Your Warlord card does not match your chosen faction."
 msgstr ""

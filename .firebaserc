@@ -3,7 +3,7 @@
     "default": "conquest-db"
   },
   "targets": {
-    "rangers-db": {
+    "conquest-db": {
       "hosting": {
         "static": [
           "static-conquest-db"

@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"POT-Creation-Date: 2022-12-08 09:55-0500\n"
+"POT-Creation-Date: 2023-09-30 14:43-0400\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -32,7 +32,7 @@ msgid "{0} Fights"
 msgstr ""
 
 msgid "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}"
-msgstr "<<<<<<< HEAD"
+msgstr ">>>>>>> 2fda1c4 (Clear old translatiosn)"
 
 msgid "30 Cards"
 msgstr ""
@@ -44,7 +44,7 @@ msgid "Action"
 msgstr ""
 
 msgid "Actions"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Advanced controls"
 msgstr ""
@@ -62,7 +62,7 @@ msgid "Ally:"
 msgstr ""
 
 msgid "Already have an account? <0>Login</0> now."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Are you sure you want to delete the \"{0}\" deck?"
 msgstr ""
@@ -80,7 +80,7 @@ msgid "Attachment"
 msgstr ""
 
 msgid "Available"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Battle Ability"
 msgstr ""
@@ -95,7 +95,7 @@ msgid "Card set"
 msgstr ""
 
 msgid "Cards"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Chaos"
 msgstr ""
@@ -119,7 +119,7 @@ msgid "Comment"
 msgstr ""
 
 msgid "Comments"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "ConquestDB"
 msgstr ""
@@ -140,7 +140,7 @@ msgid "Contains cards that don't match your chosen faction."
 msgstr ""
 
 msgid "Contains loyal cards from your ally faction."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Copies"
 msgstr ""
@@ -155,7 +155,7 @@ msgid "Copy of {deckLink} by {authorLink}"
 msgstr ""
 
 msgid "Copy this deck to make your own changes."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Cost"
 msgstr ""
@@ -164,13 +164,13 @@ msgid "Could not find user {handle}"
 msgstr ""
 
 msgid "Create"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Dark Eldar"
 msgstr ""
 
 msgid "Dark mode"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Deck"
 msgstr ""
@@ -182,7 +182,7 @@ msgid "Deck search"
 msgstr ""
 
 msgid "Decklists"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Delete"
 msgstr ""
@@ -191,7 +191,7 @@ msgid "Delete deck?"
 msgstr ""
 
 msgid "Deleting this published deck will cause will remove it from search."
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Deploy Action"
 msgstr ""
@@ -200,7 +200,7 @@ msgid "Description"
 msgstr ""
 
 msgid "Descriptions support basic markdown and html formatting."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Discard changes"
 msgstr ""
@@ -209,7 +209,7 @@ msgid "Don't have an account?"
 msgstr ""
 
 msgid "Done editing"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Duplicate this deck while preserving the original."
 msgstr ""
@@ -224,13 +224,13 @@ msgid "Edit comment"
 msgstr ""
 
 msgid "Edit description"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Eldar"
 msgstr ""
 
 msgid "Email"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "English"
 msgstr ""
@@ -251,13 +251,13 @@ msgid "Filter by Role"
 msgstr ""
 
 msgid "Filter by trait"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Forced Interrupt"
 msgstr ""
 
 msgid "Forgot Password"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "German"
 msgstr ""
@@ -275,7 +275,7 @@ msgid "Interrupt"
 msgstr ""
 
 msgid "Italian"
-msgstr "<<<<<<< HEAD======="
+msgstr "<<<<<<< HEAD=======<<<<<<< HEAD"
 
 msgid "Language"
 msgstr ""
@@ -293,7 +293,7 @@ msgid "Likes"
 msgstr ""
 
 msgid "Load more"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Login"
 msgstr ""
@@ -308,7 +308,7 @@ msgid "My Decks"
 msgstr ""
 
 msgid "Name"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Necrons"
 msgstr ""
@@ -317,7 +317,7 @@ msgid "New cards are available"
 msgstr ""
 
 msgid "New deck"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Next"
 msgstr ""
@@ -332,7 +332,7 @@ msgid "No matching decks."
 msgstr ""
 
 msgid "No published decks."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "No warlord chosen"
 msgstr ""
@@ -348,7 +348,7 @@ msgstr ""
 
 #. card_set_header
 msgid "Other"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Password"
 msgstr ""
@@ -357,7 +357,7 @@ msgid "Personality"
 msgstr ""
 
 msgid "Planet"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Please address all deckbuilding errors before publishing."
 msgstr ""
@@ -366,13 +366,13 @@ msgid "Post"
 msgstr ""
 
 msgid "Previous"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Print"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Publish"
 msgstr ""
@@ -381,7 +381,7 @@ msgid "Published decks"
 msgstr ""
 
 msgid "Ranger"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Reaction"
 msgstr ""
@@ -390,13 +390,13 @@ msgid "Register"
 msgstr ""
 
 msgid "Register now"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Reply comment"
 msgstr ""
 
 msgid "Reply to comment"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Role"
 msgstr ""
@@ -408,7 +408,7 @@ msgid "Save changes"
 msgstr ""
 
 msgid "Search by name"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "See comments"
 msgstr ""
@@ -423,7 +423,7 @@ msgid "Shareable Deck"
 msgstr ""
 
 msgid "Show all"
-msgstr ""
+msgstr "<<<<<<< HEAD======="
 
 msgid "Sig Squad"
 msgstr ""
@@ -438,7 +438,7 @@ msgid "Sign Up"
 msgstr ""
 
 msgid "Signature Squad"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Space Marines"
 msgstr ""
@@ -453,16 +453,16 @@ msgid "Synapse"
 msgstr ""
 
 msgid "Tau"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
-msgid "The information presented on this site about Earthborne Rangers, both literal and graphical, is copyrighted by Earthborne Games. This website is not produced, endorsed, supported, or affiliated with Earthborne Games."
+msgid "The information presented on this site about Conquest, both literal and graphical, is copyrighted by Fantasy Flight Games. This website is not produced, endorsed, supported, or affiliated with Fantasy Flight Games."
 msgstr ""
 
 msgid "The site is likely to go down for maintenance and data might be lost during these early days."
 msgstr ""
 
 msgid "There are too many cards with this card's name in your deck."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "This ally card is not the Army type."
 msgstr ""
@@ -477,7 +477,7 @@ msgid "This card is from a different warlord's Signature Squads."
 msgstr ""
 
 msgid "This card is loyal to another faction."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "This comment was edited on {updatedTime}."
 msgstr ""
@@ -489,7 +489,7 @@ msgid "Too many cards with the same name."
 msgstr ""
 
 msgid "Too many cards."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Traits"
 msgstr ""
@@ -498,7 +498,7 @@ msgid "Tyanids"
 msgstr ""
 
 msgid "Types"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Unlike"
 msgstr ""
@@ -516,7 +516,7 @@ msgid "View as Images"
 msgstr ""
 
 msgid "Warlord"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Welcome to ConquestDB"
 msgstr ""
@@ -525,7 +525,7 @@ msgid "You can view <0>player cards</0>."
 msgstr ""
 
 msgid "You don't seem to have any decks."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "You must choose a faction."
 msgstr ""
@@ -537,7 +537,7 @@ msgid "You must choose a warlord."
 msgstr ""
 
 msgid "You must choose an ally faction."
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "Your Warlord card does not match your chosen faction."
 msgstr ""

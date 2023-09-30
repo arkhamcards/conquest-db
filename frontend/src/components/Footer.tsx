@@ -23,7 +23,7 @@ export default function Footer() {
         px={{ base: "1rem", lg: "0" }}
       >
         <Text fontSize="sm" color="black">
-          {t`The information presented on this site about Earthborne Rangers, both literal and graphical, is copyrighted by Earthborne Games. This website is not produced, endorsed, supported, or affiliated with Earthborne Games.`}
+          {t`The information presented on this site about Conquest, both literal and graphical, is copyrighted by Fantasy Flight Games. This website is not produced, endorsed, supported, or affiliated with Fantasy Flight Games.`}
         </Text>
         <Text marginTop={2}>
           <Trans>
