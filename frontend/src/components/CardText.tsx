@@ -3,6 +3,7 @@ import Parser from 'simple-text-parser';
 import { filter } from 'lodash';
 import { Box, useColorMode } from '@chakra-ui/react';
 import { t } from '@lingui/macro'
+import { useLocale } from '../lib/TranslationProvider';
 
 const ICON_MATCH: { [text: string]: string | undefined } = {
   RESOURCE: 'resource',
@@ -20,15 +21,20 @@ const ICON_MATCH: { [text: string]: string | undefined } = {
   necrons: 'necron',
 };
 
-const TEXT_MATCH: { [text: string]: string | undefined } = {
-  REACTION: t`Reaction`,
-  INTERRUPT: t`Interrupt`,
-  ACTION: t`Action`,
-  'COMBAT ACTION': t`Combat Action`,
-  'DEPLOY ACTION': t`Deploy Action`,
-  'BATTLE ABILITY': t`Battle Ability`,
-  'FORCED INTERRUPT': t`Forced Interrupt`,
-};
+function useTextMatch(): { [text: string]: string | undefined } {
+  const { i18n } = useLocale();
+  return useMemo(() => {
+    return {
+      REACTION: t`Reaction`,
+      INTERRUPT: t`Interrupt`,
+      ACTION: t`Action`,
+      'COMBAT ACTION': t`Combat Action`,
+      'DEPLOY ACTION': t`Deploy Action`,
+      'BATTLE ABILITY': t`Battle Ability`,
+      'FORCED INTERRUPT': t`Forced Interrupt`,
+    };
+  }, [i18n]);
+}
 
 export function useIconedText(
   text: string | undefined | null,
@@ -39,6 +45,7 @@ export function useIconedText(
 ): string {
   const { noLines } = options;
   const { colorMode } = useColorMode();
+  const TEXT_MATCH = useTextMatch();
 
   return useMemo(() => {
     const parser = new Parser().addRule(
