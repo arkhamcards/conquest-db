@@ -199,9 +199,6 @@ export function SearchDeckRow({ deck, last }: {
         </Flex>
         <Flex direction="row" alignItems="flex-start" justifyContent="flex-start">
           <Flex flex={4} direction="row" alignItems="flex-start" as={NextLink} href={`/decks/view/${deck.id}`}>
-            { null /*(
-              <RoleImage name={role.name} url={role.imagesrc} size="large" />
-            ) */}
             <Flex direction="column" marginLeft={2}>
               <Text display={['none', 'block']} fontSize="md">{deck.name}</Text>
               <DeckDescription fontSize="xs" deck={deck} />

@@ -107,7 +107,6 @@ export function CompactDeckRow({ deck, roleCards, onClick, children, buttons, hr
       flexDirection="column"
     >
       <Flex direction="row">
-        { !!role && !!role.imagesrc && <RoleImage size="large" name={role.name} url={role.imagesrc} /> }
         <Flex direction="column" flex={1}>
           { href ? (
             <Text fontSize={['md', 'md', 'lg']} as={NextLink} href={href}>{deck.name}</Text>

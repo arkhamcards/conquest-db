@@ -160,9 +160,9 @@ export function CardHeader({
       <Flex direction="row" flex={1} alignItems="flex-start">
           <Flex direction="column">
             { card.type_id === 'warlord' ?
-              <RoleImage name={card.name} url={card.imagesrc ?? ''} size={includeText ? 'large' : 'small'} /> : (
+              <Box bgColor="goldenrod" padding={3} mr={2} borderRadius={12}><CoreIcon icon="command" size={36} color="#000000" /></Box> :
               <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
-            ) }
+            }
           </Flex>
         <Flex direction="column"justifyContent="flex-start">
           <Flex direction="column" flex={1}>
@@ -276,17 +276,6 @@ function CardStats({ card, hideFaction }: { card: CardFragment; hideFaction?: bo
       <Box mr={2}><CardIcons card={card} direction="column" /></Box>
       <CardAttackHealth card={card} ml={2} />
       { !hideFaction && <CardLoyaltyColumn card={card} /> }
-    </Flex>
-  );
-}
-function CardImageSection({ card, detail }: { card: CardFragment; detail?: boolean }) {
-  return (
-    <Flex direction="column" alignItems="center" justifyContent="space-between">
-      { !!card.imagesrc && (
-        <Box margin={2} marginLeft={detail ? 2 : [0, 0, 2]}>
-          <CardImage title={card.name || 'Card'} size={detail ? 'large' : 'small'} url={card.imagesrc} />
-        </Box>
-      ) }
     </Flex>
   );
 }

@@ -13,9 +13,6 @@ msgstr ""
 "Language-Team: \n"
 "Plural-Forms: \n"
 
-msgid "- {0} Specialty"
-msgstr ""
-
 msgid "- Flavor text can be denoted using <f>this is flavor</f> tags, to get card style formatting."
 msgstr ""
 
@@ -25,64 +22,31 @@ msgstr ""
 msgid "(edited)"
 msgstr ""
 
-msgid "{0, plural, one {({1} Malady)} other {({2} Maladies)}}"
-msgstr ""
-
 msgid "{0} (Copy)"
 msgstr ""
 
 msgid "{0} / 30 Cards"
 msgstr ""
 
-msgid "{0} of {1}"
-msgstr ""
-
-msgid "{background} - {specialty} (Starter)"
+msgid "{0} Fights"
 msgstr ""
 
 msgid "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}"
-msgstr ""
+msgstr "<<<<<<< HEAD"
 
 msgid "30 Cards"
-msgstr ""
-
-msgid "A Perfect Day"
-msgstr ""
-
-msgid "Accept"
 msgstr ""
 
 msgid "Account Settings"
 msgstr ""
 
+msgid "Action"
+msgstr ""
+
 msgid "Actions"
 msgstr ""
 
-msgid "Add"
-msgstr ""
-
-msgid "Add additional deck"
-msgstr ""
-
-msgid "Add mission"
-msgstr ""
-
-msgid "Add reward"
-msgstr ""
-
-msgid "Add to campaign"
-msgstr ""
-
-msgid "Added"
-msgstr ""
-
-msgid "Added from collection"
-msgstr ""
-
 msgid "Advanced controls"
-msgstr ""
-
-msgid "After selecting a new collection card and removing one from your deck, you can ‘return’ a card to the collection using the <0>displaced cards</0> tab."
 msgstr ""
 
 msgid "All"
@@ -91,88 +55,40 @@ msgstr ""
 msgid "Allow people to view my decks"
 msgstr ""
 
+msgid "Ally"
+msgstr ""
+
+msgid "Ally:"
+msgstr ""
+
 msgid "Already have an account? <0>Login</0> now."
-msgstr ""
-
-msgid "Ancestor's Grove"
-msgstr ""
-
-msgid "Approach icons"
-msgstr ""
-
-msgid "Archeological Outpost"
 msgstr ""
 
 msgid "Are you sure you want to delete the \"{0}\" deck?"
 msgstr ""
 
-msgid "Are you sure you want to delete the latest day ({0}) of this deck?"
-msgstr ""
-
 msgid "Are you sure you want to delete this deck?"
 msgstr ""
 
-msgid "Are you sure you want to delete your campaign: {0}? This action cannot be undone."
+msgid "Army"
 msgstr ""
 
-msgid "Aspect requirements"
+msgid "Astra Militarum"
 msgstr ""
 
-msgid "Aspects"
-msgstr ""
-
-msgid "Atrox Mountain"
+msgid "Attachment"
 msgstr ""
 
 msgid "Available"
 msgstr ""
 
-msgid "AWA"
+msgid "Battle Ability"
 msgstr ""
 
-msgid "Awareness"
-msgstr ""
-
-msgid "Background"
-msgstr ""
-
-msgid "Background: {backgroundName}"
-msgstr ""
-
-msgid "Biologist's Outpost"
-msgstr ""
-
-msgid "Boulder Field"
-msgstr ""
-
-msgid "Bowl of the Sun"
-msgstr ""
-
-msgid "Branch"
-msgstr ""
-
-msgid "Camp"
-msgstr ""
-
-msgid "Campaign"
-msgstr ""
-
-msgid "Campaigns"
-msgstr ""
-
-msgid "Camped while travelling to {0}."
-msgstr ""
-
-msgid "Camping will end day {currentDay} and allow any earned rewards to be swapped into decks."
+msgid "Bloodied."
 msgstr ""
 
 msgid "Cancel"
-msgstr ""
-
-msgid "Cancel Friend Request"
-msgstr ""
-
-msgid "Cancel Friendship"
 msgstr ""
 
 msgid "Card set"
@@ -181,34 +97,22 @@ msgstr ""
 msgid "Cards"
 msgstr ""
 
-msgid "Cards that are removed from your deck will be stored here. They can be swapped back into your deck when you camp."
+msgid "Chaos"
 msgstr ""
 
-msgid "Changes"
-msgstr ""
-
-msgid "Choose {0}"
-msgstr ""
-
-msgid "Choose deck"
+msgid "Choose {name}"
 msgstr ""
 
 msgid "Choose handle"
 msgstr ""
 
-msgid "Choose role"
-msgstr ""
-
-msgid "Choose starter deck"
-msgstr ""
-
-msgid "Choosing to camp will make a copy of your deck to let you track deck changes as you play through a campaign."
+msgid "Choose warlord"
 msgstr ""
 
 msgid "Chosen aspects are invalid."
 msgstr ""
 
-msgid "Collection"
+msgid "Combat Action"
 msgstr ""
 
 msgid "Comment"
@@ -217,22 +121,25 @@ msgstr ""
 msgid "Comments"
 msgstr ""
 
-msgid "Completed"
+msgid "ConquestDB"
 msgstr ""
 
-msgid "Confirm Friend"
+msgid "ConquestDB is still under construction, and as a result many features might be added or removed during these early days."
 msgstr ""
 
-msgid "Conflict"
+msgid "Contains cards from an ally faction that are not Army type."
 msgstr ""
 
-msgid "Connecting Location"
+msgid "Contains cards from other warlord's Signature Squads."
 msgstr ""
 
-msgid "Connection"
+msgid "Contains cards that do not match your allied faction."
 msgstr ""
 
-msgid "Contains too many cards that do not match your chosen background."
+msgid "Contains cards that don't match your chosen faction."
+msgstr ""
+
+msgid "Contains loyal cards from your ally faction."
 msgstr ""
 
 msgid "Copies"
@@ -250,12 +157,6 @@ msgstr ""
 msgid "Copy this deck to make your own changes."
 msgstr ""
 
-msgid "Core"
-msgstr ""
-
-msgid "Core set"
-msgstr ""
-
 msgid "Cost"
 msgstr ""
 
@@ -265,31 +166,16 @@ msgstr ""
 msgid "Create"
 msgstr ""
 
-msgid "Crossed-out"
-msgstr ""
-
-msgid "Crossroads Station"
-msgstr ""
-
-msgid "Current location: {0}"
-msgstr ""
-
-msgid "Current Position"
-msgstr ""
-
-msgid "Custom deck"
+msgid "Dark Eldar"
 msgstr ""
 
 msgid "Dark mode"
 msgstr ""
 
-msgid "Day"
-msgstr ""
-
-msgid "Day {day}"
-msgstr ""
-
 msgid "Deck"
+msgstr ""
+
+msgid "Deck name"
 msgstr ""
 
 msgid "Deck search"
@@ -301,19 +187,13 @@ msgstr ""
 msgid "Delete"
 msgstr ""
 
-msgid "Delete campaign?"
-msgstr ""
-
 msgid "Delete deck?"
 msgstr ""
 
 msgid "Deleting this published deck will cause will remove it from search."
 msgstr ""
 
-msgid "Demo"
-msgstr ""
-
-msgid "Departing {0}"
+msgid "Deploy Action"
 msgstr ""
 
 msgid "Description"
@@ -325,16 +205,10 @@ msgstr ""
 msgid "Discard changes"
 msgstr ""
 
-msgid "Displaced cards"
-msgstr ""
-
 msgid "Don't have an account?"
 msgstr ""
 
 msgid "Done editing"
-msgstr ""
-
-msgid "Downpour"
 msgstr ""
 
 msgid "Duplicate this deck while preserving the original."
@@ -352,40 +226,19 @@ msgstr ""
 msgid "Edit description"
 msgstr ""
 
-msgid "Edit mission"
-msgstr ""
-
-msgid "Edit notable event"
-msgstr ""
-
-msgid "Edit players"
+msgid "Eldar"
 msgstr ""
 
 msgid "Email"
 msgstr ""
 
-msgid "En route to {0}"
-msgstr ""
-
-msgid "End the day"
-msgstr ""
-
-msgid "Ended the day at {0}."
-msgstr ""
-
 msgid "English"
 msgstr ""
 
-msgid "Equip"
+msgid "Event"
 msgstr ""
 
-msgid "Exploration"
-msgstr ""
-
-msgid "Filter by {0}"
-msgstr ""
-
-msgid "Filter by approach icons"
+msgid "Faction"
 msgstr ""
 
 msgid "Filter by card set"
@@ -400,88 +253,31 @@ msgstr ""
 msgid "Filter by trait"
 msgstr ""
 
-msgid "Find new friends"
-msgstr ""
-
-msgid "FIT"
-msgstr ""
-
-msgid "Fitness"
-msgstr ""
-
-msgid "FOC"
-msgstr ""
-
-msgid "Focus"
+msgid "Forced Interrupt"
 msgstr ""
 
 msgid "Forgot Password"
 msgstr ""
 
-msgid "Friend Requests"
-msgstr ""
-
-msgid "Friends"
-msgstr ""
-
-msgid "General"
-msgstr ""
-
 msgid "German"
-msgstr ""
-
-msgid "Golden Shore"
-msgstr ""
-
-msgid "Grassland"
-msgstr ""
-
-msgid "Greenbriar Knoll"
-msgstr ""
-
-msgid "Guide entries"
 msgstr ""
 
 msgid "Handle"
 msgstr ""
 
-msgid "Headwaters Station"
-msgstr ""
-
 msgid "Hide spoilers"
-msgstr ""
-
-msgid "Howling Winds"
-msgstr ""
-
-msgid "If you intend to Camp while travelling to a new location, please use the Travel button instead."
-msgstr ""
-
-msgid "If you made a mistake when travelling or ending the day, you can undo your recent edits here. Decks will not be changed."
-msgstr ""
-
-msgid "If you would like it to be correcrted, send me a link to your campaign and what the correct journey was to arkhamcards@gmail.com, and I will get it fixed for you."
 msgstr ""
 
 msgid "If you‘d like to support the development and maintenance of this site, consider supporting us on {patreon}."
 msgstr ""
 
+msgid "Interrupt"
+msgstr ""
+
 msgid "Italian"
 msgstr ""
 
-msgid "Journey"
-msgstr ""
-
-msgid "Kobo's Market"
-msgstr ""
-
-msgid "Lakeshore"
-msgstr ""
-
 msgid "Language"
-msgstr ""
-
-msgid "Leave campaign"
 msgstr ""
 
 msgid "Light mode"
@@ -499,49 +295,13 @@ msgstr ""
 msgid "Load more"
 msgstr ""
 
-msgid "Location"
-msgstr ""
-
-msgid "Locations"
-msgstr ""
-
 msgid "Login"
-msgstr ""
-
-msgid "Lone Tree Station"
-msgstr ""
-
-msgid "Maladies"
 msgstr ""
 
 msgid "Markdown"
 msgstr ""
 
-msgid "Marsh of Rebirth"
-msgstr ""
-
-msgid "Meadow"
-msgstr ""
-
 msgid "Member since {joinDate}"
-msgstr ""
-
-msgid "Michael's Bog"
-msgstr ""
-
-msgid "Missions"
-msgstr ""
-
-msgid "Mound of the Navigator"
-msgstr ""
-
-msgid "Mount Nim"
-msgstr ""
-
-msgid "Mountain Pass"
-msgstr ""
-
-msgid "My Campaigns"
 msgstr ""
 
 msgid "My Decks"
@@ -550,13 +310,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-msgid "Name and day are required."
-msgstr ""
-
-msgid "Name your character"
-msgstr ""
-
-msgid "New campaign"
+msgid "Necrons"
 msgstr ""
 
 msgid "New cards are available"
@@ -566,9 +320,6 @@ msgid "New deck"
 msgstr ""
 
 msgid "Next"
-msgstr ""
-
-msgid "Next deck"
 msgstr ""
 
 msgid "No matching cards"
@@ -583,89 +334,29 @@ msgstr ""
 msgid "No published decks."
 msgstr ""
 
-msgid "No results"
+msgid "No warlord chosen"
 msgstr ""
 
-msgid "None"
-msgstr ""
-
-msgid "Northern Outpost"
-msgstr ""
-
-msgid "Not enough background cards."
-msgstr ""
-
-msgid "Not enough cards. When reward cards are removed while camping, you must add back cards from your original deck to maintain a 30 card deck."
-msgstr ""
-
-msgid "Not enough outside interest cards."
-msgstr ""
-
-msgid "Not enough personality cards."
-msgstr ""
-
-msgid "Not enough specialty cards."
-msgstr ""
-
-msgid "Not set"
-msgstr ""
-
-msgid "Notable Events"
-msgstr ""
-
-msgid "Note: cards from your chosen specialty/background are not shown here, but your outside interest is allowed to be from your chosen class if you use the other tabs to select it."
+msgid "Not enough cards."
 msgstr ""
 
 msgid "Note: These cards might contain campaign spoilers."
 msgstr ""
 
-msgid "Note: this campaign was created before the website recorded enough information to show the travel history correclty."
-msgstr ""
-
-msgid "Old-growth"
-msgstr ""
-
-msgid "One aspect must be set to 1."
-msgstr ""
-
-msgid "One aspect must be set to 3."
-msgstr ""
-
-msgid "One of the chosen background cards is counting towards outside interest."
-msgstr ""
-
-msgid "One of the chosen specialty cards is counting towards outside interest."
-msgstr ""
-
-msgid "Only one aspect can be set to 1."
-msgstr ""
-
-msgid "Only one aspect can be set to 3."
+msgid "Orks"
 msgstr ""
 
 #. card_set_header
 msgid "Other"
 msgstr ""
 
-msgid "Outside Interest"
-msgstr ""
-
-msgid "Outside interest cards cannot have the Expert trait."
-msgstr ""
-
 msgid "Password"
-msgstr ""
-
-msgid "Path Terrain"
-msgstr ""
-
-msgid "Pending Requests"
 msgstr ""
 
 msgid "Personality"
 msgstr ""
 
-msgid "Players"
+msgid "Planet"
 msgstr ""
 
 msgid "Please address all deckbuilding errors before publishing."
@@ -677,19 +368,10 @@ msgstr ""
 msgid "Previous"
 msgstr ""
 
-msgid "Previous deck"
-msgstr ""
-
 msgid "Print"
 msgstr ""
 
 msgid "Profile"
-msgstr ""
-
-msgid "Progress"
-msgstr ""
-
-msgid "Progress {progressNumber}"
 msgstr ""
 
 msgid "Publish"
@@ -701,31 +383,7 @@ msgstr ""
 msgid "Ranger"
 msgstr ""
 
-msgid "Rangers"
-msgstr ""
-
-msgid "Rangers will continue playing day {currentDay} with their current decks."
-msgstr ""
-
-msgid "RangersDB"
-msgstr ""
-
-msgid "RangersDB is still under construction, and as a result many features might be added or removed during these early days."
-msgstr ""
-
-msgid "Ravine"
-msgstr ""
-
-msgid "Reason"
-msgstr ""
-
-msgid "Record event"
-msgstr ""
-
-msgid "Record guide entry"
-msgstr ""
-
-msgid "Recorded journey"
+msgid "Reaction"
 msgstr ""
 
 msgid "Register"
@@ -734,55 +392,10 @@ msgstr ""
 msgid "Register now"
 msgstr ""
 
-msgid "Reject"
-msgstr ""
-
-msgid "Remove"
-msgstr ""
-
-msgid "Remove card"
-msgstr ""
-
-msgid "Remove deck"
-msgstr ""
-
-msgid "Remove reward"
-msgstr ""
-
-msgid "Removed"
-msgstr ""
-
-msgid "Removed Cards"
-msgstr ""
-
 msgid "Reply comment"
 msgstr ""
 
 msgid "Reply to comment"
-msgstr ""
-
-msgid "Request friend"
-msgstr ""
-
-msgid "Return a copy to the collection"
-msgstr ""
-
-msgid "Returned to collection"
-msgstr ""
-
-msgid "Revoke"
-msgstr ""
-
-msgid "Rewards"
-msgstr ""
-
-msgid "Rewards and Maladies"
-msgstr ""
-
-msgid "Rings of the Moon"
-msgstr ""
-
-msgid "River"
 msgstr ""
 
 msgid "Role"
@@ -800,36 +413,6 @@ msgstr ""
 msgid "See comments"
 msgstr ""
 
-msgid "Select 1 cards from any background of specialty as your outside interest."
-msgstr ""
-
-msgid "Select 4 different personality cards, 1 from each aspect."
-msgstr ""
-
-msgid "Select 5 different cards from your chosen background."
-msgstr ""
-
-msgid "Select 5 different cards from your chosen specialty."
-msgstr ""
-
-msgid "Select campaign"
-msgstr ""
-
-msgid "Select card set..."
-msgstr ""
-
-msgid "Select location..."
-msgstr ""
-
-msgid "Select path terrain..."
-msgstr ""
-
-msgid "Send Friend Request"
-msgstr ""
-
-msgid "Set"
-msgstr ""
-
 msgid "Settings"
 msgstr ""
 
@@ -842,7 +425,7 @@ msgstr ""
 msgid "Show all"
 msgstr ""
 
-msgid "Show all locations"
+msgid "Sig Squad"
 msgstr ""
 
 msgid "Sign In"
@@ -854,190 +437,67 @@ msgstr ""
 msgid "Sign Up"
 msgstr ""
 
-msgid "Some campaign events may allow you to permanently swap cards from your deck with those from the collection."
+msgid "Signature Squad"
 msgstr ""
 
-msgid "Sort"
-msgstr ""
-
-msgid "Specialty"
-msgstr ""
-
-msgid "Specialty: {specialtyName}"
-msgstr ""
-
-msgid "SPI"
-msgstr ""
-
-msgid "Spire"
-msgstr ""
-
-msgid "Spirit"
-msgstr ""
-
-msgid "Start campaign"
-msgstr ""
-
-msgid "Starter deck"
-msgstr ""
-
-msgid "Stayed at {0}"
-msgstr ""
-
-msgid "Stoneweaver Bridge"
+msgid "Space Marines"
 msgstr ""
 
 msgid "Submit"
 msgstr ""
 
-msgid "Sunken Outpost"
+msgid "Support"
 msgstr ""
 
-msgid "Swamp"
+msgid "Synapse"
 msgstr ""
 
-msgid "Terrain"
-msgstr ""
-
-msgid "Terravore"
-msgstr ""
-
-msgid "The Alluvial Ruins"
-msgstr ""
-
-msgid "The Concordant Ziggurats"
-msgstr ""
-
-msgid "The Cypress Citadel"
-msgstr ""
-
-msgid "The Fractured Wall"
-msgstr ""
-
-msgid "The Frowning Gate"
-msgstr ""
-
-msgid "The Furrow"
-msgstr ""
-
-msgid "The Greenbridge"
-msgstr ""
-
-msgid "The High Basin"
+msgid "Tau"
 msgstr ""
 
 msgid "The information presented on this site about Earthborne Rangers, both literal and graphical, is copyrighted by Earthborne Games. This website is not produced, endorsed, supported, or affiliated with Earthborne Games."
 msgstr ""
 
-msgid "The Philosopher's Garden"
-msgstr ""
-
-msgid "The Plummet"
-msgstr ""
-
 msgid "The site is likely to go down for maintenance and data might be lost during these early days."
-msgstr ""
-
-msgid "The Tumbledown"
-msgstr ""
-
-msgid "The Valley"
 msgstr ""
 
 msgid "There are too many cards with this card's name in your deck."
 msgstr ""
 
-msgid "There are too many outside interest cards in the deck."
+msgid "This ally card is not the Army type."
 msgstr ""
 
-msgid "This campaign is not accessible. Are you sure you are signed into the correct account?"
+msgid "This card does not match your allied faction."
 msgstr ""
 
-msgid "This card's aspect requirement is not satisfied by your chosen aspects."
+msgid "This card does not match your chosen faction."
+msgstr ""
+
+msgid "This card is from a different warlord's Signature Squads."
+msgstr ""
+
+msgid "This card is loyal to another faction."
 msgstr ""
 
 msgid "This comment was edited on {updatedTime}."
 msgstr ""
 
-msgid "This day is in the past. It is currently day {0}."
-msgstr ""
-
-msgid "This option should be used if a ranger is too fatigued, too injured, or if instructed by the campaign guide or a mission."
-msgstr ""
-
-msgid "This role card does not match your chosen specialty."
-msgstr ""
-
-msgid "This site is a digital companion for the excellent <0>Earthborne Rangers</0> adventure card game."
-msgstr ""
-
-msgid "This will end day {0}."
-msgstr ""
-
-msgid "This will switch the deck controls to allow changes that are allowed while playing a campaign."
-msgstr ""
-
-msgid "To avoid spoilers for other players, you cannot publish decks that have camped."
-msgstr ""
-
 msgid "Toggle Navigation"
-msgstr ""
-
-msgid "Too many AWA personality cards."
-msgstr ""
-
-msgid "Too many cards of the chosen background."
-msgstr ""
-
-msgid "Too many cards of the chosen specialty."
 msgstr ""
 
 msgid "Too many cards with the same name."
 msgstr ""
 
-msgid "Too many cards. When making deck changes while camping, you should remove cards to make room for rewards to maintain a 30 card deck."
-msgstr ""
-
-msgid "Too many FIT personality cards."
-msgstr ""
-
-msgid "Too many FOC personality cards."
-msgstr ""
-
-msgid "Too many SPI personality cards."
-msgstr ""
-
-msgid "Track cards that are removed permanently from the path deck here."
+msgid "Too many cards."
 msgstr ""
 
 msgid "Traits"
 msgstr ""
 
-msgid "Travel"
-msgstr ""
-
-msgid "Travel & Camp"
-msgstr ""
-
-msgid "Traveled to {0}."
-msgstr ""
-
-msgid "Two aspects must be set to 2."
+msgid "Tyanids"
 msgstr ""
 
 msgid "Types"
-msgstr ""
-
-msgid "Unable to create campaign at this time."
-msgstr ""
-
-msgid "Undo"
-msgstr ""
-
-msgid "Undo travel"
-msgstr ""
-
-msgid "Undo travel changes"
 msgstr ""
 
 msgid "Unlike"
@@ -1055,68 +515,29 @@ msgstr ""
 msgid "View as Images"
 msgstr ""
 
-msgid "Watcher's Rock"
+msgid "Warlord"
 msgstr ""
 
-msgid "Welcome to RangersDB"
+msgid "Welcome to ConquestDB"
 msgstr ""
 
-msgid "What happened?"
-msgstr ""
-
-msgid "When adding a card from the collection, remember to return a deck card."
-msgstr ""
-
-msgid "When starting a campaign, you must include two of each card in your deck."
-msgstr ""
-
-msgid "White Sky"
-msgstr ""
-
-msgid "Woods"
-msgstr ""
-
-msgid "You"
-msgstr ""
-
-msgid "You can add this deck to a campaign to track rewards you have unlocked as a group."
-msgstr ""
-
-msgid "You can view <0>player cards</0>, <1>build decks</1>, and use the digital <2>campaign tracker</2>."
+msgid "You can view <0>player cards</0>."
 msgstr ""
 
 msgid "You don't seem to have any decks."
 msgstr ""
 
-msgid "You must choose a background."
+msgid "You must choose a faction."
 msgstr ""
 
-msgid "You must choose a location and path terrain to travel."
+msgid "You must choose a Warlord card."
 msgstr ""
 
-msgid "You must choose a role card."
+msgid "You must choose a warlord."
 msgstr ""
 
-msgid "You must choose a role."
+msgid "You must choose an ally faction."
 msgstr ""
 
-msgid "You must choose a specialty."
-msgstr ""
-
-msgid "You must correct deck errors before upgrading."
-msgstr ""
-
-msgid "You must correct errors berfore switching to campaign mode."
-msgstr ""
-
-msgid "You must include two of each card in your starting deck."
-msgstr ""
-
-msgid "Your deck contains cards with aspect requirements that are not allowed."
-msgstr ""
-
-msgid "Your outside interest card cannot have the Expert trait."
-msgstr ""
-
-msgid "Your role card does not match your chosen specialty."
+msgid "Your Warlord card does not match your chosen faction."
 msgstr ""

@@ -13,9 +13,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 3.0.1\n"
 
-msgid "- {0} Specialty"
-msgstr "- {0} Specialità"
-
 msgid "- Flavor text can be denoted using <f>this is flavor</f> tags, to get card style formatting."
 msgstr "- Il flavor text può essere indicato con i tag <f>questo è del flavor text</f>, per ottenere una formattazione in stile carta."
 
@@ -25,65 +22,32 @@ msgstr "- È possibile utilizzare le seguenti icone del gioco racchiudendole tra
 msgid "(edited)"
 msgstr "(modificato)"
 
-msgid "{0, plural, one {({1} Malady)} other {({2} Maladies)}}"
-msgstr "{0, plural, one {({1} Malady)} other {({2} Maladies)}}"
-
 msgid "{0} (Copy)"
 msgstr "{0} (Copia)"
 
 msgid "{0} / 30 Cards"
 msgstr "{0} / 30 Carte"
 
-msgid "{0} of {1}"
-msgstr "{0} di {1}"
-
-msgid "{background} - {specialty} (Starter)"
-msgstr "{background} - {specialty} (Iniziale)"
+msgid "{0} Fights"
+msgstr ""
 
 msgid "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}"
-msgstr "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}"
+msgstr "{otherErrorCount, plural, one {+ {otherErrorCount} more problem} other {+ {otherErrorCount} more problems}}>>>>>>> d7712e8 (Compile language, swarp warlord logo)"
 
 msgid "30 Cards"
 msgstr "30 Carte"
 
-msgid "A Perfect Day"
-msgstr "Una Giornata Perfetta"
-
-msgid "Accept"
-msgstr "Accetta"
-
 msgid "Account Settings"
 msgstr "Impostazioni Account"
+
+msgid "Action"
+msgstr ""
 
 msgid "Actions"
 msgstr "Azioni"
 
-msgid "Add"
-msgstr "Aggiungi"
-
-msgid "Add additional deck"
-msgstr ""
-
-msgid "Add mission"
-msgstr "Aggiungi Missione"
-
-msgid "Add reward"
-msgstr "Aggiungi Ricompensa"
-
-msgid "Add to campaign"
-msgstr "Aggiungi alla Campagna"
-
-msgid "Added"
-msgstr "Aggiunto"
-
-msgid "Added from collection"
-msgstr "Aggiunto dalla Collezione"
-
 msgid "Advanced controls"
 msgstr "Controlli Avanzati"
-
-msgid "After selecting a new collection card and removing one from your deck, you can ‘return’ a card to the collection using the <0>displaced cards</0> tab."
-msgstr "Dopo aver selezionato una nuova carta dalla Collezione e averne rimossa una dal mazzo, puoi \"far tornare\" una carta alla Collezione usando la tab <0>carte conservate</0>."
 
 msgid "All"
 msgstr "Tutti"
@@ -91,89 +55,41 @@ msgstr "Tutti"
 msgid "Allow people to view my decks"
 msgstr "Consenti a tutti di vedere i miei mazzi"
 
+msgid "Ally"
+msgstr ""
+
+msgid "Ally:"
+msgstr ""
+
 msgid "Already have an account? <0>Login</0> now."
 msgstr "Hai già un account? <0>Accedi</0> ora."
-
-msgid "Ancestor's Grove"
-msgstr "Boschetto degli Antenati"
-
-msgid "Approach icons"
-msgstr "Icone Approccio"
-
-msgid "Archeological Outpost"
-msgstr "Avamposto Archeologico"
 
 msgid "Are you sure you want to delete the \"{0}\" deck?"
 msgstr "Vuoi davvero cancellare il mazzo \"{0}\"?"
 
-msgid "Are you sure you want to delete the latest day ({0}) of this deck?"
-msgstr "Vuoi davvero cancellare l'ultima giornata ({0}) di questo mazzo?"
-
 msgid "Are you sure you want to delete this deck?"
 msgstr "Vuoi davvero cancellare questo mazzo?"
 
-msgid "Are you sure you want to delete your campaign: {0}? This action cannot be undone."
-msgstr "Vuoi davvero cancellare la tua campagna: {0}? Questa azione è permanente."
+msgid "Army"
+msgstr ""
 
-msgid "Aspect requirements"
-msgstr "Requisiti d'aspetto"
+msgid "Astra Militarum"
+msgstr ""
 
-msgid "Aspects"
-msgstr "Aspetti"
-
-msgid "Atrox Mountain"
-msgstr "Monte Atrox"
+msgid "Attachment"
+msgstr ""
 
 msgid "Available"
 msgstr "Disponibili"
 
-msgid "AWA"
-msgstr "PER"
-
-msgid "Awareness"
-msgstr "Percezione"
-
-msgid "Background"
-msgstr "Origine"
-
-msgid "Background: {backgroundName}"
-msgstr "Origine: {backgroundName}"
-
-msgid "Biologist's Outpost"
-msgstr "Avamposto Biologico"
-
-msgid "Boulder Field"
-msgstr "Distesa Rocciosa"
-
-msgid "Bowl of the Sun"
-msgstr "Conca del Sole"
-
-msgid "Branch"
-msgstr "Fronda"
-
-msgid "Camp"
-msgstr "Accampati"
-
-msgid "Campaign"
-msgstr "Campagna"
-
-msgid "Campaigns"
-msgstr "Campagne"
-
-msgid "Camped while travelling to {0}."
+msgid "Battle Ability"
 msgstr ""
 
-msgid "Camping will end day {currentDay} and allow any earned rewards to be swapped into decks."
-msgstr "Accamparsi farà terminare la giornata {currentDay} e permetterà di aggiungere al mazzo le Ricompense ottenute."
+msgid "Bloodied."
+msgstr ""
 
 msgid "Cancel"
 msgstr "Annulla"
-
-msgid "Cancel Friend Request"
-msgstr "Annulla Richiesta Amicizia"
-
-msgid "Cancel Friendship"
-msgstr "Annulla Amicizia"
 
 msgid "Card set"
 msgstr "Set Carte"
@@ -181,59 +97,50 @@ msgstr "Set Carte"
 msgid "Cards"
 msgstr "Carte"
 
-msgid "Cards that are removed from your deck will be stored here. They can be swapped back into your deck when you camp."
-msgstr "Le carte rimosse dal mazzo saranno conservate qui. Possono essere aggiunte nuovamente al mazzo quando ti accampi."
+msgid "Chaos"
+msgstr ""
 
-msgid "Changes"
-msgstr "Cambiamenti"
-
-msgid "Choose {0}"
-msgstr "Scegli {0}"
-
-msgid "Choose deck"
-msgstr "Scegli il mazzo"
+msgid "Choose {name}"
+msgstr ""
 
 msgid "Choose handle"
 msgstr "Scegli un soprannome"
 
-msgid "Choose role"
-msgstr "Scegli il Ruolo"
-
-msgid "Choose starter deck"
-msgstr "Scegli un mazzo iniziale"
-
-msgid "Choosing to camp will make a copy of your deck to let you track deck changes as you play through a campaign."
-msgstr "Accamparsi creerà una copia del tuo mazzo in modo da consentirti di tener traccia dei cambiamenti apportati al mazzo mentre giochi la campagna."
+msgid "Choose warlord"
+msgstr ""
 
 msgid "Chosen aspects are invalid."
 msgstr "Gli aspetti scelti non sono validi."
 
-msgid "Collection"
-msgstr "Collezione"
+msgid "Combat Action"
+msgstr ">>>>>>> d7712e8 (Compile language, swarp warlord logo)"
 
 msgid "Comment"
-msgstr "Commenta"
+msgstr "Commenta<<<<<<< HEAD"
 
 msgid "Comments"
 msgstr "Commenti"
 
-msgid "Completed"
-msgstr "Conclusa"
+msgid "ConquestDB"
+msgstr ""
 
-msgid "Confirm Friend"
-msgstr "Conferma Amico"
+msgid "ConquestDB is still under construction, and as a result many features might be added or removed during these early days."
+msgstr ""
 
-msgid "Conflict"
-msgstr "Conflitto"
+msgid "Contains cards from an ally faction that are not Army type."
+msgstr ""
 
-msgid "Connecting Location"
-msgstr "Luogo collegato"
+msgid "Contains cards from other warlord's Signature Squads."
+msgstr ""
 
-msgid "Connection"
-msgstr "Legame"
+msgid "Contains cards that do not match your allied faction."
+msgstr ""
 
-msgid "Contains too many cards that do not match your chosen background."
-msgstr "Contiene troppe carte che non sono compatibili con l'origine prescelta."
+msgid "Contains cards that don't match your chosen faction."
+msgstr ""
+
+msgid "Contains loyal cards from your ally faction."
+msgstr ""
 
 msgid "Copies"
 msgstr "Copie"
@@ -250,12 +157,6 @@ msgstr "Copia di {deckLink} creato da {authorLink}"
 msgid "Copy this deck to make your own changes."
 msgstr "Copia questo mazzo per modificarlo."
 
-msgid "Core"
-msgstr "Base"
-
-msgid "Core set"
-msgstr "Set Base"
-
 msgid "Cost"
 msgstr "Costo"
 
@@ -265,32 +166,17 @@ msgstr "Utente {handle} non trovato"
 msgid "Create"
 msgstr "Crea"
 
-msgid "Crossed-out"
-msgstr "Barrato"
-
-msgid "Crossroads Station"
-msgstr "Stazione di Callitraversi"
-
-msgid "Current location: {0}"
-msgstr "Posizione Attuale: {0}"
-
-msgid "Current Position"
-msgstr "Posizione Attuale"
-
-msgid "Custom deck"
-msgstr "Mazzo personalizzato"
+msgid "Dark Eldar"
+msgstr ""
 
 msgid "Dark mode"
 msgstr "Modalità notte"
 
-msgid "Day"
-msgstr "Giornata"
-
-msgid "Day {day}"
-msgstr "Giornata {day}"
-
 msgid "Deck"
 msgstr "Mazzo"
+
+msgid "Deck name"
+msgstr ""
 
 msgid "Deck search"
 msgstr "Cerca mazzo"
@@ -301,20 +187,14 @@ msgstr "Liste mazzi"
 msgid "Delete"
 msgstr "Cancella"
 
-msgid "Delete campaign?"
-msgstr "Cancellare campagna?"
-
 msgid "Delete deck?"
 msgstr "Cancellare mazzo?"
 
 msgid "Deleting this published deck will cause will remove it from search."
 msgstr "Cancellare questo mazzo pubblico lo rimuoverà dalle ricerche."
 
-msgid "Demo"
-msgstr "Demo"
-
-msgid "Departing {0}"
-msgstr "Via da {0}"
+msgid "Deploy Action"
+msgstr ""
 
 msgid "Description"
 msgstr "Descrizione"
@@ -325,68 +205,41 @@ msgstr "Le descrizioni supportano il formato HTML e l'uso del markdown base."
 msgid "Discard changes"
 msgstr "Annulla cambiamenti"
 
-msgid "Displaced cards"
-msgstr "Carte conservate"
-
 msgid "Don't have an account?"
-msgstr "Non hai un account?"
+msgstr "Non hai un account?<<<<<<< HEAD"
 
 msgid "Done editing"
 msgstr "Conferma modifiche"
-
-msgid "Downpour"
-msgstr "Acquazzone"
 
 msgid "Duplicate this deck while preserving the original."
 msgstr "Duplica questo mazzo (senza cancellare l'originale)."
 
 msgid "E-mail Address"
-msgstr "Indirizzo e-mail"
+msgstr "Indirizzo e-mail<<<<<<< HEAD======="
 
 msgid "Edit"
 msgstr "Modifica"
 
 msgid "Edit comment"
-msgstr "Modifica commento"
+msgstr "Modifica commento<<<<<<< HEAD"
 
 msgid "Edit description"
 msgstr "Modifica descrizione"
 
-msgid "Edit mission"
-msgstr "Modifica missione"
-
-msgid "Edit notable event"
-msgstr "Modifica evento importante"
-
-msgid "Edit players"
-msgstr "Modifica giocatori"
+msgid "Eldar"
+msgstr ""
 
 msgid "Email"
 msgstr "Email"
 
-msgid "En route to {0}"
-msgstr "In viaggio verso {0}"
-
-msgid "End the day"
-msgstr "Termina la giornata"
-
-msgid "Ended the day at {0}."
-msgstr ""
-
 msgid "English"
 msgstr "Inglese"
 
-msgid "Equip"
-msgstr "Equipaggia"
+msgid "Event"
+msgstr ""
 
-msgid "Exploration"
-msgstr "Esplorazione"
-
-msgid "Filter by {0}"
-msgstr "Filtra per {0}"
-
-msgid "Filter by approach icons"
-msgstr "Filtra per icone approccio"
+msgid "Faction"
+msgstr ""
 
 msgid "Filter by card set"
 msgstr "Filtra per set carte"
@@ -400,95 +253,38 @@ msgstr "Filtra per Ruolo"
 msgid "Filter by trait"
 msgstr "Filtra per tratto"
 
-msgid "Find new friends"
-msgstr "Trova nuovi amici"
-
-msgid "FIT"
-msgstr "FIS"
-
-msgid "Fitness"
-msgstr "Fisico"
-
-msgid "FOC"
-msgstr "CON"
-
-msgid "Focus"
-msgstr "Concentrazione"
+msgid "Forced Interrupt"
+msgstr ">>>>>>> d7712e8 (Compile language, swarp warlord logo)"
 
 msgid "Forgot Password"
-msgstr "Password dimenticata"
-
-msgid "Friend Requests"
-msgstr "Richieste amicizia"
-
-msgid "Friends"
-msgstr "Amici"
-
-msgid "General"
-msgstr ""
+msgstr "Password dimenticata<<<<<<< HEAD"
 
 msgid "German"
 msgstr "Tedesco"
 
-msgid "Golden Shore"
-msgstr "La Costa Dorata"
-
-msgid "Grassland"
-msgstr "Prateria"
-
-msgid "Greenbriar Knoll"
-msgstr "Poggio Verderovo"
-
-msgid "Guide entries"
-msgstr "Paragrafi della guida"
-
 msgid "Handle"
 msgstr "Soprannome"
-
-msgid "Headwaters Station"
-msgstr "Stazione delle Sorgenti"
 
 msgid "Hide spoilers"
 msgstr "Nascondi spoiler"
 
-msgid "Howling Winds"
-msgstr "Venti Impetuosi"
-
-msgid "If you intend to Camp while travelling to a new location, please use the Travel button instead."
-msgstr "Se desideri accamparti mentre viaggi verso un luogo diverso, usa il bottone Viaggia."
-
-msgid "If you made a mistake when travelling or ending the day, you can undo your recent edits here. Decks will not be changed."
-msgstr ""
-
-msgid "If you would like it to be correcrted, send me a link to your campaign and what the correct journey was to arkhamcards@gmail.com, and I will get it fixed for you."
-msgstr "Se desiderate venga corretto, posso pensarci io. Mandatemi un link alla vostra campagna indicando qual è il percorso corretto ad arkhamcards@gmail.com."
-
 msgid "If you‘d like to support the development and maintenance of this site, consider supporting us on {patreon}."
-msgstr "Se volete aiutare a supportare e mantenere questo sito, potete trovarci su {patreon}."
+msgstr "Se volete aiutare a supportare e mantenere questo sito, potete trovarci su {patreon}.<<<<<<< HEAD"
+
+msgid "Interrupt"
+msgstr ""
 
 msgid "Italian"
 msgstr "Italiano"
 
-msgid "Journey"
-msgstr "Viaggio"
-
-msgid "Kobo's Market"
-msgstr "Mercato di Kobo"
-
-msgid "Lakeshore"
-msgstr "Lungolago"
-
 msgid "Language"
-msgstr "Lingua"
-
-msgid "Leave campaign"
-msgstr "Abbandona campagna"
+msgstr "Lingua<<<<<<< HEAD"
 
 msgid "Light mode"
 msgstr "Modalità giorno"
 
 msgid "Like"
-msgstr "Mi piace"
+msgstr "Mi piace<<<<<<< HEAD"
 
 msgid "Like deck"
 msgstr "Metti un mi piace al mazzo"
@@ -497,52 +293,16 @@ msgid "Likes"
 msgstr "Mi piace"
 
 msgid "Load more"
-msgstr "Caricane altri"
-
-msgid "Location"
-msgstr "Luogo"
-
-msgid "Locations"
-msgstr "Luoghi"
+msgstr "Caricane altri<<<<<<< HEAD"
 
 msgid "Login"
-msgstr "Accedi"
-
-msgid "Lone Tree Station"
-msgstr "Stazione Ermotronco"
-
-msgid "Maladies"
-msgstr "Malanni"
+msgstr "Accedi<<<<<<< HEAD"
 
 msgid "Markdown"
 msgstr ""
 
-msgid "Marsh of Rebirth"
-msgstr "Marese della Rinascita"
-
-msgid "Meadow"
-msgstr "Pascolo"
-
 msgid "Member since {joinDate}"
 msgstr "Membro da {joinDate}"
-
-msgid "Michael's Bog"
-msgstr "Palude di Michael"
-
-msgid "Missions"
-msgstr "Missioni"
-
-msgid "Mound of the Navigator"
-msgstr "Cumulo del Navigatore"
-
-msgid "Mount Nim"
-msgstr "Monte Nim"
-
-msgid "Mountain Pass"
-msgstr "Passo Montano"
-
-msgid "My Campaigns"
-msgstr "Le mie Campagne"
 
 msgid "My Decks"
 msgstr "I miei Mazzi"
@@ -550,14 +310,8 @@ msgstr "I miei Mazzi"
 msgid "Name"
 msgstr "Nome"
 
-msgid "Name and day are required."
-msgstr "È richiesto un nome e una giornata."
-
-msgid "Name your character"
-msgstr "Dai un nome al tuo personaggio"
-
-msgid "New campaign"
-msgstr "Nuova campagna"
+msgid "Necrons"
+msgstr ""
 
 msgid "New cards are available"
 msgstr "Nuove carte disponibili"
@@ -566,10 +320,7 @@ msgid "New deck"
 msgstr "Nuovo mazzo"
 
 msgid "Next"
-msgstr "Successivo"
-
-msgid "Next deck"
-msgstr "Mazzo successivo"
+msgstr "Successivo<<<<<<< HEAD"
 
 msgid "No matching cards"
 msgstr "Nessuna carta corrispondente"
@@ -583,90 +334,30 @@ msgstr "Nessun mazzo corrispondente."
 msgid "No published decks."
 msgstr "Nessun mazzo pubblicato."
 
-msgid "No results"
-msgstr "Nessun risultato"
+msgid "No warlord chosen"
+msgstr ""
 
-msgid "None"
-msgstr "Nessuno"
-
-msgid "Northern Outpost"
-msgstr "Avamposto Settentrionale"
-
-msgid "Not enough background cards."
-msgstr "Non ci sono abbastanza carte origine."
-
-msgid "Not enough cards. When reward cards are removed while camping, you must add back cards from your original deck to maintain a 30 card deck."
-msgstr "Non ci sono abbastanza carte. Quando le carte Ricompensa vengono rimosse accampandosi, è necessario anche aggiungere altre carte per fare in modo che il mazzo sia di 30 carte."
-
-msgid "Not enough outside interest cards."
-msgstr "Non ci sono abbastanza carte interesse personale."
-
-msgid "Not enough personality cards."
-msgstr "Non ci sono abbastanza carte personalità."
-
-msgid "Not enough specialty cards."
-msgstr "Non ci sono abbastanza carte specialità."
-
-msgid "Not set"
-msgstr "Non impostato"
-
-msgid "Notable Events"
-msgstr "Eventi Importanti"
-
-msgid "Note: cards from your chosen specialty/background are not shown here, but your outside interest is allowed to be from your chosen class if you use the other tabs to select it."
-msgstr "Nota: le carte della specialità/origine prescelte non sono mostrate qui, ma il tuo interesse personale può provenire dalla tua classe prescelta. Usa le altre tab per selezionarlo."
+msgid "Not enough cards."
+msgstr ""
 
 msgid "Note: These cards might contain campaign spoilers."
 msgstr "Nota: queste carte potrebbero contenere spoiler."
 
-msgid "Note: this campaign was created before the website recorded enough information to show the travel history correclty."
-msgstr "Nota: questa campagna è stata creata prima che il sito raccogliesse informazioni a sufficienza per mostrare un diario di viaggio in modo corretto."
-
-msgid "Old-growth"
-msgstr "Germoglio Antico"
-
-msgid "One aspect must be set to 1."
-msgstr "Uno degli aspetti deve essere impostato a 1."
-
-msgid "One aspect must be set to 3."
-msgstr "Uno degli aspetti deve essere impostato a 3."
-
-msgid "One of the chosen background cards is counting towards outside interest."
-msgstr "Una delle carte origine scelte è considerata un interesse personale."
-
-msgid "One of the chosen specialty cards is counting towards outside interest."
-msgstr "Una delle carte specialità scelte è considerata un interesse personale."
-
-msgid "Only one aspect can be set to 1."
-msgstr "Solo un aspetto può essere impostato a 1."
-
-msgid "Only one aspect can be set to 3."
-msgstr "Solo un aspetto può essere impostato a 3."
+msgid "Orks"
+msgstr ""
 
 #. card_set_header
 msgid "Other"
 msgstr "Altro"
 
-msgid "Outside Interest"
-msgstr "Interesse Personale"
-
-msgid "Outside interest cards cannot have the Expert trait."
-msgstr "Le carte interesse personale non possono possedere il tratto Esperto."
-
 msgid "Password"
-msgstr "Password"
-
-msgid "Path Terrain"
-msgstr "Terreno del percorso"
-
-msgid "Pending Requests"
-msgstr "Richieste in attesa"
+msgstr "Password<<<<<<< HEAD"
 
 msgid "Personality"
 msgstr "Personalità"
 
-msgid "Players"
-msgstr "Giocatori"
+msgid "Planet"
+msgstr ""
 
 msgid "Please address all deckbuilding errors before publishing."
 msgstr "Per favore, risolvete tutti gli errori di costruzione mazzo prima di pubblicare."
@@ -675,22 +366,13 @@ msgid "Post"
 msgstr "Inserisci"
 
 msgid "Previous"
-msgstr "Precedente"
-
-msgid "Previous deck"
-msgstr "Mazzo precedente"
+msgstr "Precedente<<<<<<< HEAD"
 
 msgid "Print"
 msgstr ""
 
 msgid "Profile"
 msgstr "Profilo"
-
-msgid "Progress"
-msgstr "Progresso"
-
-msgid "Progress {progressNumber}"
-msgstr "Progresso {progressNumber}"
 
 msgid "Publish"
 msgstr "Pubblica"
@@ -701,89 +383,20 @@ msgstr "Mazzi pubblicati"
 msgid "Ranger"
 msgstr "Ranger"
 
-msgid "Rangers"
-msgstr "Ranger"
-
-msgid "Rangers will continue playing day {currentDay} with their current decks."
-msgstr "I ranger continueranno a giocare la giornata {currentDay} con i loro mazzi attuali."
-
-msgid "RangersDB"
-msgstr "RangersDB"
-
-msgid "RangersDB is still under construction, and as a result many features might be added or removed during these early days."
-msgstr "RangersDB è ancora under construction: è possibile che diverse opzioni siano aggiunte o rimosse durante questo periodo."
-
-msgid "Ravine"
-msgstr "Crepaccio"
-
-msgid "Reason"
-msgstr "Ragione"
-
-msgid "Record event"
-msgstr "Annota evento"
-
-msgid "Record guide entry"
-msgstr "Annota paragrafo della guida"
-
-msgid "Recorded journey"
-msgstr "Viaggio annotato"
+msgid "Reaction"
+msgstr ""
 
 msgid "Register"
 msgstr "Registrati"
 
 msgid "Register now"
-msgstr "Registrati ora"
-
-msgid "Reject"
-msgstr "Rifiuta"
-
-msgid "Remove"
-msgstr "Rimuovi"
-
-msgid "Remove card"
-msgstr "Rimuovi carta"
-
-msgid "Remove deck"
-msgstr "Rimuovi mazzo"
-
-msgid "Remove reward"
-msgstr "Rimuovi Ricompensa"
-
-msgid "Removed"
-msgstr "Rimossa"
-
-msgid "Removed Cards"
-msgstr "Carte rimosse"
+msgstr "Registrati ora<<<<<<< HEAD"
 
 msgid "Reply comment"
 msgstr "Risposta"
 
 msgid "Reply to comment"
-msgstr "Rispondi al commento"
-
-msgid "Request friend"
-msgstr "Richiedi amicizia"
-
-msgid "Return a copy to the collection"
-msgstr "Fai tornare una copia nella Collezione"
-
-msgid "Returned to collection"
-msgstr "Fatta tornare alla Collezione"
-
-msgid "Revoke"
-msgstr "Revoca"
-
-msgid "Rewards"
-msgstr "Ricompense"
-
-msgid "Rewards and Maladies"
-msgstr "Ricompense e Malanni"
-
-msgid "Rings of the Moon"
-msgstr "Anelli della Luna"
-
-msgid "River"
-msgstr "Fiume"
+msgstr "Rispondi al commento<<<<<<< HEAD"
 
 msgid "Role"
 msgstr "Ruolo"
@@ -800,36 +413,6 @@ msgstr "Cerca per nome"
 msgid "See comments"
 msgstr "Vedi commenti"
 
-msgid "Select 1 cards from any background of specialty as your outside interest."
-msgstr "Scegli 1 carta da una origine o da una specialità qualsiasi come interesse personale."
-
-msgid "Select 4 different personality cards, 1 from each aspect."
-msgstr "Scegli 4 carte personalità diverse, 1 per ciascun aspetto."
-
-msgid "Select 5 different cards from your chosen background."
-msgstr "Scegli 5 carte diverse dell'origine prescelta."
-
-msgid "Select 5 different cards from your chosen specialty."
-msgstr "Scegli 5 carte diverse della specialità prescelta."
-
-msgid "Select campaign"
-msgstr "Scegli una campagna"
-
-msgid "Select card set..."
-msgstr "Scegli un set di carte..."
-
-msgid "Select location..."
-msgstr "Scegli un Luogo..."
-
-msgid "Select path terrain..."
-msgstr "Scegli un tipo di terreno..."
-
-msgid "Send Friend Request"
-msgstr "Invia Richiesta Amicizia"
-
-msgid "Set"
-msgstr "Set"
-
 msgid "Settings"
 msgstr "Impostazioni"
 
@@ -842,8 +425,8 @@ msgstr ""
 msgid "Show all"
 msgstr "Mostra tutti"
 
-msgid "Show all locations"
-msgstr "Mostra tutti i Luoghi"
+msgid "Sig Squad"
+msgstr ""
 
 msgid "Sign In"
 msgstr "Accedi"
@@ -854,194 +437,71 @@ msgstr "Disconnettiti"
 msgid "Sign Up"
 msgstr "Registrati"
 
-msgid "Some campaign events may allow you to permanently swap cards from your deck with those from the collection."
-msgstr "Alcuni eventi della campagna potrebbero permetterti di scambiare in modo permanente delle carte dal tuo mazzo con altre dalla tua Collezione."
-
-msgid "Sort"
+msgid "Signature Squad"
 msgstr ""
 
-msgid "Specialty"
-msgstr "Specialità"
-
-msgid "Specialty: {specialtyName}"
-msgstr "Specialità: {specialtyName}"
-
-msgid "SPI"
-msgstr "SPI"
-
-msgid "Spire"
-msgstr "Guglia"
-
-msgid "Spirit"
-msgstr "Spirito"
-
-msgid "Start campaign"
+msgid "Space Marines"
 msgstr ""
-
-msgid "Starter deck"
-msgstr "Mazzo iniziale"
-
-msgid "Stayed at {0}"
-msgstr "Rimasto a {0}"
-
-msgid "Stoneweaver Bridge"
-msgstr "Ponte Tessiroccia"
 
 msgid "Submit"
-msgstr "Invia"
+msgstr "Invia<<<<<<< HEAD"
 
-msgid "Sunken Outpost"
-msgstr "Avamposto Sommerso"
-
-msgid "Swamp"
-msgstr "Palude"
-
-msgid "Terrain"
+msgid "Support"
 msgstr ""
 
-msgid "Terravore"
-msgstr "Terravoro"
+msgid "Synapse"
+msgstr ""
 
-msgid "The Alluvial Ruins"
-msgstr "Rovine Alluvionali"
-
-msgid "The Concordant Ziggurats"
-msgstr "Le Ziggurat Risonanti"
-
-msgid "The Cypress Citadel"
-msgstr "La Cittadella di Cipresso"
-
-msgid "The Fractured Wall"
-msgstr "Il Muro Spezzato"
-
-msgid "The Frowning Gate"
-msgstr "Il Varco Torvo"
-
-msgid "The Furrow"
-msgstr "Il Solco"
-
-msgid "The Greenbridge"
-msgstr "Il Ponteverde"
-
-msgid "The High Basin"
-msgstr "L'Alto Lago"
+msgid "Tau"
+msgstr ""
 
 msgid "The information presented on this site about Earthborne Rangers, both literal and graphical, is copyrighted by Earthborne Games. This website is not produced, endorsed, supported, or affiliated with Earthborne Games."
-msgstr "Le informazioni su Earthborne Rangers mostrate su questo sito, sia in formato testuale che grafico, sono copyright di Earthborne Games e di Fantàsia Edizioni. Questo sito non è stato realizzato da, approvato da, supportato da o affiliato con Earthborne Games o Fantàsia Edizioni."
-
-msgid "The Philosopher's Garden"
-msgstr "Il Giardino del Filosofo"
-
-msgid "The Plummet"
-msgstr "Il Precipizio"
+msgstr "Le informazioni su Earthborne Rangers mostrate su questo sito, sia in formato testuale che grafico, sono copyright di Earthborne Games e di Fantàsia Edizioni. Questo sito non è stato realizzato da, approvato da, supportato da o affiliato con Earthborne Games o Fantàsia Edizioni.<<<<<<< HEAD"
 
 msgid "The site is likely to go down for maintenance and data might be lost during these early days."
 msgstr "In questa fase iniziale, è possibile che il sito divenga momentaneamente non disponibile causa manutenzione e che i dati possano andare persi."
 
-msgid "The Tumbledown"
-msgstr "Capitombolo"
-
-msgid "The Valley"
-msgstr ""
-
 msgid "There are too many cards with this card's name in your deck."
 msgstr "Nel tuo mazzo ci sono troppe carte con questo nome."
 
-msgid "There are too many outside interest cards in the deck."
-msgstr "Ci sono troppe carte interesse personale in questo mazzo."
+msgid "This ally card is not the Army type."
+msgstr ""
 
-msgid "This campaign is not accessible. Are you sure you are signed into the correct account?"
-msgstr "Questa campagna non è accessibile. Stai usando l'account giusto?"
+msgid "This card does not match your allied faction."
+msgstr ""
 
-msgid "This card's aspect requirement is not satisfied by your chosen aspects."
-msgstr "Gli aspetti scelti non sono sufficienti a raggiungere il requisito di aspetto di questa carta."
+msgid "This card does not match your chosen faction."
+msgstr ""
+
+msgid "This card is from a different warlord's Signature Squads."
+msgstr ""
+
+msgid "This card is loyal to another faction."
+msgstr ""
 
 msgid "This comment was edited on {updatedTime}."
-msgstr "Questo commento è stato editato il {updatedTime}."
-
-msgid "This day is in the past. It is currently day {0}."
-msgstr "Questa è una giornata passata. La giornata corrente è la {0}."
-
-msgid "This option should be used if a ranger is too fatigued, too injured, or if instructed by the campaign guide or a mission."
-msgstr "Questa opzione dovrebbe essere scelta se un ranger è troppo affaticato, troppo ferito, o se la cosa è imposta dalla guida alla campagna o da una missione."
-
-msgid "This role card does not match your chosen specialty."
-msgstr "Questa carta Ruolo non corrisponde alla specialità prescelta."
-
-msgid "This site is a digital companion for the excellent <0>Earthborne Rangers</0> adventure card game."
-msgstr ""
-
-msgid "This will end day {0}."
-msgstr "Questo terminerà la giornata {0}."
-
-msgid "This will switch the deck controls to allow changes that are allowed while playing a campaign."
-msgstr ""
-
-msgid "To avoid spoilers for other players, you cannot publish decks that have camped."
-msgstr "Per evitare spoiler per gli altri giocatori, non è possibile pubblicare mazzi coi quali ci si è accampati."
+msgstr "Questo commento è stato editato il {updatedTime}.<<<<<<< HEAD"
 
 msgid "Toggle Navigation"
 msgstr "Attiva Navigazione"
 
-msgid "Too many AWA personality cards."
-msgstr "Troppe carte personalità PER."
-
-msgid "Too many cards of the chosen background."
-msgstr "Troppe carte dell'origine prescelta."
-
-msgid "Too many cards of the chosen specialty."
-msgstr "Troppe carte della specialità prescelta."
-
 msgid "Too many cards with the same name."
 msgstr "Troppe carte con lo stesso nome."
 
-msgid "Too many cards. When making deck changes while camping, you should remove cards to make room for rewards to maintain a 30 card deck."
-msgstr "Troppe carte. Quando modifichi il mazzo dopo esserti accampato, ricorda che devi rimuovere delle carte dal mazzo per fare in modo che resti di 30 carte."
-
-msgid "Too many FIT personality cards."
-msgstr "Troppe carte personalità FIS."
-
-msgid "Too many FOC personality cards."
-msgstr "Troppe carte personalità CON."
-
-msgid "Too many SPI personality cards."
-msgstr "Troppe carte personalità SPI."
-
-msgid "Track cards that are removed permanently from the path deck here."
-msgstr "Tieni traccia qui delle carte che sono state rimosse permanentemente dal mazzo percorso."
+msgid "Too many cards."
+msgstr ""
 
 msgid "Traits"
 msgstr "Tratti"
 
-msgid "Travel"
-msgstr "Viaggia"
-
-msgid "Travel & Camp"
-msgstr "Viaggia e accampati"
-
-msgid "Traveled to {0}."
+msgid "Tyanids"
 msgstr ""
-
-msgid "Two aspects must be set to 2."
-msgstr "Due aspetti devono essere impostati a 2."
 
 msgid "Types"
 msgstr "Tipi"
 
-msgid "Unable to create campaign at this time."
-msgstr "Al momento non è possibile creare una campagna."
-
-msgid "Undo"
-msgstr ""
-
-msgid "Undo travel"
-msgstr ""
-
-msgid "Undo travel changes"
-msgstr ""
-
 msgid "Unlike"
-msgstr "Togli il mi piace"
+msgstr "Togli il mi piace<<<<<<< HEAD"
 
 msgid "Update now"
 msgstr "Aggiorna ora"
@@ -1055,68 +515,29 @@ msgstr ""
 msgid "View as Images"
 msgstr ""
 
-msgid "Watcher's Rock"
-msgstr "Rupe della Vedetta"
+msgid "Warlord"
+msgstr ""
 
-msgid "Welcome to RangersDB"
-msgstr "Benvenuto a RangersDB"
+msgid "Welcome to ConquestDB"
+msgstr ""
 
-msgid "What happened?"
-msgstr "Cosa è successo?"
-
-msgid "When adding a card from the collection, remember to return a deck card."
-msgstr "Quando aggiungi una carta dalla Collezione, ricorda di rimuovere una carta dal mazzo."
-
-msgid "When starting a campaign, you must include two of each card in your deck."
-msgstr "Quando dai inizio a una campagna, devi includere nel mazzo due copie di ciascuna carta prescelta."
-
-msgid "White Sky"
-msgstr "Biancocielo"
-
-msgid "Woods"
-msgstr "Foresta"
-
-msgid "You"
-msgstr "Tu"
-
-msgid "You can add this deck to a campaign to track rewards you have unlocked as a group."
-msgstr "Puoi aggiungere questo mazzo a una campagna per tenere traccia delle Ricompense che avete sbloccato come gruppo."
-
-msgid "You can view <0>player cards</0>, <1>build decks</1>, and use the digital <2>campaign tracker</2>."
+msgid "You can view <0>player cards</0>."
 msgstr ""
 
 msgid "You don't seem to have any decks."
 msgstr "Sembra che tu non abbia nessun mazzo."
 
-msgid "You must choose a background."
-msgstr "Devi scegliere un'origine."
-
-msgid "You must choose a location and path terrain to travel."
-msgstr "Devi scegliere un Luogo e un tipo ti terreno su cui viaggiare."
-
-msgid "You must choose a role card."
-msgstr "Devi scegliere una carta ruolo."
-
-msgid "You must choose a role."
-msgstr "Devi scegliere un Ruolo."
-
-msgid "You must choose a specialty."
-msgstr "Devi scegliere una specialità."
-
-msgid "You must correct deck errors before upgrading."
-msgstr "Devi correggere gli errori nel mazzo prima di potenziarlo."
-
-msgid "You must correct errors berfore switching to campaign mode."
+msgid "You must choose a faction."
 msgstr ""
 
-msgid "You must include two of each card in your starting deck."
-msgstr "In un mazzo iniziale, devi includere due copie di ciascuna carta prescelta."
+msgid "You must choose a Warlord card."
+msgstr ""
 
-msgid "Your deck contains cards with aspect requirements that are not allowed."
-msgstr "Il tuo mazzo contiene carte con requisiti d'aspetto che non ammessi."
+msgid "You must choose a warlord."
+msgstr ""
 
-msgid "Your outside interest card cannot have the Expert trait."
-msgstr "La tua carta interesse personale non può avere il tratto Esperto."
+msgid "You must choose an ally faction."
+msgstr ""
 
-msgid "Your role card does not match your chosen specialty."
-msgstr "La tua carta Ruolo non è parte del set specialità prescelto."
+msgid "Your Warlord card does not match your chosen faction."
+msgstr ""
