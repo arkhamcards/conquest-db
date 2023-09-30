@@ -112,6 +112,18 @@ export function getDeckCardErrors(): DeckCardErrorTranslations {
   };
 }
 
+export function getCardText() {
+  return {
+    REACTION: t`Reaction`,
+    INTERRUPT: t`Interrupt`,
+    ACTION: t`Action`,
+    'COMBAT ACTION': t`Combat Action`,
+    'DEPLOY ACTION': t`Deploy Action`,
+    'BATTLE ABILITY': t`Battle Ability`,
+    'FORCED INTERRUPT': t`Forced Interrupt`,
+  };
+}
+
 export function getFactionMap(): FactionMap {
   const names = {
     [FactionType.SpaceMarines]: t`Space Marines`,

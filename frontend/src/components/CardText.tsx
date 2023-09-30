@@ -21,20 +21,6 @@ const ICON_MATCH: { [text: string]: string | undefined } = {
   necrons: 'necron',
 };
 
-function useTextMatch(): { [text: string]: string | undefined } {
-  const { i18n } = useLocale();
-  return useMemo(() => {
-    return {
-      REACTION: t`Reaction`,
-      INTERRUPT: t`Interrupt`,
-      ACTION: t`Action`,
-      'COMBAT ACTION': t`Combat Action`,
-      'DEPLOY ACTION': t`Deploy Action`,
-      'BATTLE ABILITY': t`Battle Ability`,
-      'FORCED INTERRUPT': t`Forced Interrupt`,
-    };
-  }, [i18n]);
-}
 
 export function useIconedText(
   text: string | undefined | null,
@@ -43,9 +29,9 @@ export function useIconedText(
   },
   flavor?: string | undefined | null
 ): string {
+  const { cardText } = useLocale();
   const { noLines } = options;
   const { colorMode } = useColorMode();
-  const TEXT_MATCH = useTextMatch();
 
   return useMemo(() => {
     const parser = new Parser().addRule(
@@ -55,7 +41,7 @@ export function useIconedText(
         if (icon) {
           return `<span class="icon-${icon}"></span>`;
         }
-        const textMatch = TEXT_MATCH[element];
+        const textMatch = cardText[element];
         if (textMatch) {
           return `<b>${textMatch}</b>`;
         }
@@ -64,7 +50,7 @@ export function useIconedText(
     ).addRule(/\n/g, () => noLines ? '<br />' : '<hr class="card-line"></hr>');
     return parser.render(
       filter([text, flavor ? `<i class="card-${colorMode}-flavor">${flavor}</i>` : undefined], x => !!x).join('\n'));
-  }, [text, noLines, flavor, colorMode]);
+  }, [text, noLines, flavor, colorMode, cardText]);
 }
 
 export default function CardText({ text, flavor, noPadding }: { text: string | undefined | null; flavor?: string | undefined | null; noPadding?: boolean }) {
