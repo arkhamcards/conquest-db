@@ -380,9 +380,6 @@ msgstr ""
 msgid "Published decks"
 msgstr ""
 
-msgid "Ranger"
-msgstr "<<<<<<< HEAD"
-
 msgid "Reaction"
 msgstr ""
 
