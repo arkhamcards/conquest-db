@@ -46150,7 +46150,7 @@ export type SearchDecksQueryVariables = Exact<{
 }>;
 
 
-export type SearchDecksQuery = { __typename?: 'query_root', decks: Array<{ __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> };
+export type SearchDecksQuery = { __typename?: 'query_root', decks: Array<{ __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, comment_count: number, copy_count: number, like_count: number, user: { __typename?: 'conquest_users', id: string, handle?: string | null } }> };
 
 export type GetMyDecksQueryVariables = Exact<{
   userId: Scalars['String'];
@@ -46271,7 +46271,7 @@ export type UnlikeDeckMutation = { __typename?: 'mutation_root', update_conquest
 
 export type UserInfoFragment = { __typename?: 'conquest_users', id: string, handle?: string | null };
 
-export type SearchDeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
+export type SearchDeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, comment_count: number, copy_count: number, like_count: number, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
 export type DeckFragment = { __typename?: 'conquest_deck', id: number, user_id: string, slots: any, side_slots: any, name: string, description?: string | null, created_at: any, updated_at: any, meta: any, published?: boolean | null, user: { __typename?: 'conquest_users', id: string, handle?: string | null } };
 
@@ -46371,6 +46371,9 @@ export const SearchDeckFragmentDoc = gql`
   user {
     ...UserInfo
   }
+  comment_count
+  copy_count
+  like_count
 }
     ${UserInfoFragmentDoc}`;
 export const DeckFragmentDoc = gql`
