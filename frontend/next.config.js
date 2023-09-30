@@ -5,13 +5,13 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    locales: ['de', 'fr', 'en-US', 'it', 'pseudo'],
-    defaultLocale: 'en-US',
+    locales: ['de', 'fr', 'en', 'it', 'pseudo'],
+    defaultLocale: 'en',
     localeDetection: false,
     domains: [
       {
         domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'conquestdb.com',
-        defaultLocale: 'en-US',
+        defaultLocale: 'en',
         http: process.env.NODE_ENV === 'development',
       },
       {

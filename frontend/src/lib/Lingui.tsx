@@ -4,6 +4,16 @@ import { useRouter } from "next/router"
 import { useEffect } from "react";
 
 export type LOCALES = 'en' | 'de' | 'it' | 'fr' | 'pseudo';
+//anounce which locales we are going to use and connect them to approprite plural rules
+export function initTranslation(i18n: I18n): void {
+  i18n.loadLocaleData({
+    en: { plurals: en },
+    de: { plurals: de },
+    it: { plurals: it },
+    fr: { plurals: fr },
+    pseudo: { plurals: en }
+  });
+}
 
 export async function loadCatalog(locale: string) {
   const { messages } = await import(`@lingui/loader!../translations/locales/${locale}/messages.po`);

@@ -214,6 +214,8 @@ async function importMetadata() {
               console.log(`Could not find image for ${card.id}`);
             }
           }
+        } else if (card.type_id === 'planet') {
+          card.horizontal = true;
         }
         const existing = find(cards.conquest_card, c => c.id === card.id);
         if (!existing || !deepEqual(

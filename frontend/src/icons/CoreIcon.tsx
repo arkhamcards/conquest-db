@@ -33,6 +33,10 @@ const FACTION_SIZE_SCALE: { [faction: string]: number } = {
   tyranid: 1,
   necron: 1,
 }
+const FACTION_NAME_REMAP: { [faction: string]: string | undefined } = {
+  tyranids: 'tyranid',
+  necrons: 'necron',
+}
 export const FactionIcon: React.FC<{
   color?: string,
   size: number,
@@ -40,8 +44,9 @@ export const FactionIcon: React.FC<{
   className?: string
 }> = props => {
   const { color, size, faction, className = "" } = props;
+  const icon = FACTION_NAME_REMAP[faction] ?? faction;
   return (
-    <CoreIcon color={color} size={size * FACTION_SIZE_SCALE[faction]} icon={faction} className={className} />
+    <CoreIcon color={color} size={size * FACTION_SIZE_SCALE[icon]} icon={icon} className={className} />
   );
 };
 

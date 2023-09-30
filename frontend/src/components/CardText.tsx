@@ -15,7 +15,9 @@ const ICON_MATCH: { [text: string]: string | undefined } = {
   ELDAR: 'eld_icon',
   ORK: 'orks',
   TYRANID: 'tyranid',
+  tyranids: 'tyranids',
   NECRON: 'necron',
+  necrons: 'necron',
 };
 
 const TEXT_MATCH: { [text: string]: string | undefined } = {
