@@ -5,32 +5,32 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   i18n: {
-    locales: ['de', 'fr', 'en', 'it', 'pseudo'],
+    locales: ['en'],
     defaultLocale: 'en',
     localeDetection: false,
     domains: [
       {
-        domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'rangersdb.com',
+        domain: process.env.NODE_ENV === 'development' ? 'localhost' : 'conquestdb.com',
         defaultLocale: 'en',
         http: process.env.NODE_ENV === 'development',
       },
       {
-        domain: process.env.NODE_ENV === 'development' ? 'de.localhost:3000' : 'de.rangersdb.com',
+        domain: process.env.NODE_ENV === 'development' ? 'de.localhost' : 'de.conquestdb.com',
         defaultLocale: 'de',
         http: process.env.NODE_ENV === 'development',
       },
       {
-        domain: process.env.NODE_ENV === 'development' ? 'fr.localhost' : 'fr.rangersdb.com',
+        domain: process.env.NODE_ENV === 'development' ? 'fr.localhost' : 'fr.conquestdb.com',
         defaultLocale: 'fr',
         http: process.env.NODE_ENV === 'development',
       },
       {
-        domain: process.env.NODE_ENV === 'development' ? 'it.localhost' : 'it.rangersdb.com',
+        domain: process.env.NODE_ENV === 'development' ? 'it.localhost' : 'it.conquestdb.com',
         defaultLocale: 'it',
         http: process.env.NODE_ENV === 'development',
       },
       {
-        domain: process.env.NODE_ENV === 'development' ? 'pseudo.localhost' : 'pseudo.rangersdb.com',
+        domain: process.env.NODE_ENV === 'development' ? 'pseudo.localhost' : 'pseudo.conquestdb.com',
         defaultLocale: 'pseudo',
         http: process.env.NODE_ENV === 'development',
       },

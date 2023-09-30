@@ -192,7 +192,13 @@ async function importMetadata() {
           await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
           card.imagesrc = `${BASE_IMAGE_URL}${path}`;
         } catch (e) {
-          console.log(`Could not find image for ${card.id}`);
+          try {
+            const path = `all/${card.id}.webp`;
+            await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
+            card.imagesrc = `${BASE_IMAGE_URL}${path}`;
+          } catch (e) {
+            console.log(`Could not find image for ${card.id}`);
+          }
         }
         if (card.type_id === 'warlord') {
           try {
@@ -200,7 +206,13 @@ async function importMetadata() {
             await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
             card.back_imagesrc = `${BASE_IMAGE_URL}${path}`;
           } catch (e) {
-            console.log(`Could not find image for ${card.id}`);
+            try {
+              const path = `all/${card.id}B.webp`;
+              await accessFile(`${BASE_IMAGE_DIR}${path}`, fs.constants.F_OK);
+              card.back_imagesrc = `${BASE_IMAGE_URL}${path}`;
+            } catch (e) {
+              console.log(`Could not find image for ${card.id}`);
+            }
           }
         }
         const existing = find(cards.conquest_card, c => c.id === card.id);

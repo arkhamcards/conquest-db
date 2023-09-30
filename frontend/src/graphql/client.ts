@@ -61,7 +61,7 @@ export async function initAnonClient(forceNew?: boolean): Promise<[ApolloClient<
     }
     ANON_CLIENT = new ApolloClient({
       ssrMode: isServer,
-      uri: 'https://gapi.rangersdb.com/v1/graphql',
+      uri: 'https://gapi.conquestdb.com/v1/graphql',
       cache,
     });
   }
@@ -84,7 +84,7 @@ export async function initAuthClient(user: AuthUser): Promise<ApolloClient<Norma
     return { headers };
   });
   const httpsLink = authLink.concat(new HttpLink({
-    uri: `https://gapi.rangersdb.com/v1/graphql`,
+    uri: `https://gapi.conquestdb.com/v1/graphql`,
   }));
 
   const client = new ApolloClient({
