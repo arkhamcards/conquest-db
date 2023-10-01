@@ -24,6 +24,7 @@ fragment Card on conquest_card_localized {
   quantity
   position
   imagesrc
+  back_imagesrc
   signature_id
   keywords
   back_traits
@@ -32,6 +33,7 @@ fragment Card on conquest_card_localized {
   back_health
   real_keywords
   horizontal
+  deck_rules
 }
 
 query getAllCards($locale: String!) {

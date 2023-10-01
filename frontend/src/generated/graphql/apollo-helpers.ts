@@ -2244,7 +2244,7 @@ export type chaos_bag_tarot_mode_mutation_responseFieldPolicy = {
 	affected_rows?: FieldPolicy<any> | FieldReadFunction<any>,
 	returning?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type conquest_cardKeySpecifier = ('attack' | 'back_attack' | 'back_card_id' | 'back_flavor' | 'back_health' | 'back_imagesrc' | 'back_text' | 'back_traits' | 'back_tts_sheet_url' | 'command_hammers' | 'cost' | 'faction_id' | 'flavor' | 'health' | 'horizontal' | 'id' | 'illustrator' | 'imagesrc' | 'keywords' | 'loyalty_id' | 'name' | 'pack_id' | 'position' | 'preparation' | 'quantity' | 'shields' | 'signature_id' | 'text' | 'traits' | 'tts_sheet_position' | 'tts_sheet_url' | 'type_id' | 'unique' | 'updated_at' | conquest_cardKeySpecifier)[];
+export type conquest_cardKeySpecifier = ('attack' | 'back_attack' | 'back_card_id' | 'back_flavor' | 'back_health' | 'back_imagesrc' | 'back_text' | 'back_traits' | 'back_tts_sheet_url' | 'command_hammers' | 'cost' | 'deck_rules' | 'faction_id' | 'flavor' | 'health' | 'horizontal' | 'id' | 'illustrator' | 'imagesrc' | 'keywords' | 'loyalty_id' | 'name' | 'pack_id' | 'position' | 'preparation' | 'quantity' | 'shields' | 'signature_id' | 'text' | 'traits' | 'tts_sheet_position' | 'tts_sheet_url' | 'type_id' | 'unique' | 'updated_at' | conquest_cardKeySpecifier)[];
 export type conquest_cardFieldPolicy = {
 	attack?: FieldPolicy<any> | FieldReadFunction<any>,
 	back_attack?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2257,6 +2257,7 @@ export type conquest_cardFieldPolicy = {
 	back_tts_sheet_url?: FieldPolicy<any> | FieldReadFunction<any>,
 	command_hammers?: FieldPolicy<any> | FieldReadFunction<any>,
 	cost?: FieldPolicy<any> | FieldReadFunction<any>,
+	deck_rules?: FieldPolicy<any> | FieldReadFunction<any>,
 	faction_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	flavor?: FieldPolicy<any> | FieldReadFunction<any>,
 	health?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2314,7 +2315,7 @@ export type conquest_card_avg_fieldsFieldPolicy = {
 	signature_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	tts_sheet_position?: FieldPolicy<any> | FieldReadFunction<any>
 };
-export type conquest_card_localizedKeySpecifier = ('attack' | 'back_attack' | 'back_card_id' | 'back_flavor' | 'back_health' | 'back_imagesrc' | 'back_text' | 'back_traits' | 'command_hammers' | 'cost' | 'faction_id' | 'faction_name' | 'flavor' | 'health' | 'horizontal' | 'id' | 'illustrator' | 'imagesrc' | 'keywords' | 'locale' | 'loyalty_id' | 'loyalty_name' | 'name' | 'pack_cycle_id' | 'pack_cycle_name' | 'pack_id' | 'pack_name' | 'pack_position' | 'position' | 'preparation' | 'quantity' | 'real_back_flavor' | 'real_back_imagesrc' | 'real_back_text' | 'real_back_traits' | 'real_flavor' | 'real_imagesrc' | 'real_keywords' | 'real_name' | 'real_text' | 'real_traits' | 'shields' | 'signature_id' | 'text' | 'traits' | 'tts_sheet_position' | 'tts_sheet_url' | 'type_id' | 'type_name' | 'unique' | 'updated_at' | conquest_card_localizedKeySpecifier)[];
+export type conquest_card_localizedKeySpecifier = ('attack' | 'back_attack' | 'back_card_id' | 'back_flavor' | 'back_health' | 'back_imagesrc' | 'back_text' | 'back_traits' | 'command_hammers' | 'cost' | 'deck_rules' | 'faction_id' | 'faction_name' | 'flavor' | 'health' | 'horizontal' | 'id' | 'illustrator' | 'imagesrc' | 'keywords' | 'locale' | 'loyalty_id' | 'loyalty_name' | 'name' | 'pack_cycle_id' | 'pack_cycle_name' | 'pack_id' | 'pack_name' | 'pack_position' | 'position' | 'preparation' | 'quantity' | 'real_back_flavor' | 'real_back_imagesrc' | 'real_back_text' | 'real_back_traits' | 'real_flavor' | 'real_imagesrc' | 'real_keywords' | 'real_name' | 'real_text' | 'real_traits' | 'shields' | 'signature_id' | 'text' | 'traits' | 'tts_sheet_position' | 'tts_sheet_url' | 'type_id' | 'type_name' | 'unique' | 'updated_at' | conquest_card_localizedKeySpecifier)[];
 export type conquest_card_localizedFieldPolicy = {
 	attack?: FieldPolicy<any> | FieldReadFunction<any>,
 	back_attack?: FieldPolicy<any> | FieldReadFunction<any>,
@@ -2326,6 +2327,7 @@ export type conquest_card_localizedFieldPolicy = {
 	back_traits?: FieldPolicy<any> | FieldReadFunction<any>,
 	command_hammers?: FieldPolicy<any> | FieldReadFunction<any>,
 	cost?: FieldPolicy<any> | FieldReadFunction<any>,
+	deck_rules?: FieldPolicy<any> | FieldReadFunction<any>,
 	faction_id?: FieldPolicy<any> | FieldReadFunction<any>,
 	faction_name?: FieldPolicy<any> | FieldReadFunction<any>,
 	flavor?: FieldPolicy<any> | FieldReadFunction<any>,

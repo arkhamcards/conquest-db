@@ -9138,6 +9138,7 @@ export type Conquest_Card = {
   back_tts_sheet_url?: Maybe<Scalars['String']>;
   command_hammers?: Maybe<Scalars['Int']>;
   cost?: Maybe<Scalars['Int']>;
+  deck_rules?: Maybe<Scalars['jsonb']>;
   faction_id?: Maybe<Scalars['String']>;
   flavor?: Maybe<Scalars['String']>;
   health?: Maybe<Scalars['Int']>;
@@ -9161,6 +9162,12 @@ export type Conquest_Card = {
   type_id: Scalars['String'];
   unique: Scalars['Boolean'];
   updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+
+/** columns and relationships of "conquest.card" */
+export type Conquest_CardDeck_RulesArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "conquest.card" */
@@ -9191,6 +9198,11 @@ export type Conquest_Card_Aggregate_Fields = {
 export type Conquest_Card_Aggregate_FieldsCountArgs = {
   columns?: InputMaybe<Array<Conquest_Card_Select_Column>>;
   distinct?: InputMaybe<Scalars['Boolean']>;
+};
+
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Conquest_Card_Append_Input = {
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** aggregate avg on columns */
@@ -9225,6 +9237,7 @@ export type Conquest_Card_Bool_Exp = {
   back_tts_sheet_url?: InputMaybe<String_Comparison_Exp>;
   command_hammers?: InputMaybe<Int_Comparison_Exp>;
   cost?: InputMaybe<Int_Comparison_Exp>;
+  deck_rules?: InputMaybe<Jsonb_Comparison_Exp>;
   faction_id?: InputMaybe<String_Comparison_Exp>;
   flavor?: InputMaybe<String_Comparison_Exp>;
   health?: InputMaybe<Int_Comparison_Exp>;
@@ -9256,6 +9269,21 @@ export enum Conquest_Card_Constraint {
   CardPkey = 'card_pkey'
 }
 
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Conquest_Card_Delete_At_Path_Input = {
+  deck_rules?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Conquest_Card_Delete_Elem_Input = {
+  deck_rules?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Conquest_Card_Delete_Key_Input = {
+  deck_rules?: InputMaybe<Scalars['String']>;
+};
+
 /** input type for incrementing numeric columns in table "conquest.card" */
 export type Conquest_Card_Inc_Input = {
   attack?: InputMaybe<Scalars['Int']>;
@@ -9284,6 +9312,7 @@ export type Conquest_Card_Insert_Input = {
   back_tts_sheet_url?: InputMaybe<Scalars['String']>;
   command_hammers?: InputMaybe<Scalars['Int']>;
   cost?: InputMaybe<Scalars['Int']>;
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
   faction_id?: InputMaybe<Scalars['String']>;
   flavor?: InputMaybe<Scalars['String']>;
   health?: InputMaybe<Scalars['Int']>;
@@ -9322,6 +9351,7 @@ export type Conquest_Card_Localized = {
   back_traits?: Maybe<Scalars['String']>;
   command_hammers?: Maybe<Scalars['Int']>;
   cost?: Maybe<Scalars['Int']>;
+  deck_rules?: Maybe<Scalars['jsonb']>;
   faction_id?: Maybe<Scalars['String']>;
   faction_name?: Maybe<Scalars['String']>;
   flavor?: Maybe<Scalars['String']>;
@@ -9363,6 +9393,12 @@ export type Conquest_Card_Localized = {
   type_name?: Maybe<Scalars['String']>;
   unique?: Maybe<Scalars['Boolean']>;
   updated_at?: Maybe<Scalars['timestamptz']>;
+};
+
+
+/** columns and relationships of "conquest.card_localized" */
+export type Conquest_Card_LocalizedDeck_RulesArgs = {
+  path?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregated selection of "conquest.card_localized" */
@@ -9427,6 +9463,7 @@ export type Conquest_Card_Localized_Bool_Exp = {
   back_traits?: InputMaybe<String_Comparison_Exp>;
   command_hammers?: InputMaybe<Int_Comparison_Exp>;
   cost?: InputMaybe<Int_Comparison_Exp>;
+  deck_rules?: InputMaybe<Jsonb_Comparison_Exp>;
   faction_id?: InputMaybe<String_Comparison_Exp>;
   faction_name?: InputMaybe<String_Comparison_Exp>;
   flavor?: InputMaybe<String_Comparison_Exp>;
@@ -9588,6 +9625,7 @@ export type Conquest_Card_Localized_Order_By = {
   back_traits?: InputMaybe<Order_By>;
   command_hammers?: InputMaybe<Order_By>;
   cost?: InputMaybe<Order_By>;
+  deck_rules?: InputMaybe<Order_By>;
   faction_id?: InputMaybe<Order_By>;
   faction_name?: InputMaybe<Order_By>;
   flavor?: InputMaybe<Order_By>;
@@ -9653,6 +9691,8 @@ export enum Conquest_Card_Localized_Select_Column {
   CommandHammers = 'command_hammers',
   /** column name */
   Cost = 'cost',
+  /** column name */
+  DeckRules = 'deck_rules',
   /** column name */
   FactionId = 'faction_id',
   /** column name */
@@ -9808,6 +9848,7 @@ export type Conquest_Card_Localized_Stream_Cursor_Value_Input = {
   back_traits?: InputMaybe<Scalars['String']>;
   command_hammers?: InputMaybe<Scalars['Int']>;
   cost?: InputMaybe<Scalars['Int']>;
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
   faction_id?: InputMaybe<Scalars['String']>;
   faction_name?: InputMaybe<Scalars['String']>;
   flavor?: InputMaybe<Scalars['String']>;
@@ -10020,6 +10061,7 @@ export type Conquest_Card_Order_By = {
   back_tts_sheet_url?: InputMaybe<Order_By>;
   command_hammers?: InputMaybe<Order_By>;
   cost?: InputMaybe<Order_By>;
+  deck_rules?: InputMaybe<Order_By>;
   faction_id?: InputMaybe<Order_By>;
   flavor?: InputMaybe<Order_By>;
   health?: InputMaybe<Order_By>;
@@ -10050,6 +10092,11 @@ export type Conquest_Card_Pk_Columns_Input = {
   id: Scalars['String'];
 };
 
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Conquest_Card_Prepend_Input = {
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** select columns of table "conquest.card" */
 export enum Conquest_Card_Select_Column {
   /** column name */
@@ -10074,6 +10121,8 @@ export enum Conquest_Card_Select_Column {
   CommandHammers = 'command_hammers',
   /** column name */
   Cost = 'cost',
+  /** column name */
+  DeckRules = 'deck_rules',
   /** column name */
   FactionId = 'faction_id',
   /** column name */
@@ -10135,6 +10184,7 @@ export type Conquest_Card_Set_Input = {
   back_tts_sheet_url?: InputMaybe<Scalars['String']>;
   command_hammers?: InputMaybe<Scalars['Int']>;
   cost?: InputMaybe<Scalars['Int']>;
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
   faction_id?: InputMaybe<Scalars['String']>;
   flavor?: InputMaybe<Scalars['String']>;
   health?: InputMaybe<Scalars['Int']>;
@@ -10229,6 +10279,7 @@ export type Conquest_Card_Stream_Cursor_Value_Input = {
   back_tts_sheet_url?: InputMaybe<Scalars['String']>;
   command_hammers?: InputMaybe<Scalars['Int']>;
   cost?: InputMaybe<Scalars['Int']>;
+  deck_rules?: InputMaybe<Scalars['jsonb']>;
   faction_id?: InputMaybe<Scalars['String']>;
   flavor?: InputMaybe<Scalars['String']>;
   health?: InputMaybe<Scalars['Int']>;
@@ -10562,6 +10613,8 @@ export enum Conquest_Card_Update_Column {
   /** column name */
   Cost = 'cost',
   /** column name */
+  DeckRules = 'deck_rules',
+  /** column name */
   FactionId = 'faction_id',
   /** column name */
   Flavor = 'flavor',
@@ -10690,8 +10743,18 @@ export type Conquest_Card_Updated_Stream_Cursor_Value_Input = {
 };
 
 export type Conquest_Card_Updates = {
+  /** append existing jsonb value of filtered columns with new jsonb value */
+  _append?: InputMaybe<Conquest_Card_Append_Input>;
+  /** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+  _delete_at_path?: InputMaybe<Conquest_Card_Delete_At_Path_Input>;
+  /** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+  _delete_elem?: InputMaybe<Conquest_Card_Delete_Elem_Input>;
+  /** delete key/value pair or string element. key/value pairs are matched based on their key value */
+  _delete_key?: InputMaybe<Conquest_Card_Delete_Key_Input>;
   /** increments the numeric columns with given value of the filtered values */
   _inc?: InputMaybe<Conquest_Card_Inc_Input>;
+  /** prepend existing jsonb value of filtered columns with new jsonb value */
+  _prepend?: InputMaybe<Conquest_Card_Prepend_Input>;
   /** sets the columns of the filtered rows to the given values */
   _set?: InputMaybe<Conquest_Card_Set_Input>;
   /** filter the rows which have to be updated */
@@ -23902,7 +23965,12 @@ export type Mutation_RootUpdate_Chaos_Bag_Tarot_Mode_ManyArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Conquest_CardArgs = {
+  _append?: InputMaybe<Conquest_Card_Append_Input>;
+  _delete_at_path?: InputMaybe<Conquest_Card_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Conquest_Card_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Conquest_Card_Delete_Key_Input>;
   _inc?: InputMaybe<Conquest_Card_Inc_Input>;
+  _prepend?: InputMaybe<Conquest_Card_Prepend_Input>;
   _set?: InputMaybe<Conquest_Card_Set_Input>;
   where: Conquest_Card_Bool_Exp;
 };
@@ -23910,7 +23978,12 @@ export type Mutation_RootUpdate_Conquest_CardArgs = {
 
 /** mutation root */
 export type Mutation_RootUpdate_Conquest_Card_By_PkArgs = {
+  _append?: InputMaybe<Conquest_Card_Append_Input>;
+  _delete_at_path?: InputMaybe<Conquest_Card_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Conquest_Card_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Conquest_Card_Delete_Key_Input>;
   _inc?: InputMaybe<Conquest_Card_Inc_Input>;
+  _prepend?: InputMaybe<Conquest_Card_Prepend_Input>;
   _set?: InputMaybe<Conquest_Card_Set_Input>;
   pk_columns: Conquest_Card_Pk_Columns_Input;
 };
@@ -46109,14 +46182,14 @@ export type Uuid_Comparison_Exp = {
   _nin?: InputMaybe<Array<Scalars['uuid']>>;
 };
 
-export type CardFragment = { __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null };
+export type CardFragment = { __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, back_imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null, deck_rules?: any | null };
 
 export type GetAllCardsQueryVariables = Exact<{
   locale: Scalars['String'];
 }>;
 
 
-export type GetAllCardsQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null }>, all_updated_at: Array<{ __typename?: 'conquest_card_updated', updated_at?: any | null }> };
+export type GetAllCardsQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, back_imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null, deck_rules?: any | null }>, all_updated_at: Array<{ __typename?: 'conquest_card_updated', updated_at?: any | null }> };
 
 export type GetCardQueryVariables = Exact<{
   locale: Scalars['String'];
@@ -46124,7 +46197,7 @@ export type GetCardQueryVariables = Exact<{
 }>;
 
 
-export type GetCardQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null }> };
+export type GetCardQuery = { __typename?: 'query_root', cards: Array<{ __typename?: 'conquest_card_localized', id?: string | null, cost?: number | null, name?: string | null, text?: string | null, traits?: string | null, flavor?: string | null, illustrator?: string | null, type_id?: string | null, type_name?: string | null, faction_id?: string | null, faction_name?: string | null, loyalty_id?: string | null, loyalty_name?: string | null, pack_id?: string | null, pack_name?: string | null, pack_position?: number | null, command_hammers?: number | null, attack?: number | null, health?: number | null, shields?: number | null, unique?: boolean | null, preparation?: boolean | null, quantity?: number | null, position?: number | null, imagesrc?: string | null, back_imagesrc?: string | null, signature_id?: number | null, keywords?: string | null, back_traits?: string | null, back_text?: string | null, back_attack?: number | null, back_health?: number | null, real_keywords?: string | null, horizontal?: boolean | null, deck_rules?: any | null }> };
 
 export type GetCardsUpdatedAtQueryVariables = Exact<{
   locale: Scalars['String'];
@@ -46341,6 +46414,7 @@ export const CardFragmentDoc = gql`
   quantity
   position
   imagesrc
+  back_imagesrc
   signature_id
   keywords
   back_traits
@@ -46349,6 +46423,7 @@ export const CardFragmentDoc = gql`
   back_health
   real_keywords
   horizontal
+  deck_rules
 }
     `;
 export const UserInfoFragmentDoc = gql`

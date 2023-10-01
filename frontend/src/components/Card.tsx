@@ -14,6 +14,7 @@ import {
   useColorMode,
   AspectRatio,
   SimpleGrid,
+  Button,
 } from '@chakra-ui/react';
 import { filter, map, range } from 'lodash';
 import { t } from '@lingui/macro';
@@ -27,6 +28,7 @@ import DeckProblemComponent, { DeckCardProblemTooltip } from './DeckProblemCompo
 import CardImage, { RoleImage } from './CardImage';
 import { SignatureCardList } from './CardList';
 import { useTheme } from '../lib/ThemeContext';
+import { FaFlipboard, FaUndo } from 'react-icons/fa';
 
 interface Props {
   card: CardFragment;
@@ -291,6 +293,7 @@ function CardBody({ card, problem, detail, noImage, isBack }: Props & { problem?
     () => filter(isBack ? [t`Bloodied.`, card.keywords, card.back_text] : [card.keywords, card.text], text => !!text).join('\n'),
     [card.text, card.keywords, isBack, card.back_text],
   );
+  const imagesrc = isBack ? card.back_imagesrc : card.imagesrc;
   return (
     <Flex direction="column">
       <DeckProblemComponent card errors={problem} limit={1} />
@@ -306,9 +309,9 @@ function CardBody({ card, problem, detail, noImage, isBack }: Props & { problem?
         </Flex>
         { !noImage && (
           <Flex direction="column" alignItems={['center', 'flex-start']} justifyContent="space-between">
-            { !!card?.imagesrc && (
+            { !!imagesrc && (
               <Box marginTop={8} marginBottom={2}>
-                <CardImage title={card.name || 'Card'} size="small" url={card.imagesrc} rotate={card.horizontal ?? false} />
+                <CardImage title={card.name || 'Card'} size="small" url={imagesrc} rotate={card.horizontal ?? false} />
               </Box>
             ) }
           </Flex>
@@ -365,6 +368,25 @@ export function CardRow({
   );
 }
 
+function WarlordImage({ card }: { card: CardFragment }) {
+  const [flipped, setFlipped] = useState(false);
+  const toggle = useCallback(() => setFlipped(!flipped), [flipped, setFlipped]);
+  const imagesrc = flipped ? card.back_imagesrc : card.imagesrc;
+  if (!imagesrc) {
+    return null;
+  }
+  return (
+    <Flex direction="column" onClick={toggle} paddingLeft={2}>
+      <CardImage
+        title={card.name || 'Card'}
+        size="small"
+        url={imagesrc} rotate={card.horizontal ?? false}
+      />
+      <Button mt={2} leftIcon={<FaUndo />} onClick={toggle}>{t`Flip`}</Button>
+    </Flex>
+  );
+}
+
 export type ShowCard = (card: CardFragment, problem?: DeckCardError[]) => void;
 export type RenderCardControl = (card: CardFragment, onClose?: () => void) => React.ReactNode;
 export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, key: string = 'modal'): [
@@ -372,6 +394,7 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
   React.ReactNode,
 ] {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { colorMode } = useColorMode();
   const [card, setCard] = useState<CardFragment>();
   const [problem, setProblem] = useState<DeckCardError[] | undefined>();
   const showModal = useCallback((card: CardFragment, problem?: DeckCardError[]) => {
@@ -393,15 +416,20 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
         <ModalCloseButton />
         <ModalBody overflowY="scroll">
           <Box paddingBottom={2}>
-            {!!card && <CardBody card={card} problem={problem}/> }
-            { card?.type_id === 'warlord' && (
-                <>
-                  <Box bgColor="red.200" mt={2} pt={1} pb={2}>
-                    <CardBody card={card} isBack />
-                  </Box>
-                  <SignatureCardList warlord={card} />
-                </>
-            ) }
+            <Flex direction="row">
+              <Box paddingBottom={2}>
+                {!!card && <CardBody card={card} problem={problem} noImage={card.type_id === 'warlord'}/> }
+                { card?.type_id === 'warlord' && (
+                    <>
+                      <Box bgColor={colorMode === 'light' ? 'red.300' : 'red.800'} mt={2} pt={1} pb={2}>
+                        <CardBody card={card} isBack noImage={card.type_id === 'warlord'} />
+                      </Box>
+                    </>
+                ) }
+              </Box>
+              { card?.type_id === 'warlord' && <WarlordImage card={card} />}
+            </Flex>
+            { card?.type_id === 'warlord' && <SignatureCardList warlord={card} /> }
           </Box>
         </ModalBody>
         <ModalFooter>

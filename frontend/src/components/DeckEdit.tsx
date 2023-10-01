@@ -563,6 +563,7 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
 
   const [createDeck] = useCreateDeckMutation();
   const [meta, setMeta] = useState<DeckMeta>({});
+  const warlord = useMemo(() => meta.warlord ? warlordCards[meta.warlord] : undefined, [meta.warlord, warlordCards]);
   const placeholderDeckName = useMemo(() => {
     const warlord = meta.warlord && warlordCards[meta.warlord];
     return warlord ? t`${warlord.name} Fights` : t`Deck name`;
@@ -619,10 +620,12 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
     if (!meta.warlord) {
       return t`You must choose a warlord.`
     }
-    if (meta.faction !== FactionType.Necrons && meta.faction !== FactionType.Tyranids && !meta.ally_faction) {
+    if (meta.faction !== FactionType.Necrons &&
+        meta.faction !== FactionType.Tyranids
+      ) {
       return t`You must choose an ally faction.`
     }
-  }, [meta, error]);
+  }, [meta, warlord, error]);
   return [
     showModal,
     <Modal key="modal" isOpen={isOpen} onClose={onClose}>
