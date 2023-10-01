@@ -41,7 +41,7 @@ import { CardFragment, DeckDetailFragment, DeckFragment, useCreateDeckMutation, 
 import { useAuth } from '../lib/AuthContext';
 import { AllFactions, DeckError, DeckMeta, FactionAllies, FactionType, Slots } from '../types/types';
 import { CardsMap } from '../lib/hooks';
-import { CardRow, ShowCard, useCardModal } from './Card';
+import Card, { CardRow, ShowCard, useCardModal } from './Card';
 import { SimpleCardList } from './CardList';
 import CardCount, { CountControls, IncDecCountControls } from './CardCount';
 import DeckProblemComponent from './DeckProblemComponent';
@@ -62,25 +62,25 @@ interface Props {
   cards: CardsMap;
 }
 
-function WarlordRadioChooser({ faction, cards, warlord, onChange }: { faction: string | undefined; cards: CardsMap; warlord: string | undefined; onChange: (role: string) => void }) {
-  const possibleRoles = useMemo(() => {
-    return flatMap(values(cards), c => !!c && c.type_id === 'warlord' && c.faction_id === faction ? c : [])
-  }, [cards, faction])
+interface WarlordOption {
+  value: string;
+  label: string;
+  card: CardFragment;
+}
 
+function WarlordRadioChooser({ faction, cards, warlord, onChange }: { faction: string | undefined; cards: CardsMap; warlord: string | undefined; onChange: (role: string) => void }) {
+  const warlords: CardFragment[] = useMemo(() => {
+    return flatMap(values(cards), c => !!c && c.type_id === 'warlord' && c.faction_id === faction ? c : []);
+  }, [cards, faction]);
   return (
-    <RadioGroup defaultValue={warlord} onChange={onChange}>
-      <Stack>
-        { map(possibleRoles, (roleCard, idx) => (
-          <Radio key={roleCard.id} value={roleCard.id || ''}>
-            <CardRow
-              card={roleCard}
-              includeText
-              last={idx === possibleRoles.length - 1}
-            />
-          </Radio>
-        )) }
-      </Stack>
-    </RadioGroup>
+    <Select
+      onChange={(event) => onChange(event.target.value)}
+      placeholder={t`Choose warlord`}
+    >
+      { map(warlords, (w) => (
+        <option key={w.id} value={w.id!}>{w.name}</option>
+      ))}
+    </Select>
   );
 }
 
@@ -621,7 +621,8 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
       return t`You must choose a warlord.`
     }
     if (meta.faction !== FactionType.Necrons &&
-        meta.faction !== FactionType.Tyranids
+        meta.faction !== FactionType.Tyranids &&
+        !meta.ally_faction
       ) {
       return t`You must choose an ally faction.`
     }
@@ -666,6 +667,7 @@ export function useNewDeckModal(warlordCards: CardsMap): [() => void, React.Reac
                   warlord={typeof meta.warlord === 'string' ? meta.warlord : undefined}
                   onChange={setWarlord}
                 />
+                { !!warlord && <Card key={warlord.id} card={warlord} noImage flex={1} /> }
               </FormControl>
             )}
           </form>

@@ -149,6 +149,7 @@ export function CardHeader({
   children,
   hideStats,
   hideFaction,
+  hideCost,
 }: Props & {
   flex?: number;
   miniLevel?: boolean;
@@ -159,6 +160,7 @@ export function CardHeader({
   hideStats?: boolean;
   isBack?: boolean;
   hideFaction?: boolean;
+  hideCost?: boolean;
 }) {
   const { colors } = useTheme();
   const { colorMode } = useColorMode();
@@ -166,12 +168,14 @@ export function CardHeader({
   return (
     <Flex direction="row" flex={flex} alignItems="flex-end">
       <Flex direction="row" flex={1} alignItems="flex-start">
+        { !hideCost && (
           <Flex direction="column">
             { card.type_id === 'warlord' ?
               <Box bgColor="goldenrod" padding={3} mr={2} borderRadius={12}><CoreIcon icon="command" size={36} color="#333333" /></Box> :
               <Cost cost={card.cost} ambush={!!card.real_keywords && card.real_keywords?.indexOf('Ambush') !== -1} />
             }
           </Flex>
+        ) }
         <Flex direction="column"justifyContent="flex-start">
           <Flex direction="column" flex={1}>
             <Flex direction="row">
@@ -344,10 +348,11 @@ type CardRowProps = Props & {
   includeText?: boolean;
   last?: boolean;
   hideFaction?: boolean;
+  hideCost?: boolean;
 };
 
 export function CardRow({
-  card, problem, children, onClick, includeSet, includeText, last, hideFaction,
+  card, problem, children, onClick, includeSet, includeText, last, hideFaction, hideCost,
 }: CardRowProps) {
   const { colors } = useTheme();
   return (
@@ -358,6 +363,7 @@ export function CardRow({
           card={card}
           miniLevel
           problem={problem}
+          hideCost={hideCost}
           includeSet={includeSet}
           includeText={includeText}
           hideFaction={hideFaction}
