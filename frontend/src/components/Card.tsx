@@ -416,7 +416,7 @@ export function useCardModal(slots?: Slots, renderControl?: RenderCardControl, k
         <ModalCloseButton />
         <ModalBody overflowY="scroll">
           <Box paddingBottom={2}>
-            <Flex direction="row">
+            <Flex direction={['column', 'column', 'row']} alignItems="center">
               <Box paddingBottom={2}>
                 {!!card && <CardBody card={card} problem={problem} noImage={card.type_id === 'warlord'}/> }
                 { card?.type_id === 'warlord' && (
